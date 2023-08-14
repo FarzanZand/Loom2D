@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
 
     [Header("Move info")]
-    public float moveSpeed = 12f; 
+    public float moveSpeed = 12f;
+    public float jumpForce; 
 
     #region Components
     public Animator anim { get; private set; }
@@ -14,16 +15,21 @@ public class Player : MonoBehaviour
     #endregion
 
     #region states
+    // Every state created for the player needs to be declared here
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState  moveState { get; private set; }
-    #endregion
+    public PlayerJumpState jumpState { get; private set; }
+    public PlayerAirState airState { get; private set; }
+    #endregion 
 
     private void Awake()
     {
         stateMachine = new PlayerStateMachine();
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
         moveState = new PlayerMoveState(this, stateMachine, "Move");
+        jumpState = new PlayerJumpState(this, stateMachine, "Jump");
+        airState = new PlayerAirState(this, stateMachine, "Jump");
     }
 
     private void Start()
