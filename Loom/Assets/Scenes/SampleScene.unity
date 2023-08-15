@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 1968107484}
   - component: {fileID: 1968107483}
   - component: {fileID: 1968107482}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -548,10 +548,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 12
-  groundCheck: {fileID: 0}
+  dashCooldown: 1
+  dashSpeed: 25
+  dashDuration: 0.2
+  groundCheck: {fileID: 1412699637}
   groundCheckDistance: 0.15
-  wallCheck: {fileID: 0}
+  wallCheck: {fileID: 1922797125}
   wallCheckDistance: 0.2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!4 &1985496421
 Transform:
   m_ObjectHideFlags: 0

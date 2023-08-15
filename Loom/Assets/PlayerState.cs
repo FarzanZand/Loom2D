@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// This controls the animator. 
 // Note. Can we bake "PlayerState.cs into PlayerStateMachine.cs? Remove one class. 
 public class PlayerState
 {
@@ -12,6 +13,8 @@ public class PlayerState
 
     protected float xInput;
     private string animBoolName;
+
+    protected float stateTimer;
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName)
     {
@@ -28,6 +31,7 @@ public class PlayerState
 
     public virtual void Update()
     {
+        stateTimer -= Time.deltaTime; // Set timer for how long it should be in a state, different per state. 
         xInput = Input.GetAxisRaw("Horizontal");
         player.anim.SetFloat("yVelocity", rb.velocity.y); // Controls jump/fall 
         
