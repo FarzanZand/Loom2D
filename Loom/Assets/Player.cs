@@ -7,7 +7,14 @@ public class Player : MonoBehaviour
 
     [Header("Move info")]
     public float moveSpeed = 12f;
-    public float jumpForce; 
+    public float jumpForce;
+
+    [Header("Dash info")]
+    [SerializeField] private float dashCooldown; // Deleting this and usage timer later
+    private float dashUsageTimer;
+    public float dashSpeed;
+    public float dashDuration; 
+    public float dashDir { get; private set; }
 
     #region Components
     public Animator anim { get; private set; }
@@ -31,6 +38,7 @@ public class Player : MonoBehaviour
     public PlayerMoveState  moveState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
+public PlayerDashState dashState { get; private set; }
     #endregion 
 
     private void Awake()
@@ -40,6 +48,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
+        dashState = new PlayerDashState(this, stateMachine, "Dash");
     }
 
     private void Start()
@@ -52,6 +61,22 @@ public class Player : MonoBehaviour
     private void Update()
     {
         stateMachine.currentState.Update();
+        CheckForDashInput();
+    }
+
+    private void CheckForDashInput()
+    {
+        dashUsageTimer -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
+        {
+            dashUsageTimer = dashCooldown; // Resets timer which counts down after key is pressed. Can only be pressed when > 0. 
+            dashDir = Input.GetAxisRaw("Horizontal");
+
+            if (dashDir == 0)
+                dashDir = facingDir;
+
+            stateMachine.ChangeState(dashState);
+        }
     }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
