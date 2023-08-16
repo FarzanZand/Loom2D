@@ -18,6 +18,9 @@ public class PlayerDashState : PlayerState
     {
         base.Update();
 
+        if(!player.IsGroundDetected() && player.IsWallDetected()) // If you dash into a wall while in air
+                stateMachine.ChangeState(player.wallSlideState);
+
         player.SetVelocity(player.dashSpeed *player.dashDir, 0); // Start Dash
 
         if (stateTimer < 0) // End dashState and return to idle after timer
