@@ -29,7 +29,7 @@ public class PlayerDashState : PlayerState
 
     public override void Exit()
     {
-        base.Exit(); 
-        player.SetVelocity(0, rb.velocity.y);
+        base.Exit();
+        player.ZeroVelocity();
     }
 }
