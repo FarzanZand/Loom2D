@@ -22,6 +22,9 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+            stateMachine.ChangeState(player.primaryAttackState);
+
         if (!player.IsGroundDetected()) // Added to handle animation when falling without jump, i.e. after dash, going off edge.
             stateMachine.ChangeState(player.airState);
 
