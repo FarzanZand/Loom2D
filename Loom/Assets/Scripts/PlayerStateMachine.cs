@@ -6,8 +6,6 @@ using UnityEngine;
 // The PlayerState class instead is the one controlling the animator, and the player state itself, the logic for that specific state.
 // There will be one class per state. State machine uses StateClass to change current state on PlayerState.
 
-
-
 public class PlayerStateMachine
 {
     public PlayerState currentState { get; private set; } 
