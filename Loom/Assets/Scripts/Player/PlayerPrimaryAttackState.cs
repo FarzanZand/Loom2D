@@ -52,7 +52,7 @@ public class PlayerPrimaryAttackState : PlayerState
         base.Update();
 
         if (stateTimer < 0)
-            player.ZeroVelocity(); // Stand still when attacking
+            player.SetZeroVelocity(); // Stand still when attacking
 
 
         // TriggerCalled becomes true when AnimationFinishTrigger() in PlayerState is called, in this case via animation trigger in animator
