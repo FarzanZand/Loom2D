@@ -3286,7 +3286,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.199257, y: 3.239999, z: -10}
+  m_LocalPosition: {x: -5.5007434, y: 3.239999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3839,7 +3839,7 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 1.5
   idleTime: 2
-  battleTime: 4
+  battleTime: 7
   attackDistance: 1.5
   attackCooldown: 0.5
   lastTimeAttacked: 0
@@ -3852,7 +3852,7 @@ Transform:
   m_GameObject: {fileID: 1078173995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.59, y: -0.32, z: 0}
+  m_LocalPosition: {x: -3.02, y: -0.32, z: 0}
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6182,7 +6182,7 @@ Transform:
   m_GameObject: {fileID: 1985496419}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.76, y: -0.81, z: 0}
+  m_LocalPosition: {x: -6.94, y: -0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
