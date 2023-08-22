@@ -10,7 +10,6 @@ public class EnemySkeletonAnimationTriggers : MonoBehaviour
     private void AnimationTrigger()
     {
         enemy.AnimationFinishTrigger();
-        Debug.Log("AnimationTrigger called");
     }
 
 }
