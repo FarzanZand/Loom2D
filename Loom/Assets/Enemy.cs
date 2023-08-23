@@ -33,9 +33,10 @@ public class Enemy : Entity
     }
     
     // sets triggerCalled in EnemyState to true from false, triggers event or exit
-    public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger(); 
+    public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
-    // Detect player 
+    // Detect player
+    // BUG: Straight line, doesn't see player if slightly above or slightly below line. Perhaps change to box-raycast?
     public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, 50, whatIsPlayer);
 
     // Draw lines
@@ -45,7 +46,5 @@ public class Enemy : Entity
         base.OnDrawGizmos();
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * facingDir, transform.position.y));
-
-        
     }
 }

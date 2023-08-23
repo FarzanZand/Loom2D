@@ -5,18 +5,35 @@ using UnityEngine;
 public class PlayerAnimationTriggers : MonoBehaviour
 {
 
-    // Set the animation clip to call this as an event
-    // This will be passed to the player, which will call that function in current playerState
-    // Setting triggerCalled to true.
+    // Trigger logic for misc events
+    // 1. Set the animation clip to call AnimationTrigger() as an event
+    // 2. This will be passed to the player, which will call that function in current playerState 
+    // 3. That function will in turn call AnimationFinishTrigger(), which setting triggerCalled to true.
+    // 4. When triggerCalled is true, the update() can check for it and do something with it
+    // 5. triggerCalled is reset to false in enter-method when you enter a state. 
+
     // This will for instance in playerAttack1 return the player to idle when triggerCalled is true. A check done in update.
-    // A means to control trigger-timings in animator.
-    // triggerCalled is reset to false in enter-method when you enter a state. 
-    // Basically, with this, you can via animator trigger an event via the update method in state
 
     private Player player => GetComponentInParent<Player>();
 
     private void AnimationTrigger()
     {
         player.AnimationTrigger();
+    }
+    
+    // AttackLogic: 
+    // 1. Entity has AttackCheck game object placed at location of attack hit. 
+    // 2. Animation has an event trigger which calls this method AttackTrigger()
+    // 3. AttackTrigger() does an aoe check for all colliders within it
+    // 4. For all colliders with the component Enemy, call the function Damage() from enemy parent class Entity
+    // 5. Logic when damaged is applied in that function
+    private void AttackTrigger()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
+        foreach(var hit in colliders)
+        {
+            if (hit.GetComponent<Enemy>() != null)
+                hit.GetComponent<Enemy>().Damage();
+        }
     }
 }
