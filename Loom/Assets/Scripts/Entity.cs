@@ -8,6 +8,12 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     #endregion
+    public EntityFX fx { get; private set; }
+
+    [Header("Knockback info")]
+    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected float knockbackDuration = 0.07f;
+    protected bool isKnocked;
 
     [Header("collision info")]
     public Transform attackCheck;
@@ -30,6 +36,7 @@ public class Entity : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        fx = GetComponentInChildren<EntityFX>();
     }
 
     protected virtual void Update()
@@ -39,18 +46,34 @@ public class Entity : MonoBehaviour
 
     public virtual void Damage()
     {
+        fx.StartCoroutine("FlashFX");
+        StartCoroutine("HitKnockback");
         Debug.Log(gameObject.name + "was damaged");
+    }
+
+    protected virtual IEnumerator HitKnockback()
+    {
+        isKnocked = true; // in SetVelocity(), blocks method from changing speed while isKnocked is true
+        rb.velocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+        yield return new WaitForSeconds(knockbackDuration);
+        isKnocked = false; 
     }
 
     #region Velocity
     public void SetZeroVelocity()
     {
+        if (isKnocked)
+            return;
+
         rb.velocity = new Vector2(0, 0);
     }
 
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
+        if (isKnocked)
+            return;
+
         rb.velocity = new Vector2(_xVelocity, _yVelocity); //Horizontal and vertical velocity
         FlipController(_xVelocity); // Flips the player depending on direction on horizontal input
     }
