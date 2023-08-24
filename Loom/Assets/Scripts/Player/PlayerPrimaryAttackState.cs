@@ -17,6 +17,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        //xInput = 0; // We need this to fix bug on attack direction, but it makes it harder to switch direction mid-combo. DELETE ME?!
 
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow ) // Only 2 attacks, but no attack outside of combowindow time
             comboCounter = 0;
@@ -26,6 +27,7 @@ public class PlayerPrimaryAttackState : PlayerState
         player.anim.SetInteger("ComboCounter", comboCounter);
 
         float attackDir = player.facingDir;
+        xInput = Input.GetAxisRaw("Horizontal"); // Needed to switch direction mid-combo attack sequence. 
 
         if (xInput != 0)
             attackDir = xInput;
