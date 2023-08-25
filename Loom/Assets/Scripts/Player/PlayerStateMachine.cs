@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Player will be in different states. PlayerState is holding what the current state is of the player. PlayerStateMachine is backend controller of state changing.
-// The PlayerState class instead is the one controlling the animator, and the player state itself, the logic for that specific state.
-// There will be one class per state. State machine uses StateClass to change current state on PlayerState.
+// 1. Player.cs creates objects of all states and sets them
+// 2. You default enter idleState. 
+// 3. You enter a new state via PlayerStateMachine stateMachine, which is in PlayerState
+// 4. Running stateMachine.ChangeState(), you leave current state, set new state, and enter it. 
+// 5. When you enter new state, which is a child of PlayerState, it runs enter() in both parent and child
+// 6. Parent sets the animator bool, rb and resets triggerCalled to false.
+// 7. Child sets things specific for that state. 
 
 public class PlayerStateMachine
 {

@@ -78,7 +78,7 @@ public class Player : Entity
         if (IsWallDetected())
             return; // Don't dash when in wall.
 
-        dashUsageTimer -= Time.deltaTime;
+        dashUsageTimer -= Time.deltaTime; 
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
         {
             dashUsageTimer = dashCooldown; // Resets timer which counts down after key is pressed. Can only be pressed when > 0. 
