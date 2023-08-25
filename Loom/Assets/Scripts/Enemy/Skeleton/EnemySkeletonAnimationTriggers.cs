@@ -21,4 +21,11 @@ public class EnemySkeletonAnimationTriggers : MonoBehaviour
                 hit.GetComponent<Player>().Damage();
         }
     }
+
+
+    // An event that shows an opening for player to counter window. The method in the Enemy.cs 
+    // toggles on and off the visual gameobject.
+    // Call this event via trigger in animation.
+    protected void OpenCounterWindow() => enemy.OpenCounterAttackWindow();
+    protected void CloseCounterWindow() => enemy.CloseCounterAttackWindow();
 }
