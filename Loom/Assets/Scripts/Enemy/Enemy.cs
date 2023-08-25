@@ -5,7 +5,13 @@ using UnityEngine;
 public class Enemy : Entity
 {
 
-    [SerializeField] protected LayerMask whatIsPlayer; 
+    [SerializeField] protected LayerMask whatIsPlayer;
+
+    [Header("Stunned info")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField] protected GameObject counterImage;
 
     [Header("Move info")]
     public float moveSpeed;
@@ -31,7 +37,31 @@ public class Enemy : Entity
         base.Update();
         stateMachine.currentState.Update();
     }
-    
+
+
+    // Show the image that presents counter-opening. Toggle via animator
+    public virtual void OpenCounterAttackWindow()
+    {
+        canBeStunned = true;
+        counterImage.SetActive(true);
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        canBeStunned = false;
+        counterImage.SetActive(false);
+    }
+
+    public virtual bool CanBeStunned()
+    {
+        if(canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+        return false; 
+    }
+
     // sets triggerCalled in EnemyState to true from false, triggers event or exit
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
