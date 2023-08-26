@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
+    // 1. Parent of PlayerIdleState, so everything checked while grounded applies to idle too
+    // 2. Add control action to this class that you want to be usable on all children of PlayerGroundedState.cs
+    // 3. Player is grounded if player.IsGroundDetected() is true, which is a method in player parent entity
+
     public PlayerGroundedState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }

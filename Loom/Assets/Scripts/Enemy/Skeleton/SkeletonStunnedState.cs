@@ -16,7 +16,7 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Enter();
 
-        enemy.fx.InvokeRepeating("RedColorBlink", 0, .1f);
+        enemy.fx.InvokeRepeating("RedColorBlink", 0, .1f); // Invoke can be run either as a delay, or repeating until CancelInvoke() is called
 
         stateTimer = enemy.stunDuration; 
 

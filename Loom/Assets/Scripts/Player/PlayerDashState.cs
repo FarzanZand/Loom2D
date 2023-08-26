@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerDashState : PlayerState
 {
+
+    // 1. CheckForDashInput() in Player.CS which always runs in Update().  
+    // 2. If you press Key to dash and factors are favorable, change state to dashState
+    // 3. Set dash duration, which ticks down in update. When it runs out, exit state. 
+    // 4. Dash Player forward, animation plays via PlayerState Enter-method, which is same for all states as it is a parent
     public PlayerDashState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }

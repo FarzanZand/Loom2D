@@ -5,7 +5,7 @@ using UnityEngine;
 // 1. If you press Q while grounded (see playerGroundedState), stateMachine changes to this PlayerCounterAttackState. 
 // 2. You will be able to counter for the time set in stateTimer. 
 // 3. While in this state, you will search for enemy colliders
-// 4. If that enemy is in OpenCounterAttackWindow(), called in animator and canBeStunned, run event
+// 4. If that enemy is in OpenCounterAttackWindow(), called in animator and canBeStunned = true, trigger CanBeStunned() in EnemyType.cs
 // 5. Set SuccessfulCounterAttack as true, which will show that animation. End of anim runs event triggerCalled
 // 6. triggerCalled, as it becomes true in Update(), state is changed back to PlayerIdleState. 
 
