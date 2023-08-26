@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerWallSlideState : PlayerState
 {
+
+    // 1. If you are in AirState and hit a wall via player.IsWallDetected(), change state to WallSlideState
+    // 2. If you push away from wall, you fall off
+    // 3. If you press down, you slide faster
+    // 4. If you hit ground, you reset back to idleState. Ground checked in IsGroundDetected(), part of entity, parent of player
+    // 5. If you press jump button while wall-sliding, swap to wallJumpState which jumps you and adds force on enter
     public PlayerWallSlideState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }

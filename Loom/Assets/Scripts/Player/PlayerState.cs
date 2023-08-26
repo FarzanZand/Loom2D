@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// This controls the animator. 
-// Note. Can we bake "PlayerState.cs into PlayerStateMachine.cs? Remove one class. 
+// This controls the animator and holds the current state. See PlayerStateMachine.cs for more notes
+// Every state has some shared things, added here, and some unique, in child objects
 public class PlayerState
 {
     protected PlayerStateMachine stateMachine;

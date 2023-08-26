@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAirState : PlayerState
 {
+    // 1. You get here when you are falling down while in air, as in velocity.y < 0. 
+    // 2. Can swap to WallSlide if on wall, or idleState when grounded. 
+    // 3. Gives limited movement even while in air.
     public PlayerAirState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -28,7 +31,7 @@ public class PlayerAirState : PlayerState
         if (player.IsGroundDetected()) // Check when you've hit the ground
             stateMachine.ChangeState(player.idleState);
 
-        if (xInput != 0) // gives limited movement even while in the air
+        if (xInput != 0) // gives limited movement even while in the air. 
             player.SetVelocity(player.moveSpeed * .8f * xInput, rb.velocity.y);
     }
 }

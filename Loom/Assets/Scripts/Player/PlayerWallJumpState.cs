@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerWallJumpState : PlayerState
 {
+
+    // 1. If you are in WallSlideState.cs and press jump, you enter this state
+    // 2. Entering this state adds jumpForce to player, doing a jump opposite direction of where you are facing
     public PlayerWallJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }

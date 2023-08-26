@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class PlayerPrimaryAttackState : PlayerState
 {
+    // 1. if grounded, state PlayerGroundedState is active, and there you can press mouse, which triggers this attack stack
+    // 2. Player PrimaryAttack is a comboattack with three states. All controlled here, but with 3 animationclips in a PrimaryAttack substatemachine
+    // 3. Type of attack used depends on the comboCounter, ticks up after every attack when you exit this state for each anim-clip.
+    // 4. When Combo is above max (in this case, chain is 3, so if comboCounter is > 2, you reset to 0, doing first attack
+    // 5. The animator decides which attack depending on which ComboCounter-integer you send in to its PrimaryAttack substate. 
+    // 6. Added some flare, you move forward a bit on an attack, but also blocks player from moving between attacks a time via "BusyFor". 
+    // 7. In the animator clip, an event is at the end of the animation calling setting triggerCalled to true, reseting to idle, ready for next attack
+    // 8. ComboCounter is also reset if you wait too long between attacks. 
 
     private int comboCounter;
 
-    private float lastTimeAttacked;
-    private float comboWindow = 2; 
+    private float lastTimeAttacked; // Checks how long it was since you last attacked
+    private float comboWindow = 2;  // Checks how long you can wait between attack chains before comboCounter is reset to 0. 
 
     public PlayerPrimaryAttackState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -17,9 +25,9 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        //xInput = 0; // We need this to fix bug on attack direction, but it makes it harder to switch direction mid-combo. DELETE ME?!
 
-        if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow ) // Only 2 attacks, but no attack outside of combowindow time
+        // LastTimeAttacked saves time of attack. If that time + combowindow in secs time is later than current Time.time, reset.
+        if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow ) 
             comboCounter = 0;
 
         // if grounded, state PlayerGroundedState is active, and there you can press mouse, which triggers this attack stack
@@ -56,10 +64,6 @@ public class PlayerPrimaryAttackState : PlayerState
         if (stateTimer < 0)
             player.SetZeroVelocity(); // Stand still when attacking
 
-
-        // TriggerCalled becomes true when AnimationFinishTrigger() in PlayerState is called, in this case via animation trigger in animator
-        // Calls AnimationTrigger function in player which calls AnimationFinishTrigger in PlayerState.
-        // See PlayerAnimationsTriggers.cs for more details
 
         if (triggerCalled)
             stateMachine.ChangeState(player.idleState);
