@@ -34,7 +34,5 @@ public class PlayerIdleState : PlayerGroundedState
 
         if(xInput != 0 && !player.isBusy)
             stateMachine.ChangeState(player.moveState);
-
-
     }
 }
