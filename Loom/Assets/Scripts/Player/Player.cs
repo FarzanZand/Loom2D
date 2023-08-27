@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
+    // 1. Contains all the logic for the player, that is not shared with enemy via Entity parent
 
     [Header("Attack Details")]
     public Vector2[] attackMovement;
@@ -15,12 +16,11 @@ public class Player : Entity
     public float jumpForce;
 
     [Header("Dash info")]
-    [SerializeField] private float dashCooldown; // Deleting this and usage timer later
-    private float dashUsageTimer;
     public float dashSpeed;
     public float dashDuration; 
     public float dashDir { get; private set; }
 
+    public SkillManager skill { get; private set; }
 
     #region states
     // Every state created for the player needs to be declared here
@@ -54,6 +54,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        skill = SkillManager.instance;
         stateMachine.Initialize(idleState);
     }
 
@@ -77,11 +78,10 @@ public class Player : Entity
     {
         if (IsWallDetected())
             return; // Don't dash when in wall.
-
-        dashUsageTimer -= Time.deltaTime; 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer < 0)
+       
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
         {
-            dashUsageTimer = dashCooldown; // Resets timer which counts down after key is pressed. Can only be pressed when > 0. 
             dashDir = Input.GetAxisRaw("Horizontal");
 
             if (dashDir == 0)
