@@ -34,6 +34,8 @@ public class Player : Entity
     public PlayerDashState dashState { get; private set; }
     public PlayerPrimaryAttackState primaryAttackState { get; private set; }
     public PlayerCounterAttackState counterAttackState { get; private set; }
+    public PlayerAimSwordState aimSwordState { get; private set; }
+    public PlayerCatchSwordState catchSwordState { get; private set; }
     #endregion 
 
     protected override void Awake()
@@ -49,6 +51,8 @@ public class Player : Entity
         wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump"); // Use jump animation
         primaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttackState = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
+        aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
+        catchSwordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
     }
 
     protected override void Start()
