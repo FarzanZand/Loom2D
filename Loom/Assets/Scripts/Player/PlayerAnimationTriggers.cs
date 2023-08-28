@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerAnimationTriggers : MonoBehaviour
@@ -35,5 +36,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
                 hit.GetComponent<Enemy>().Damage();
         }
+    }
+
+    private void ThrowSword()
+    {
+        SkillManager.instance.swordThrow.CreateSword();
     }
 }
