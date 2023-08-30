@@ -21,6 +21,7 @@ public class Player : Entity
     public float dashDir { get; private set; }
 
     public SkillManager skill { get; private set; }
+    public GameObject swordForThrowing; // { get; private set; }
 
     #region states
     // Every state created for the player needs to be declared here
@@ -67,6 +68,15 @@ public class Player : Entity
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
+    }
+    public void AssignNewSwordThrow(GameObject _newSword) // Assigned throw sword-skill-script
+    {
+        swordForThrowing = _newSword;
+    }
+
+    public void ClearTheSword() 
+    {
+        Destroy(swordForThrowing);
     }
 
     public IEnumerator BusyFor(float _seconds)
