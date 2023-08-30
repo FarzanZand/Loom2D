@@ -26,7 +26,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword()) // Check no sword is already thrown
             stateMachine.ChangeState(player.aimSwordState);
 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -40,5 +40,17 @@ public class PlayerGroundedState : PlayerState
 
         if (Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
+    }
+
+    // SWORDTHROWSKILL. TODO possibly move all this to SkillManager.cs
+    private bool HasNoSword() // If player has no sword thrown, throw sword, else return sword
+    {
+        if (!player.swordForThrowing)
+        {
+            return true;
+        }
+
+        player.swordForThrowing.GetComponent<SwordSkillController>().ReturnSword();
+        return false;
     }
 }
