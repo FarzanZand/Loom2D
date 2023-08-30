@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerAimSwordState : PlayerState
 {
+    // 1. State is called when Mouse1 is clicked while grounded, holding it until you release.
+    // 2. When you enter state, draws dots for path via swordThrow, from SwordSkill.cs 
+    // 3. During state, when you release Mouse1, you go back to idle state. 
+
     public PlayerAimSwordState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -11,6 +15,7 @@ public class PlayerAimSwordState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.skill.swordThrow.DotsActive(true); 
     }
 
     public override void Exit()
@@ -23,6 +28,6 @@ public class PlayerAimSwordState : PlayerState
         base.Update();
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
-            stateMachine.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.idleState); // Sets AimSwordState as false, which triggers ThrowSword animation clip
     }
 }
