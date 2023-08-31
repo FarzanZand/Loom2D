@@ -21,13 +21,23 @@ public class PlayerAimSwordState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        player.StartCoroutine("BusyFor", .2f);
     }
 
     public override void Update()
     {
         base.Update();
+        player.SetZeroVelocity();
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
             stateMachine.ChangeState(player.idleState); // Sets AimSwordState as false, which triggers ThrowSword animation clip
+
+
+        // Flips the player towards side aimed, if you aim left or right
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (player.transform.position.x > mousePosition.x && player.facingDir == 1)
+            player.Flip();
+        else if(player.transform.position.x < mousePosition.x && player.facingDir == -1)
+            player.Flip();
     }
 }

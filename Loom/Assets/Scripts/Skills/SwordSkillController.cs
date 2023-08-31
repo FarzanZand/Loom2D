@@ -38,7 +38,8 @@ public class SwordSkillController : MonoBehaviour
 
     public void ReturnSword() // Returns sword to player, destroys when near all via update
     {
-        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // rb.isKinematic = false;
         transform.parent = null;
         isReturning = true; 
 
@@ -54,7 +55,7 @@ public class SwordSkillController : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, returnSpeed * Time.deltaTime);
 
             if (Vector2.Distance(transform.position, player.transform.position) < 1)
-                player.ClearTheSword();
+                player.CatchTheSword();
         }
 
 
@@ -62,6 +63,9 @@ public class SwordSkillController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision) // When sword collides, remove physics and set target as parent 
     {
+        if (isReturning)
+            return;
+
         anim.SetBool("Rotation", false);
         canRotate = false;
         cd.enabled = false;
