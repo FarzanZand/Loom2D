@@ -14,6 +14,7 @@ public class Player : Entity
     [Header("Move info")]
     public float moveSpeed = 12f;
     public float jumpForce;
+    public float swordReturnImpact; 
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -21,7 +22,7 @@ public class Player : Entity
     public float dashDir { get; private set; }
 
     public SkillManager skill { get; private set; }
-    public GameObject swordForThrowing; // { get; private set; }
+    public GameObject swordForThrowing { get; private set; } // TODO Move to skill-manager?
 
     #region states
     // Every state created for the player needs to be declared here
@@ -74,8 +75,9 @@ public class Player : Entity
         swordForThrowing = _newSword;
     }
 
-    public void ClearTheSword() 
+    public void CatchTheSword() 
     {
+        stateMachine.ChangeState(catchSwordState);
         Destroy(swordForThrowing);
     }
 
