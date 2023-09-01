@@ -17,10 +17,13 @@ public class SwordSkillController : MonoBehaviour
     private bool canRotate = true;
     private bool isReturning;
 
+    [Header("Pierce info")]
+    [SerializeField] private float pierceAmount;
+
     [Header("Bounce info")]
     [SerializeField] private float bounceSpeed;
     private bool isBouncing;
-    private int amountOfBounces; 
+    private int bounceAmount; 
     private List<Transform> enemyTarget;
     private int targetIndex; 
 
@@ -33,6 +36,7 @@ public class SwordSkillController : MonoBehaviour
 
     }
 
+    // Generic Setup
     public void SetupSword(Vector2 _dir, float _gravityScale, Player _player)
     {
         player = _player;
@@ -40,17 +44,24 @@ public class SwordSkillController : MonoBehaviour
         rb.velocity = _dir;
         rb.gravityScale = _gravityScale;
 
+        if(pierceAmount <= 0) // Only rotate when not piercing
         anim.SetBool("Rotation", true); // spin-animation while thrown, static when hitting something
     }
 
+    // Bounce
     public void SetupBounce(bool _isBouncing, int _amountOfBounces) 
     {
         isBouncing = _isBouncing;
-        amountOfBounces = _amountOfBounces;
+        bounceAmount = _amountOfBounces;
 
         enemyTarget = new List<Transform>(); 
     }
 
+    // Pierce
+    public void SetupPierce(int _pierceAmount)
+    {
+        pierceAmount = _pierceAmount;
+    }
     public void ReturnSword() // Returns sword to player, destroys when near all via update
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -84,9 +95,9 @@ public class SwordSkillController : MonoBehaviour
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
                 targetIndex++;
-                amountOfBounces--;
+                bounceAmount--;
 
-                if (amountOfBounces <= 0)
+                if (bounceAmount <= 0)
                 {
                     isBouncing = false;
                     isReturning = true;
@@ -102,6 +113,8 @@ public class SwordSkillController : MonoBehaviour
     {
         if (isReturning)
             return;
+
+        collision.GetComponent<Enemy>()?.Damage(); // ? is like an if-statement, but shorter.
 
         // Get an enemyTarget-list of all enemies near initial target hit to prepare for bouncing sword. Clean this out perhaps into own function
         if (collision.GetComponent<Enemy>() != null)
@@ -123,6 +136,12 @@ public class SwordSkillController : MonoBehaviour
 
     private void StuckInto(Collider2D collision)
     {
+        if(pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        {
+            pierceAmount--;
+            return;
+        }
+
         canRotate = false;
         cd.enabled = false;
 
