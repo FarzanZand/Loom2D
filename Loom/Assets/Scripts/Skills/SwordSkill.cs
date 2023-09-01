@@ -1,10 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
+public enum SwordType // Used to set which type of sword it is from talent tree
+{
+    Regular,
+    Bounce,
+    Pierce,
+    Spin
+}
 public class SwordSkill : Skill
 {
+    #region Swordthrow Logic
     // 1. Skill throws sword towards your mouse position, starts with PlayerAimSwordState.cs, while holding skill, dots are drawn
     // 2. GenerateDots created the necessary dots and puts them in an array
     // 3. DotsPosition is called via Update(), mimics sword-physics values and draws on places dots on path
@@ -12,6 +17,21 @@ public class SwordSkill : Skill
     // 5. CreateSword() instantiates a sword, and sets up its SwordSkillController.cs which gives force
     // 6. AimDirection checks mouse-world-position vs player position and gets direction compared to them.
     // 7. FinalDir of AimDirection adds force to the vector 2 and launches sword towards finalDir. 
+    #endregion
+
+    #region Bounce Logic
+    // 1. If SwordType is Bounce, this Update() runs SetupBounce in SwordSkillController.cs
+    // 2. On colliderhit, populates list with bouncable targets
+    // 2. While isBouncing is true, the method BounceLogic() runs for as many hits as we have amountOfBounces
+    // 3. BounceLogic with MoveTowards() moves to target, decreates amountOfBounces, then moves to next
+    // 3. amountOfBounces ticks down each hit, until 0, which then returns sword to player
+    #endregion
+
+    public SwordType swordType = SwordType.Regular;
+
+    [Header("Bounce info")]
+    [SerializeField] private int amountOfBounces;
+    [SerializeField] private float bounceGravity;
 
     [Header("Skill info")]
     [SerializeField] private GameObject swordPrefab;
@@ -36,7 +56,7 @@ public class SwordSkill : Skill
 
     protected override void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Mouse1))
+        if (Input.GetKeyUp(KeyCode.Mouse1))
             finalDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
 
         if (Input.GetKey(KeyCode.Mouse1)) // Takes every dot from dots-array and gives a position on flight path
@@ -53,11 +73,18 @@ public class SwordSkill : Skill
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
+        if(swordType == SwordType.Bounce)
+        {
+            swordGravity = bounceGravity;
+            newSwordScript.SetupBounce(true, amountOfBounces);
+        }
+
         newSwordScript.SetupSword(finalDir, swordGravity, player);
-        player.AssignNewSwordThrow(newSword); 
-        DotsActive(false); 
+        player.AssignNewSwordThrow(newSword);
+        DotsActive(false);
     }
 
+    #region Aim region
     public Vector2 AimDirection() // Gets direction aimed by taking mouse position - player position
     {
         Vector2 playerPosition = player.transform.position;
@@ -66,7 +93,7 @@ public class SwordSkill : Skill
 
         // Example-math: If Mouse X,Y = 10, 10 and Player X,Y is 5,5 Direction is 5,5 from player which is 45 degrees
 
-        return direction; 
+        return direction;
     }
 
     public void DotsActive(bool _isActive) // Activates while aiming, deactivates when released and CreateSword() runs
@@ -92,8 +119,9 @@ public class SwordSkill : Skill
         // Position takes player position, aim direction, and sets distance between dots. Dots copy sword physical values and then goes same path
         Vector2 position = (Vector2)player.transform.position + new Vector2(
             AimDirection().normalized.x * launchForce.x,
-            AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t); 
+            AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t);
 
         return position;
     }
+    #endregion
 }
