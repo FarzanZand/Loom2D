@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    #region FreezeTime logic
+    // 1. When you want to freeze the enemy in place, FreezeTimeFor(). 
+    // 2. It sets animation speed to 0 and velocity to 0 during time.
+    // 3. Time is resumed after the timer on FreezeTimeFor() ends
+    #endregion
 
     [SerializeField] protected LayerMask whatIsPlayer;
 
@@ -16,7 +21,8 @@ public class Enemy : Entity
     [Header("Move info")]
     public float moveSpeed;
     public float idleTime;
-    public float battleTime; 
+    public float battleTime;
+    private float defaultMoveSpeed;
 
     [Header("Attack info")]
     public float attackDistance;
@@ -30,6 +36,7 @@ public class Enemy : Entity
     {
         base.Awake();
         stateMachine = new EnemyStateMachine();
+        defaultMoveSpeed = moveSpeed;
     }
 
     protected override void Update()
@@ -38,7 +45,30 @@ public class Enemy : Entity
         stateMachine.currentState.Update();
     }
 
+    public virtual void FreezeTime(bool _timeFrozen)
+    {
+        if(_timeFrozen)
+        {
+            moveSpeed = 0;
+            anim.speed = 0;
+        }
+        else
+        {
+            moveSpeed = defaultMoveSpeed;
+            anim.speed = 1;
+        }
+    }
 
+    protected virtual IEnumerator FreezeTimeFor(float _seconds)
+    {
+        FreezeTime(true);
+
+        yield return new WaitForSeconds(_seconds);
+
+        FreezeTime(false);
+    }
+
+    #region Counter Attack Window
     // Show the image that presents counter-opening. Toggle via animator
     public virtual void OpenCounterAttackWindow()
     {
@@ -51,7 +81,7 @@ public class Enemy : Entity
         canBeStunned = false;
         counterImage.SetActive(false);
     }
-
+    #endregion
     public virtual bool CanBeStunned()
     {
         if(canBeStunned)
