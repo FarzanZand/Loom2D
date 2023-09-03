@@ -25,7 +25,19 @@ public class SwordSkillController : MonoBehaviour
     private bool isBouncing;
     private int bounceAmount; 
     private List<Transform> enemyTarget;
-    private int targetIndex; 
+    private int targetIndex;
+
+    [Header("Spin info")]
+    private float maxTravelDistance;
+    private float spinDuration;
+    private float spinTimer;
+    private bool wasStopped;
+    private bool isSpinning;
+
+    private float hitTimer; // Timer for how fast damage ticks
+    private float hitCooldown;
+
+    private float spinDirection; // Gets direction spinning sword should slowly move towards when spinning
 
     private void Awake()
     {
@@ -46,6 +58,8 @@ public class SwordSkillController : MonoBehaviour
 
         if(pierceAmount <= 0) // Only rotate when not piercing
         anim.SetBool("Rotation", true); // spin-animation while thrown, static when hitting something
+
+        spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
     }
 
     // Bounce
@@ -62,6 +76,16 @@ public class SwordSkillController : MonoBehaviour
     {
         pierceAmount = _pierceAmount;
     }
+    
+    // Spin
+    public void SetupSpin(bool _isSpinning, float _maxTravelDistance, float _spinDuration, float _hitCooldown)
+    {
+        isSpinning = _isSpinning;
+        maxTravelDistance = _maxTravelDistance;
+        spinDuration = _spinDuration;
+        hitCooldown = _hitCooldown;
+    }
+
     public void ReturnSword() // Returns sword to player, destroys when near all via update
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -84,16 +108,68 @@ public class SwordSkillController : MonoBehaviour
                 player.CatchTheSword();
         }
 
-        BounceLogic(); 
+
+        //TODO: Move the isBouncing etc bools from the method do the update
+        BounceLogic();
+        SpinLogic();
+    }
+
+    private void SpinLogic()
+    {
+        if (isSpinning)
+        {
+            if (Vector2.Distance(player.transform.position, transform.position) > maxTravelDistance && !wasStopped) // Make sword stop if it goes far away from player
+            {
+                StopWhenSpinning(); // Also called when hitting an enemy, sets wasStopped to true, and kickstars spinTimer
+            }
+
+            if (wasStopped)
+            {
+                spinTimer -= Time.deltaTime;
+                
+                // Makes the sword move slightly forward on hit in he direction of the sword. Remove if you want to
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
+
+                if (spinTimer < 0)
+                {
+                    isReturning = true;
+                    isSpinning = false;
+                }
+
+                hitTimer -= Time.deltaTime; // Setup the damage tick frequency
+
+                if (hitTimer < 0) // Whenever hit-timer runs out, do damage to enemies, than reset hit-timer
+                {
+                    hitTimer = hitCooldown; // Reset hitTimer
+
+                    Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1);
+
+                    foreach (var hit in colliders)
+                    {
+                        if (hit.GetComponent<Enemy>() != null)
+                            hit.GetComponent<Enemy>().Damage();
+                    }
+                }
+            }
+        }
+    }
+
+    private void StopWhenSpinning()
+    {
+        wasStopped = true;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        spinTimer = spinDuration;
     }
 
     private void BounceLogic()
     {
-        if (isBouncing && enemyTarget.Count > 0)
+        if (isBouncing && enemyTarget.Count > 0) // enemyTarget populated in OnTriggerEnter
         {
             transform.position = Vector2.MoveTowards(transform.position, enemyTarget[targetIndex].position, bounceSpeed * Time.deltaTime);
+            
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
+                enemyTarget[targetIndex].GetComponent<Enemy>().Damage();
                 targetIndex++;
                 bounceAmount--;
 
@@ -109,13 +185,8 @@ public class SwordSkillController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) // When sword collides, remove physics and set target as parent 
+    private void SetupTargetsForBounce(Collider2D collision)
     {
-        if (isReturning)
-            return;
-
-        collision.GetComponent<Enemy>()?.Damage(); // ? is like an if-statement, but shorter.
-
         // Get an enemyTarget-list of all enemies near initial target hit to prepare for bouncing sword. Clean this out perhaps into own function
         if (collision.GetComponent<Enemy>() != null)
         {
@@ -130,15 +201,19 @@ public class SwordSkillController : MonoBehaviour
                 }
             }
         }
-
-        StuckInto(collision);
     }
 
     private void StuckInto(Collider2D collision)
     {
-        if(pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
+        if (pierceAmount > 0 && collision.GetComponent<Enemy>() != null)
         {
             pierceAmount--;
+            return;
+        }
+
+        if (isSpinning)
+        {
+            StopWhenSpinning(); // Stop sword movement when hitting an enemy
             return;
         }
 
@@ -154,4 +229,20 @@ public class SwordSkillController : MonoBehaviour
         anim.SetBool("Rotation", false);
         transform.parent = collision.transform;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision) // When sword collides, remove physics and set target as parent 
+    {
+        if (isReturning)
+            return;
+
+        collision.GetComponent<Enemy>()?.Damage(); // ? is like an if-statement, but shorter.
+
+        SetupTargetsForBounce(collision);
+
+        StuckInto(collision);
+    }
+
+
+
+
 }

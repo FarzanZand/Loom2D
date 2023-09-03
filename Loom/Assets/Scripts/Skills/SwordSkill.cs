@@ -18,6 +18,9 @@ public class SwordSkill : Skill
     // 5. CreateSword() instantiates a sword, and sets up its SwordSkillController.cs which gives force
     // 6. AimDirection checks mouse-world-position vs player position and gets direction compared to them.
     // 7. FinalDir of AimDirection adds force to the vector 2 and launches sword towards finalDir. 
+    // 8. When you rightclick (PlayerGroundedState.cs) and you have a sword out already, run ReturnSword in SwordSkillController.cs
+    // 9. Sword is returned to player via Update() in SwordSkillController whenever isReturning becomes true there
+
     #endregion
 
     #region Bounce Logic
@@ -34,7 +37,20 @@ public class SwordSkill : Skill
     // 3. Sword pierces enemies until pierceAmount is 0, script continues and sticks sword. Also sticks sword if hitting a non-enemy
     #endregion
 
+    #region Spin Logic
+    // 1. SetupGravity() at start, and with CreateSword() pass along the spin data to the SwordSkillController.cs on sword
+    // 2. When isSpinning is true. sword does ticking damage to enemies based on hitTimer time in intervals when hitting enemies
+    // 3. Update() stops the sword when it is far away from the player, or when it hits a player. Both activate StopWhenSpinning which starts spinTimer
+    // 4. StuckInto(), Stops sword from moving through first enemy hit, and sets spinning to damage on location
+    // 5. After spinTimer is over, activates isReturning which returns sword to player
+    #endregion
+
     public SwordType swordType = SwordType.Regular;
+
+    [Header("Skill info")]
+    [SerializeField] private GameObject swordPrefab;
+    [SerializeField] private Vector2 launchForce;
+    [SerializeField] private float swordGravity;
 
     [Header("Bounce info")]
     [SerializeField] private int bounceAmount;
@@ -44,10 +60,13 @@ public class SwordSkill : Skill
     [SerializeField] private int pierceAmount;
     [SerializeField] private float pierceGravity;
 
-    [Header("Skill info")]
-    [SerializeField] private GameObject swordPrefab;
-    [SerializeField] private Vector2 launchForce;
-    [SerializeField] private float swordGravity;
+    [Header("Spin info")]
+    [SerializeField] private float hitCooldown = .35f;
+    [SerializeField] private float maxTravelDistance = 7;
+    [SerializeField] private float spinDuration = 2;
+    [SerializeField] private float spinGravity = 1;
+
+
 
     private Vector2 finalDir;  // Direction sword faces on impact 
 
@@ -71,8 +90,11 @@ public class SwordSkill : Skill
         if (swordType == SwordType.Bounce)
             swordGravity = bounceGravity;
 
-        if (swordType == SwordType.Pierce)
+        else if (swordType == SwordType.Pierce)
             swordGravity = pierceGravity;
+
+        else if (swordType == SwordType.Spin)
+            swordGravity = spinGravity;
 
     }
 
@@ -92,7 +114,7 @@ public class SwordSkill : Skill
 
     public void CreateSword() // Called Via animation trigger at end of SwordThrowAnim
     {
-        // Instantiates a sword to throw, and sets up its controller
+        // Instantiates a sword to throw, and sets up its controller depending on sword type Enum
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
@@ -101,6 +123,9 @@ public class SwordSkill : Skill
 
         else if (swordType == SwordType.Pierce)
             newSwordScript.SetupPierce(pierceAmount);
+
+        else if (swordType == SwordType.Spin)
+            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
 
         newSwordScript.SetupSword(finalDir, swordGravity, player);
 
