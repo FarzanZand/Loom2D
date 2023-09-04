@@ -70,7 +70,7 @@ public class Player : Entity
         stateMachine.currentState.Update();
         CheckForDashInput();
     }
-    public void AssignNewSwordThrow(GameObject _newSword) // Assigned throw sword-skill-script
+    public void AssignNewSwordThrow(GameObject _newSword) // Assigned throw sword-skill-script, move this and CatchTheSword() to SwordSkill?
     {
         swordForThrowing = _newSword;
     }
@@ -105,5 +105,12 @@ public class Player : Entity
 
             stateMachine.ChangeState(dashState);
         }
+    }
+
+    private string HowWasMyWeekend()
+    {
+        string response = "Weekend was pretty chill! Did a lot of codin', been fun. :D ";
+
+        return response;
     }
 }
