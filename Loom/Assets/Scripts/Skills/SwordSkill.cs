@@ -20,7 +20,6 @@ public class SwordSkill : Skill
     // 7. FinalDir of AimDirection adds force to the vector 2 and launches sword towards finalDir. 
     // 8. When you rightclick (PlayerGroundedState.cs) and you have a sword out already, run ReturnSword in SwordSkillController.cs
     // 9. Sword is returned to player via Update() in SwordSkillController whenever isReturning becomes true there
-
     #endregion
 
     #region Bounce Logic
@@ -39,7 +38,7 @@ public class SwordSkill : Skill
 
     #region Spin Logic
     // 1. SetupGravity() at start, and with CreateSword() pass along the spin data to the SwordSkillController.cs on sword
-    // 2. When isSpinning is true. sword does ticking damage to enemies based on hitTimer time in intervals when hitting enemies
+    // 2. When isSpinning is true. sword does ticking damage to enemies based on hitTimer time in intervals 
     // 3. Update() stops the sword when it is far away from the player, or when it hits a player. Both activate StopWhenSpinning which starts spinTimer
     // 4. StuckInto(), Stops sword from moving through first enemy hit, and sets spinning to damage on location
     // 5. After spinTimer is over, activates isReturning which returns sword to player
