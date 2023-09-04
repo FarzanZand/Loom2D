@@ -106,4 +106,11 @@ public class Player : Entity
             stateMachine.ChangeState(dashState);
         }
     }
+
+    private string HowWasMyWeekend()
+    {
+        string response = "Weekend was pretty chill! Did a lot of codin', been fun. :D ";
+
+        return response;
+    }
 }
