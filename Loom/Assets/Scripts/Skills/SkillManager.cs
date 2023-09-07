@@ -9,13 +9,17 @@ public class SkillManager : MonoBehaviour
 
     // Skillmanager.cs carries all skill references, making them reachable in game, placed in SkillManager gameobject
     // Skill.cs is the parent class of skill, hold the common functionality of all skills, like, cooldown
-    // typeSkill.cs is a child of skill.cs, hold skill-specific information
+    // typeSkill.cs is a child of skill.cs and is attached to SkillManager, what you need to setup the skill is here
+    // When it is in the SkillManager, you can call the skill from anywhere with PlayerManager.Instance.skillName
+    // 
+    // typeSkillController.cs is the logic for the skill itself
 
     public static SkillManager instance;
 
     public DashSkill dash { get; private set; }
     public CloneSkill clone { get; private set; }
     public  SwordSkill swordThrow { get; private set; }
+    public BlackholeSkill blackhole { get; private set; }
 
     private void Awake()
     {
@@ -30,5 +34,6 @@ public class SkillManager : MonoBehaviour
         dash = GetComponent<DashSkill>();
         clone = GetComponent<CloneSkill>();
         swordThrow = GetComponent<SwordSkill>();
+        blackhole = GetComponent<BlackholeSkill>();
     }
 }
