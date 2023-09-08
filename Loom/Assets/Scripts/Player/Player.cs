@@ -71,6 +71,9 @@ public class Player : Entity
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
+
+        if (Input.GetKeyDown(KeyCode.F))   // Move this to a general hotkey-class? 
+            skill.crystal.CanUseSkill();
     }
     public void AssignNewSwordThrow(GameObject _newSword) // Assigned throw sword-skill-script, move this and CatchTheSword() to SwordSkill?
     {
