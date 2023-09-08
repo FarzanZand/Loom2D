@@ -5,6 +5,8 @@ using UnityEngine;
 public class Skill : MonoBehaviour
 {
 
+    // Skills have cooldown that ticks down with deltaTime, and as long as cooldown is up CanUseSkill() does not trigger UseSkill(). 
+
     [SerializeField] protected float cooldown;
     protected float cooldownTimer;
 
@@ -35,7 +37,7 @@ public class Skill : MonoBehaviour
 
     public virtual void UseSkill()
     {
-        // Do some skill specific things
+        // Do some skill specific things, defined more in the child UseSkill
     }
 
 }
