@@ -13,6 +13,8 @@ public class SkillManager : MonoBehaviour
     // When it is in the SkillManager, you can call the skill from anywhere with PlayerManager.Instance.skillName
     // typeSkillController.cs is the logic for the skill itself
 
+    // Showing cassie object oriented programming
+
     public static SkillManager instance;
 
     public DashSkill dash { get; private set; }
