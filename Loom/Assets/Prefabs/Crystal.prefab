@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5765858711393648186}
   - component: {fileID: 6442139858604343898}
   - component: {fileID: 4217393894147689570}
+  - component: {fileID: 1775146451469042183}
   m_Layer: 0
   m_Name: Crystal
   m_TagString: Untagged
@@ -122,3 +123,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89d9cdd103558cb41bc9f81939c1bd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growSpeed: 5
+--- !u!58 &1775146451469042183
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317051191977070865}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.8
