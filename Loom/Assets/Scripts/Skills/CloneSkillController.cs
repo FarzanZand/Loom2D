@@ -37,7 +37,7 @@ public class CloneSkillController : MonoBehaviour
                 Destroy(gameObject);
         }
     }
-    public void SetupClone(Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset)
+    public void SetupClone(Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy)
     {
         if (_canAttack)
             anim.SetInteger("AttackNumber", Random.Range(1, 3));
@@ -45,7 +45,7 @@ public class CloneSkillController : MonoBehaviour
         transform.position = _newTransform.position + _offset;
         cloneTimer = _cloneDuration;
 
-
+        closestEnemy = _closestEnemy;
         FaceClosestTarget();
     }
     private void AnimationTrigger() // cloneTimer when < 0, Destroy object. This method called via anim event
@@ -65,22 +65,7 @@ public class CloneSkillController : MonoBehaviour
 
     private void FaceClosestTarget() // Get all enemies in collider, with foreach, get the closest one, rotate if needed
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25);
-        float closestDistance = Mathf.Infinity;
-
-        foreach(var hit in colliders)
-        {
-            if(hit.GetComponent<Enemy>() != null) // Sort enemies, get the closest one
-            {
-                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-
-                if (distanceToEnemy < closestDistance) 
-                    closestDistance = distanceToEnemy;
-                    closestEnemy = hit.transform;
-            }
-        }
-
-        if(closestEnemy != null)
+        if(closestEnemy != null) // closestEnemy found in setup function
         {
             if (transform.position.x > closestEnemy.position.x)
                 transform.Rotate(0, 180, 0);

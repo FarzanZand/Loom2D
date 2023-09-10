@@ -10,7 +10,9 @@ public class CrystalSkillController : MonoBehaviour
     // 3. CrystalSkill.cs instantiates crystal and sets up CrystalController
     // 4. If you already have a crystal in game, player teleports to crystal instead with F
     // 5. Crystal has a timer and does a FinishCrystal-event after timer depending on talent chosen, ends with SelfDestroy()
+
     // 6. If canExplode, finishCrystal runs explode anim with event for AnimationExplodeEvent(), which grows and explodes crystal
+    // 7. If canMove, use FindClosestEnemy() from skill.cs, and MoveTowards() that target. FinishCrystal() when near it
 
     private Animator anim => GetComponent<Animator>();
     private CircleCollider2D circleCollider => GetComponent<CircleCollider2D>();
@@ -24,25 +26,39 @@ public class CrystalSkillController : MonoBehaviour
     private bool canGrow;
     private float growSpeed = 5;
 
+    private Transform closestTarget;
 
-    public void SetupCrystal(float _crystalDuration, bool _canExplode, bool _canMove, float _moveSpeed)
+    public void SetupCrystal(float _crystalDuration, bool _canExplode, bool _canMove, float _moveSpeed, Transform _closestTarget)
     {
         crystalExistTimer = _crystalDuration;
         canExplode = _canExplode;
         canMove = _canMove;
         moveSpeed = _moveSpeed;
+        closestTarget = _closestTarget;
     }
 
     private void Update()
     {
         crystalExistTimer -= Time.deltaTime;
 
-        if (crystalExistTimer < 0)
+        if (crystalExistTimer < 0) // end crystal if timer runs out
         {
             FinishCrystal();
         }
 
-        if (canGrow)
+        if (canMove) // Move towards target, then finish crystal when near, go boom
+        {
+            transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, closestTarget.position) < 1)
+            {
+                FinishCrystal();
+                canMove = false;
+            }
+        }
+
+
+        if (canGrow) // Grow the explosion
             transform.localScale = Vector2.Lerp(transform.localScale, new Vector2(3, 3), growSpeed * Time.deltaTime);
     }
 
