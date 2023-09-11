@@ -13,6 +13,10 @@ public class CrystalSkillController : MonoBehaviour
 
     // 6. If canExplode, finishCrystal runs explode anim with event for AnimationExplodeEvent(), which grows and explodes crystal
     // 7. If canMove, use FindClosestEnemy() from skill.cs, and MoveTowards() that target. FinishCrystal() when near it
+    // 8. if canUseMultiStacks, return UseSkill early and run CanUseMultiCrystal() which has different function for crystal
+    // 9. You start the scene with crystals loaded, CanUseMultiCrystals() instantiates crystal on action. You can cast several that explode
+    // 10. When you cast a crystal, a cooldown window starts, giving you time to cast remaining crystals. When 0 left, refill crystal. 
+    
 
     private Animator anim => GetComponent<Animator>();
     private CircleCollider2D circleCollider => GetComponent<CircleCollider2D>();
