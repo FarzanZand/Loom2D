@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // 1. If you press Q while grounded (see playerGroundedState), stateMachine changes to this PlayerCounterAttackState. 
@@ -12,6 +10,8 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
+    private bool canCreateClone;
+
     public PlayerCounterAttackState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -19,6 +19,8 @@ public class PlayerCounterAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        canCreateClone = true;
         stateTimer = player.counterAttackDuration;
         player.anim.SetBool("SuccessfulCounterAttack", false);
     }
@@ -32,17 +34,23 @@ public class PlayerCounterAttackState : PlayerState
     {
         base.Update();
         player.SetZeroVelocity();
-        
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
 
         foreach (var hit in colliders)
         {
-            if(hit.GetComponent<Enemy>() != null)
+            if (hit.GetComponent<Enemy>() != null)
             {
-                if (hit.GetComponent<Enemy>().CanBeStunned())
+                if (hit.GetComponent<Enemy>().CanBeStunned()) // CanBeStunned is true during parry window, rename to parry?
                 {
                     stateTimer = 10; //Any value bigger than 1
                     player.anim.SetBool("SuccessfulCounterAttack", true);
+
+                    if (canCreateClone)
+                    {
+                    player.skill.clone.CreateCloneOnCounterAttack(hit.transform); // Will create clone if bool is true
+                        canCreateClone = false; // Create clone only once
+                    }
                 }
             }
         }
