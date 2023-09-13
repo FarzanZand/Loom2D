@@ -10,7 +10,8 @@ public class CloneSkill : Skill
 
     // 4. If createCloneOnDashStart is true, in PlayerDashState.cs enter method, run CreateCloneOnDashStart()
     // 5. Same logic as above for createCloneOnDashOver;
-    // 6. For createCloneWithCounter,if true, 
+    // 6. For createCloneWithCounter (from PlayerCounterAttackState.cs,if true, CreateCloneOnCounterAttack() runs to completion. 
+    // 7. canDuplicateClone, if true, on hit, do random range and if success, CreateClone()
 
     [Header("Clone info")]
     [SerializeField] private GameObject clonePrefab;
@@ -21,11 +22,12 @@ public class CloneSkill : Skill
     [SerializeField] private bool createCloneOnDashStart;
     [SerializeField] private bool createCloneOnDashOver;
     [SerializeField] private bool canCreateCloneOnCounterAttack;
+    [SerializeField] private bool canDuplicateClone;
 
     public void CreateClone(Transform _clonePosition, Vector3 _offset)
     {
         GameObject newClone = Instantiate(clonePrefab);
-        newClone.GetComponent<CloneSkillController>().SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform));
+        newClone.GetComponent<CloneSkillController>().SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone);
     }
 
     public void CreateCloneOnDashStart() // Called in PlayerDashState.cs
