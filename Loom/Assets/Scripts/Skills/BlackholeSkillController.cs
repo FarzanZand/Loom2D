@@ -12,6 +12,7 @@ public class BlackholeSkillController : MonoBehaviour
     // 6. When you then press R skill damage/closing phase is activated, you will destroy hotkeys on screen so no new ones are created while skill is closing
     // 7. Attack will initiate which runs ReleaseCloneAttack(), which then enables CloneAttackLogic() by setting cloneAttackReleased bool to true
     // 8. After all attacks are done, or blackhole timer ends via Update(), close skill with FinishBlackholeAbility()
+    // 9. If you have crystalInsteadOfClone from CrystalSkill, you can enable it here to spawn crystals instead in CloneAttackLogic()
 
     [SerializeField] private GameObject HotkeyPrefab;
     [SerializeField] private List<KeyCode> KeyCodeList;
@@ -44,6 +45,9 @@ public class BlackholeSkillController : MonoBehaviour
         amountOfAttacks = _amountOfAttacks;
         cloneAttackCooldown = _cloneAttackCooldown;
         blackholeTimer = _blackholeDuration;
+
+        if (SkillManager.instance.clone.crystalInsteadOfClone)
+            playerCanDisappear = false;
     }
 
     private void Update()
@@ -113,7 +117,16 @@ public class BlackholeSkillController : MonoBehaviour
             else
                 xOffset = -1.5f;
 
-            SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0)); // Use the already created cloneskill on location
+            if (SkillManager.instance.clone.crystalInsteadOfClone)
+            {
+                SkillManager.instance.crystal.CreateCrystal();
+                SkillManager.instance.crystal.CurrentCrystalChooseRandomTarget();
+            }
+            else
+            {
+                SkillManager.instance.clone.CreateClone(targets[randomIndex], new Vector3(xOffset, 0)); // Use the already created cloneskill on location   
+            }
+             
             amountOfAttacks--;
 
             if (amountOfAttacks <= 0)
