@@ -12,10 +12,11 @@ public class CloneSkill : Skill
     // 5. Same logic as above for createCloneOnDashOver;
     // 6. For createCloneWithCounter (from PlayerCounterAttackState.cs,if true, CreateCloneOnCounterAttack() runs to completion. 
     // 7. canDuplicateClone, if true, on hit, do random range and if success, CreateClone()
+    // 8. crystalInsteadOfClone, when CreateClone(), spawn crystal at start and return before clone is instantiated
 
     [Header("Clone info")]
     [SerializeField] private GameObject clonePrefab;
-    [SerializeField] private float cloneDuration;
+    [SerializeField] private float cloneDuration; 
     [Space]
     [SerializeField] private bool canAttack;
 
@@ -26,10 +27,22 @@ public class CloneSkill : Skill
     [Header("Clone can duplicate")]
     [SerializeField] private bool canDuplicateClone;
     [SerializeField] private float chanceToDuplicate;
+    [Header("Crystal instead of clone")]
+    public bool crystalInsteadOfClone;
 
     public void CreateClone(Transform _clonePosition, Vector3 _offset)
     {
-        GameObject newClone = Instantiate(clonePrefab);
+
+        // Create a crystal instead of a clone
+        if (crystalInsteadOfClone)
+        {
+            SkillManager.instance.crystal.CreateCrystal();
+            return; 
+        }
+
+
+        // Create a clone
+            GameObject newClone = Instantiate(clonePrefab);
         newClone.GetComponent<CloneSkillController>().SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplicateClone, chanceToDuplicate);
     }
 

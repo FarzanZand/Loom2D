@@ -53,4 +53,9 @@ public class BlackholeSkill : Skill
 
         return false;
     }
+
+    public float GetBlackholeRadius()
+    {
+        return maxSize / 2; // This will make the radius return be equal to the black hole since collider radius is 0.5
+    }
 }

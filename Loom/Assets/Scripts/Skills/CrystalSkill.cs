@@ -38,10 +38,7 @@ public class CrystalSkill : Skill
         // Use skill once, crystal spawns on you. Use skill again, you teleport back to crystal and destroy it.Place this in method to clean?
         if(currentCrystal == null)
         {
-            currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
-            CrystalSkillController currentCrystalScript = currentCrystal.GetComponent<CrystalSkillController>();
-
-            currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed, FindClosestEnemy(currentCrystal.transform)); 
+            CreateCrystal();
         }
         else
         {
@@ -62,6 +59,19 @@ public class CrystalSkill : Skill
             currentCrystal.GetComponent<CrystalSkillController>()?.FinishCrystal();
             }
         }
+    }
+
+    public void CreateCrystal()
+    {
+        currentCrystal = Instantiate(crystalPrefab, player.transform.position, Quaternion.identity);
+        CrystalSkillController currentCrystalScript = currentCrystal.GetComponent<CrystalSkillController>();
+
+        currentCrystalScript.SetupCrystal(crystalDuration, canExplode, canMoveToEnemy, moveSpeed, FindClosestEnemy(currentCrystal.transform));
+    }
+
+    public void CurrentCrystalChooseRandomTarget()
+    {
+        currentCrystal.GetComponent<CrystalSkillController>().ChooseRandomEnemy();
     }
 
     private bool CanUseMultiCrystal()
