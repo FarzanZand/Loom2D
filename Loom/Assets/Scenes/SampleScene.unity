@@ -4163,7 +4163,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 0
+    baseValue: 6
     modifiers: 
   maxHealth:
     baseValue: 500
@@ -6834,7 +6834,7 @@ MonoBehaviour:
     baseValue: 5
     modifiers: 
   maxHealth:
-    baseValue: 0
+    baseValue: 150
     modifiers: 
   currentHealth: 0
 --- !u!1 &2058636783
