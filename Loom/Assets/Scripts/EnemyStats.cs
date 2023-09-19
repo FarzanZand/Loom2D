@@ -14,6 +14,13 @@ public class EnemyStats : CharacterStats
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
+    
         enemy.DamageEffect();
+    }
+
+    protected override void Die() // When current health from CharacterStats.cs is 0, call Die(). 
+    {
+        base.Die();
+        enemy.Die();
     }
 }

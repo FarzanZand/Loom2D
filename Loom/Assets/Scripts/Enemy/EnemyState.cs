@@ -40,6 +40,7 @@ public class EnemyState
     public virtual void Exit()
     {
         enemyBase.anim.SetBool(animBoolName, false);
+        enemyBase.AssignLastAnimName(animBoolName); // Saves the last state, for doing death with latest anim
     }
 
     public virtual void AnimationFinishTrigger()
