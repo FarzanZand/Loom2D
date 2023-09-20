@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAnimationTriggers : MonoBehaviour
 {
 
-    // Trigger logic for misc events
+    // Trigger logic for misc events DEMO COMMENT
     // 1. Set the animation clip to call AnimationTrigger() as an event
     // 2. This will be passed to the player, which will call that function in current playerState 
     // 3. That function will in turn call AnimationFinishTrigger(), which setting triggerCalled to true.

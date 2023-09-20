@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Entity
 {
     // 1. Contains all the logic for the player, that is not shared with enemy via Entity parent
+    // DEMO COMMENT
 
     [Header("Attack Details")]
     public Vector2[] attackMovement;
