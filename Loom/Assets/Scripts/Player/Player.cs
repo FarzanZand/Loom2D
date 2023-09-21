@@ -114,13 +114,6 @@ public class Player : Entity
         }
     }
 
-    private string HowWasMyWeekend()
-    {
-        string response = "Weekend was pretty chill! Did a lot of codin', been fun. :D ";
-
-        return response;
-    }
-
     public override void Die()
     {
         base.Die();
