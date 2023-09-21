@@ -35,9 +35,13 @@ public class CharacterStats : MonoBehaviour
     public Stat iceDamage;
     public Stat lightningDamage;
 
-    public bool isIgnited;
-    public bool isChilled;
-    public bool isShocked;
+    public bool isIgnited;      // Damage over time
+    public bool isChilled;      // Decreases armor by 20 %
+    public bool isShocked;      // Reduce accuracy by 20 % through targetCanAvoidAttack()
+
+    private float ignitedTimer;
+    private float igniteDamageCooldown = 0.3f;
+    private float igniteDamageTimer;
 
     [SerializeField] int currentHealth;
 
@@ -66,6 +70,21 @@ public class CharacterStats : MonoBehaviour
         DoMagicalDamage(_targetStats);
     }
 
+    protected virtual void Update()
+    {
+        ignitedTimer -= Time.deltaTime;
+        igniteDamageTimer -= Time.deltaTime;
+
+        if(ignitedTimer < 0)
+            isIgnited = false;
+
+        if (igniteDamageTimer < 0)
+        {
+            Debug.Log("Take burn damage");
+            igniteDamageTimer = igniteDamageCooldown;
+        }
+    }
+
     public virtual void DoMagicalDamage(CharacterStats _targetStats)
     {
         int _fireDamage = fireDamage.GetValue();
@@ -77,17 +96,40 @@ public class CharacterStats : MonoBehaviour
         totalMagicalDamage = CheckTargetResistance(_targetStats, totalMagicalDamage);
         _targetStats.TakeDamage(totalMagicalDamage);
 
+        // The elemental with highest damage deals its effect
+        if (Mathf.Max(_fireDamage, _iceDamage, _lightningDamage) <= 0) // Return if all elements do 0 damage
+            return;
 
+        bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage;
+        bool canApplyChill = _iceDamage > _fireDamage && _iceDamage > _lightningDamage;
+        bool canApplyShock = _lightningDamage > _fireDamage && _lightningDamage > _iceDamage;
 
+        while(!canApplyIgnite && !canApplyChill && !canApplyShock) // if all damages are equal, decides which to apply
+        {
+            if (Random.value < 0.33f && _fireDamage > 0)
+            {
+                canApplyIgnite = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+
+            if (Random.value < 0.3f && _iceDamage > 0)
+            {
+                canApplyChill = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+
+            if (Random.value < 0.3f && _lightningDamage > 0)
+            {
+                canApplyShock = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+        }
+
+        _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
-
-    private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
-    {
-        totalMagicalDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
-        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage, 0, int.MaxValue);
-        return totalMagicalDamage;
-    }
-
     public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
         if (isIgnited || isChilled || isShocked) 
@@ -98,9 +140,21 @@ public class CharacterStats : MonoBehaviour
         isShocked = _shock;
 
     }
+
+    private static int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
+    {
+        totalMagicalDamage -= _targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3);
+        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage, 0, int.MaxValue);
+        return totalMagicalDamage;
+    }
+
     private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
+        if (_targetStats.isChilled)
+            totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+        else
         totalDamage -= _targetStats.armor.GetValue();
+
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue); // don't go below 0 damage
         return totalDamage;
     }
@@ -108,6 +162,10 @@ public class CharacterStats : MonoBehaviour
     private bool  TargetCanAvoidAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
+
+        if (isShocked)
+            totalEvasion += 20;
+
 
         if (Random.Range(0, 100) < totalEvasion)
         {
