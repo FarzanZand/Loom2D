@@ -30,6 +30,8 @@ public class Entity : MonoBehaviour
     public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
 
+    public System.Action onFlipped;
+
     protected virtual void Awake()
     {
 
@@ -101,6 +103,9 @@ public class Entity : MonoBehaviour
         facingDir = facingDir * -1;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+
+        if(onFlipped != null) // everything that has subscribed to the System.Action onFlipped, reverse it again, cancelling the flip.
+            onFlipped(); // Eventcall
     }
 
     public virtual void FlipController(float _x)
