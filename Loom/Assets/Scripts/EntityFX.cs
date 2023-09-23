@@ -9,11 +9,21 @@ public class EntityFX : MonoBehaviour
     // 2. Any new FX materials as Material typeMat;
     // 3. call the function from wherever (i.e. Entity method Damage(); ) 
 
+    // Ailment effects
+    // 1. When you get an ailment in CharacterStats.ApplyAilments(), ailmentFxFor(ailmentsDuration) in EntityFX.cs is called.
+    // 2. This adds graphical effects to the character for as long as the timer is active. Invoke("CancelColorChange", _seconds) reverts to default graphics
+
     private SpriteRenderer sr;
 
     [Header("Flash FX")]
+    [SerializeField] private float flashDuration;
     [SerializeField] private Material hitMat;
     private Material originalMat;
+
+    [Header("Ailment colors")]
+    [SerializeField] private Color[] igniteColor;
+    [SerializeField] private Color[] chillColor;
+    [SerializeField] private Color[] shockColor;
 
     private void Start()
     {
@@ -24,11 +34,14 @@ public class EntityFX : MonoBehaviour
     private IEnumerator FlashFX()
     {
         sr.material = hitMat;                    // Change material in the sprite renderer to the hitMat, added in inspector
-        yield return new WaitForSeconds(.2f);
+        Color currentColor = sr.color;
 
+        sr.color = Color.white;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        sr.color = currentColor;
         sr.material = originalMat;               // Reset back to original material
-
-        
     }
 
     // Use invoke to calls this method every x seconds from for instance "SkeletonStunnedState.cs". 
@@ -41,10 +54,53 @@ public class EntityFX : MonoBehaviour
             sr.color = Color.red;
     }
 
-    private void CancelRedBlink()
+    
+    
+    public void IgniteFxFor(float _seconds)
+    {
+        InvokeRepeating("IgniteColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    public void ChillFxFor(float _seconds)
+    {
+        InvokeRepeating("ChillColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+
+    public void ShockFxFor(float _seconds)
+    {
+        InvokeRepeating("ShockColorFx", 0, .3f);
+        Invoke("CancelColorChange", _seconds);
+    }
+    private void IgniteColorFx()
+    {
+        if (sr.color != igniteColor[0])
+            sr.color = igniteColor[0];
+        else
+            sr.color = igniteColor[1];
+    }
+
+    private void ChillColorFx()
+    {
+        if (sr.color != chillColor[0])
+            sr.color = chillColor[0];
+        else
+            sr.color = chillColor[1];
+    }
+
+    private void ShockColorFx()
+    {
+        if (sr.color != shockColor[0])
+            sr.color = shockColor[0];
+        else
+            sr.color = shockColor[1];
+    }
+
+
+    private void CancelColorChange()
     {
         CancelInvoke();
         sr.color = Color.white;
     }
-
 }

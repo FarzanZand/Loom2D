@@ -21,6 +21,8 @@ public class CharacterStats : MonoBehaviour
     // 4. ignite works in Update(), chilled works in CheckTargetArmor(), shock works in TargetCanAvoidAttack(). 
     #endregion
 
+    private EntityFX fx;
+
     [Header("Major stats")]
     public Stat strength;                            // 1 point increase damage vy 1 and crit.power by 1%
     public Stat agility;                             // 1 point increase evasion by 1 % and crit chance by 1 %
@@ -43,6 +45,7 @@ public class CharacterStats : MonoBehaviour
     public Stat iceDamage;
     public Stat lightningDamage;
 
+    [SerializeField] private float ailmentsDuration = 4;
     public bool isIgnited;                           // Damage over time through Update()
     public bool isChilled;                           // Decreases armor by 20 % through CheckTargetArmor()
     public bool isShocked;                           // Reduce accuracy by 20 % through targetCanAvoidAttack()
@@ -64,6 +67,8 @@ public class CharacterStats : MonoBehaviour
     {
         critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
+
+        fx = GetComponent<EntityFX>();
     }
 
 
@@ -172,21 +177,24 @@ public class CharacterStats : MonoBehaviour
         if (_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 2; 
+            ignitedTimer = ailmentsDuration;
+
+            fx.IgniteFxFor(ailmentsDuration);
         }
         if (_shock)
         {
             isShocked = _shock;
-            shockedTimer = 2;
+            shockedTimer = ailmentsDuration;
+
+            fx.ShockFxFor(ailmentsDuration);
         }
         if (_chill)
         {
             isChilled = _chill;
-            chilledTimer = 2;
-        }
+            chilledTimer = ailmentsDuration;
 
-        isChilled = _chill;
-        isShocked = _shock;
+            fx.ChillFxFor(ailmentsDuration);
+        }
     }
 
     public void SetupIgniteDamage(int _damage)
