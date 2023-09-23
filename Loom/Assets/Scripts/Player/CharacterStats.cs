@@ -33,7 +33,7 @@ public class CharacterStats : MonoBehaviour
     public Stat critPower;                           // Default value 150 %
 
     [Header("Defensive stats")]
-    public Stat maxHealth;
+    public Stat maxHealth;                           // Should rename to baseHealth, and then create a maxHealth that adds base + vitality. Also update GetMaxHealthValue(). 
     public Stat armor;
     public Stat evasion;
     public Stat magicResistance;
@@ -53,16 +53,17 @@ public class CharacterStats : MonoBehaviour
 
     private float igniteDamageCooldown = 0.39f;      // timer tick between each burn
     private float igniteDamageTimer;                 // The timer that counts down and gets reset, speed of the dot
-    private int igniteDamage;                        // the damage each ignite-tick will do
+    private int   igniteDamage;                      // the damage each ignite-tick will do
 
+    public int currentHealth;
 
-    [SerializeField] int currentHealth;
+    public System.Action onHealthChanged;
 
 
     protected virtual void Start()
     {
-        currentHealth = maxHealth.GetValue();
         critPower.SetDefaultValue(150);
+        currentHealth = GetMaxHealthValue();
     }
 
 
@@ -86,15 +87,14 @@ public class CharacterStats : MonoBehaviour
 
         if (igniteDamageTimer < 0 && isIgnited)
         {
-            Debug.Log("Take burn damage " + igniteDamage);
-            currentHealth -= igniteDamage;
+            DecreaseHealthBy(igniteDamage);
             if (currentHealth < 0)
                 Die();
 
             igniteDamageTimer = igniteDamageCooldown;
         }
     }
-    public virtual void DoDamage(CharacterStats _targetStats) // Do damage by calculating total damage value from stats
+    public virtual void DoDamage(CharacterStats _targetStats) // Do damage by calculating total damage value from stats. Target aquired from AnimationTrigger() damage, which checks for targets and passes it here
     {
         if (TargetCanAvoidAttack(_targetStats)) // Check if damage is evaded. If true, don't take damage
             return;
@@ -246,9 +246,14 @@ public class CharacterStats : MonoBehaviour
 
         return Mathf.RoundToInt(critDamage);
     }
+
+    public int GetMaxHealthValue()
+    {
+        return maxHealth.GetValue() + vitality.GetValue() * 5; 
+    }
     public virtual void TakeDamage(int _damage) // Takes damage, kills character if < 0. Called via DoDamage(). 
     {
-        currentHealth -= _damage;
+        DecreaseHealthBy(_damage);
 
         Debug.Log(_damage);
 
@@ -256,6 +261,15 @@ public class CharacterStats : MonoBehaviour
         {
             Die();
         }
+
+
+    }
+
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+        if (onHealthChanged != null)
+            onHealthChanged();
     }
     protected virtual void Die()
     {
