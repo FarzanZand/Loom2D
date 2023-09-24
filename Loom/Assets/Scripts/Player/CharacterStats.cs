@@ -14,7 +14,7 @@ public class CharacterStats : MonoBehaviour
     // 2. You can get value of stat from it, and also modify it with for instance, items or buffs. The value returned is after modifiers
     #endregion
 
-    #region
+    #region Ailments
     // 1. If you apply elemental damage, depending on skill or gear, the magic begins in DoMagicalDamage()
     // 2. The elemental damage with highest damage gets the effect, random if all are equal. If effect happens, it is applied in ApplyAilments()
     // 3. ApplyAilments() sets the ailment as active and also resets the ailmentTimer.
@@ -47,7 +47,7 @@ public class CharacterStats : MonoBehaviour
 
     [SerializeField] private float ailmentsDuration = 4;
     public bool isIgnited;                           // Damage over time through Update()
-    public bool isChilled;                           // Decreases armor by 20 % through CheckTargetArmor()
+    public bool isChilled;                           // Decreases armor by 20 % through CheckTargetArmor() and slows by 20 %.
     public bool isShocked;                           // Reduce accuracy by 20 % through targetCanAvoidAttack()
 
     private float ignitedTimer;                      // How long effect will last
@@ -193,6 +193,8 @@ public class CharacterStats : MonoBehaviour
             isChilled = _chill;
             chilledTimer = ailmentsDuration;
 
+            float slowPercentage = .2f;
+            GetComponent<Entity>().SlowEntityBy(slowPercentage, ailmentsDuration);
             fx.ChillFxFor(ailmentsDuration);
         }
     }

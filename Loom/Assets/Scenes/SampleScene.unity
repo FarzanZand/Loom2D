@@ -4608,8 +4608,8 @@ MonoBehaviour:
   - {r: 1, g: 0.33490568, b: 0.33490568, a: 1}
   - {r: 0.90588236, g: 0.654902, b: 0.654902, a: 1}
   chillColor:
-  - {r: 0.4292453, g: 0.76683706, b: 1, a: 1}
-  - {r: 0.1273585, g: 0.9179635, b: 1, a: 1}
+  - {r: 0.6117647, g: 0.84313726, b: 1, a: 1}
+  - {r: 0.6117647, g: 0.84313726, b: 1, a: 1}
   shockColor:
   - {r: 1, g: 0.99515104, b: 0.7688679, a: 1}
   - {r: 0.9930981, g: 1, b: 0.2028302, a: 1}
@@ -7640,8 +7640,8 @@ MonoBehaviour:
   - {r: 1, g: 0.33490568, b: 0.33490568, a: 1}
   - {r: 0.90588236, g: 0.654902, b: 0.654902, a: 1}
   chillColor:
-  - {r: 0.4292453, g: 0.76683706, b: 1, a: 1}
-  - {r: 0.1273585, g: 0.9179635, b: 1, a: 1}
+  - {r: 0.6084906, g: 0.84178734, b: 1, a: 1}
+  - {r: 0.6117647, g: 0.84313726, b: 1, a: 1}
   shockColor:
   - {r: 1, g: 0.99515104, b: 0.7688679, a: 1}
   - {r: 0.9930981, g: 1, b: 0.2028302, a: 1}
@@ -7691,13 +7691,13 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDamage:
-    baseValue: 2
+    baseValue: 4
     modifiers: 
   iceDamage:
-    baseValue: 22
+    baseValue: 2
     modifiers: 
   lightningDamage:
-    baseValue: 0
+    baseValue: 2
     modifiers: 
   ailmentsDuration: 4
   isIgnited: 0
