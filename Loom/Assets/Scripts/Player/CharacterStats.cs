@@ -19,6 +19,7 @@ public class CharacterStats : MonoBehaviour
     // 2. The elemental damage with highest damage gets the effect, random if all are equal. If effect happens, it is applied in ApplyAilments()
     // 3. ApplyAilments() sets the ailment as active and also resets the ailmentTimer.
     // 4. ignite works in Update(), chilled works in CheckTargetArmor(), shock works in TargetCanAvoidAttack(). 
+    // 5. Chill slows through overriden SlowEntityBy() in Entity.cs child class enemy or player.
     #endregion
 
     private EntityFX fx;
