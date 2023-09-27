@@ -10,6 +10,7 @@ public class CloneSkillController : MonoBehaviour
     // 4. Faces closest target that is within the list of colliders
     // 5. After cloneTimer runs out and color.a is 0, destroy gameObject.
 
+    private Player player;
     [SerializeField] private float colorLoosingSpeed;
     private SpriteRenderer sr;
     private Animator anim;
@@ -40,10 +41,12 @@ public class CloneSkillController : MonoBehaviour
                 Destroy(gameObject);
         }
     }
-    public void SetupClone(Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicateClone, float _chanceToDuplicate)
+    public void SetupClone(Transform _newTransform, float _cloneDuration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicateClone, float _chanceToDuplicate, Player _player)
     { 
         if (_canAttack)
             anim.SetInteger("AttackNumber", Random.Range(1, 3));
+
+        player = _player;
 
         transform.position = _newTransform.position + _offset;
         cloneTimer = _cloneDuration;
@@ -65,7 +68,7 @@ public class CloneSkillController : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
             {
-                hit.GetComponent<Enemy>().DamageEffect();
+                player.stats.DoDamage(hit.GetComponent<CharacterStats>());
 
                 if (canDuplicateClone)
                 {
