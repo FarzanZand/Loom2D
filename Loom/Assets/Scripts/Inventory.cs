@@ -15,7 +15,10 @@ public class Inventory : MonoBehaviour
     // Calls AddItem() in Inventory.cs instance, this creates a newItem object of InventoryItem, passing the itemData to its constructor
     // This newItem is also then added to the inventoryItems list and inventoryDictionary. 
 
-    // Why use dictionary and not just InventoryItem?
+    // UI_itemSlot, the logic for the inventory visuals
+    // Every time you add or remove an item, UpdateSlotUI() passes the itemdata to an ItemSlot for each item in inventory. 
+    // UI_ItemSlot is on each itemslot. It takes the count and image, to update the UI of the inventory, which when empty is transparent.
+    // Basically, every time you update inventory, it gets run and uses count to update ui, the gameObject ItemSlot is filled. 
     #endregion
 
 
@@ -23,6 +26,18 @@ public class Inventory : MonoBehaviour
 
     public List<InventoryItem> inventoryItems;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
+
+    [Header("Inventory UI")]
+    [SerializeField] private Transform inventorySlotParent;
+    private UI_ItemSlot[] itemSlot;
+
+    private void UpdateSlotUI()
+    {
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            itemSlot[i].UpdateSlot(inventoryItems[i]);
+        }
+    }
 
     private void Awake()
     {
@@ -36,6 +51,8 @@ public class Inventory : MonoBehaviour
     {
         inventoryItems = new List<InventoryItem>();                             // list of item objects to present in inventory
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();        // List of items owned by player
+
+        itemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();  // Will fill the array with the children of the component inventorySlotParent
     }
 
     public void AddItem(ItemData _item)                                         // If you already have the item, just add a stack to it
@@ -50,6 +67,8 @@ public class Inventory : MonoBehaviour
             inventoryItems.Add(newItem);
             inventoryDictionary.Add(_item, newItem);
         }
+
+        UpdateSlotUI();
     }
 
     public void RemoveItem(ItemData _item)                                  
@@ -64,5 +83,6 @@ public class Inventory : MonoBehaviour
             else
                 value.RemoveStack();
         }
+        UpdateSlotUI();
     }
 }
