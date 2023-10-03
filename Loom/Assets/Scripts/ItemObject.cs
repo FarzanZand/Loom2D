@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ItemObject : MonoBehaviour
 {
-    private SpriteRenderer sr;
+    // ItemObject.cs hold the logic for representing the item in the game world and interacting with it
     
     [SerializeField] private ItemData itemData;
 
-    private void Start()
+    private void OnValidate() // Automatically updates in the inspector even when not playing. 
     {
-        sr = GetComponent<SpriteRenderer>();
-        sr.sprite = itemData.icon;
+        GetComponent<SpriteRenderer>().sprite = itemData.icon;
+        gameObject.name = "Item object - " + itemData.itemName; // Name in inspector of created item. 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
