@@ -19,6 +19,8 @@ public class Inventory : MonoBehaviour
     // Every time you add or remove an item, UpdateSlotUI() passes the itemdata to an ItemSlot for each item in inventory. 
     // UI_ItemSlot is on each itemslot. It takes the count and image, to update the UI of the inventory, which when empty is transparent.
     // Basically, every time you update inventory, it gets run and uses count to update ui, the gameObject ItemSlot is filled. 
+
+    // The name of the item updates automatically in the gameObject/inspector in the OnValidate() function of ItemObject.cs
     #endregion
 
 
