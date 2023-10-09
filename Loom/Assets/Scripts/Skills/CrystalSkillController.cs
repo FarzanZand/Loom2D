@@ -66,6 +66,9 @@ public class CrystalSkillController : MonoBehaviour
 
         if (canMove) // Move towards target, then finish crystal when near, go boom
         {
+            if (closestTarget != null)
+                return; 
+
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
 
             if (Vector2.Distance(transform.position, closestTarget.position) < 1)
