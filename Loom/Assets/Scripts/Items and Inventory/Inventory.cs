@@ -26,21 +26,19 @@ public class Inventory : MonoBehaviour
 
     public static Inventory Instance;
 
-    public List<InventoryItem> inventoryItems;
+    public List<InventoryItem> inventory;
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
 
+    public List<InventoryItem> stash;
+    public Dictionary <ItemData, InventoryItem> stashDictionary;
+
     [Header("Inventory UI")]
+
     [SerializeField] private Transform inventorySlotParent;
-    private UI_ItemSlot[] itemSlot;
+    [SerializeField] private Transform stashSlotParent;
 
-    private void UpdateSlotUI()
-    {
-        for (int i = 0; i < inventoryItems.Count; i++)
-        {
-            itemSlot[i].UpdateSlot(inventoryItems[i]);
-        }
-    }
-
+    private UI_ItemSlot[] inventoryItemSlot;
+    private UI_ItemSlot[] stashItemSlot;
     private void Awake()
     {
         if (Instance == null)
@@ -51,13 +49,56 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryItems = new List<InventoryItem>();                             // list of item objects to present in inventory
+        inventory = new List<InventoryItem>();                                  // list of item objects to present in inventory
         inventoryDictionary = new Dictionary<ItemData, InventoryItem>();        // List of items owned by player
 
-        itemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();  // Will fill the array with the children of the component inventorySlotParent
+        stash = new List<InventoryItem>();
+        stashDictionary = new Dictionary<ItemData, InventoryItem>();
+
+        inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();  // Will fill the array with the children of the component inventorySlotParent
+        stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
+    }
+    private void UpdateSlotUI()
+    {
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            inventoryItemSlot[i].UpdateSlot(inventory[i]);
+        }
+
+        for (int i = 0; i < stash.Count; i++)
+        {
+            stashItemSlot[i].UpdateSlot(stash[i]);
+        }
     }
 
+
+
     public void AddItem(ItemData _item)                                         // If you already have the item, just add a stack to it
+    {
+        if (_item.itemType == ItemType.Equipment)
+            AddToInventory(_item);
+
+        else if(_item.itemType == ItemType.Material)
+            AddToStash(_item);
+
+        UpdateSlotUI();
+    }
+
+    private void AddToStash(ItemData _item)
+    {
+        if (stashDictionary.TryGetValue(_item, out InventoryItem value))    // If item already in inventory, just add a stack
+        {
+            value.AddStack();
+        }
+        else                                                                    // If you don't have it. Add it to your inventory and inventoryDictionary
+        {
+            InventoryItem newItem = new InventoryItem(_item);
+            stash.Add(newItem);
+            stashDictionary.Add(_item, newItem);
+        }
+    }
+
+    private void AddToInventory(ItemData _item)
     {
         if (inventoryDictionary.TryGetValue(_item, out InventoryItem value))    // If item already in inventory, just add a stack
         {
@@ -66,11 +107,9 @@ public class Inventory : MonoBehaviour
         else                                                                    // If you don't have it. Add it to your inventory and inventoryDictionary
         {
             InventoryItem newItem = new InventoryItem(_item);
-            inventoryItems.Add(newItem);
+            inventory.Add(newItem);
             inventoryDictionary.Add(_item, newItem);
         }
-
-        UpdateSlotUI();
     }
 
     public void RemoveItem(ItemData _item)                                  
@@ -79,12 +118,24 @@ public class Inventory : MonoBehaviour
         {
             if (value.stackSize <= 1)                                           // If you have one item, remove item completely, if more than one, remove a stack only
             {
-                inventoryItems.Remove(value);
+                inventory.Remove(value);
                 inventoryDictionary.Remove(_item);
             }
             else
                 value.RemoveStack();
         }
+
+        if(stashDictionary.TryGetValue(_item,out InventoryItem stashValue))
+        {
+            if (stashValue.stackSize <= 1)
+            {
+                stash.Remove(stashValue);   
+                stashDictionary.Remove(_item);
+            }
+            else
+                stashValue.RemoveStack();
+        }
+
         UpdateSlotUI();
     }
 }
