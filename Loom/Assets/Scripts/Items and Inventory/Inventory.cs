@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     // InventoryItem.cs hold the logic for the item in the inventory. How many stacks, and which item it is
     // ItemObject.cs hold the logic for representing the item in the game world and interacting with it
     // ItemData.cs hold specific data for what the item is and does, is a scriptable object
+    // UI_ItemSlot.cs carries the image and image text of the item to be placed in the Canvas. Objects created
 
     // Basic flow: You create ItemData as a scriptable object, ItemObject spawns in game world or received in any other way
     // Calls AddItem() in Inventory.cs instance, this creates a newItem object of InventoryItem, passing the itemData to its constructor
@@ -17,8 +18,9 @@ public class Inventory : MonoBehaviour
 
     // UI_itemSlot, the logic for the inventory visuals
     // Every time you add or remove an item, UpdateSlotUI() passes the itemdata to an ItemSlot for each item in inventory. 
-    // UI_ItemSlot is on each itemslot. It takes the count and image, to update the UI of the inventory, which when empty is transparent.
-    // Basically, every time you update inventory, it gets run and uses count to update ui, the gameObject ItemSlot is filled. 
+    // ItemSlot is a prefab of a canvas-object already added to the canvas in the scene. Empty until filled. 
+    // UI_ItemSlot is on each itemslot-gameobject-prefab attached. It takes the count and image, to update the UI of the inventory, which when empty is transparent.
+    // Basically, every time you update inventory, it gets run and uses count to update ui, the gameObject ItemSlot is filled. If empty, it is invisible.
 
     // The name of the item updates automatically in the gameObject/inspector in the OnValidate() function of ItemObject.cs
     #endregion
@@ -26,7 +28,7 @@ public class Inventory : MonoBehaviour
 
     public static Inventory Instance;
 
-    public List<InventoryItem> inventory;
+    public List<InventoryItem> inventory; 
     public Dictionary<ItemData, InventoryItem> inventoryDictionary;
 
     public List<InventoryItem> stash;
@@ -34,8 +36,8 @@ public class Inventory : MonoBehaviour
 
     [Header("Inventory UI")]
 
-    [SerializeField] private Transform inventorySlotParent;
-    [SerializeField] private Transform stashSlotParent;
+    [SerializeField] private Transform inventorySlotParent;                     // Drag the inventory parent from the canvas here, the one holding all the UI objects
+    [SerializeField] private Transform stashSlotParent;                         // Drag the stash parent from the canvas here, the one holding all the UI objects
 
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
@@ -60,7 +62,7 @@ public class Inventory : MonoBehaviour
     }
     private void UpdateSlotUI()
     {
-        for (int i = 0; i < inventory.Count; i++)
+        for (int i = 0; i < inventory.Count; i++)                               // Creates itemslots as many as you have items in inventory
         {
             inventoryItemSlot[i].UpdateSlot(inventory[i]);
         }
