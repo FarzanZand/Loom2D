@@ -1,8 +1,9 @@
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour
+public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
 {
     // Attached to the itemslot object in the inventory holding the item and image of item.
 
@@ -28,5 +29,10 @@ public class UI_ItemSlot : MonoBehaviour
                 itemText.text = "";
             }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("Equipped new item + " + item.data.itemName);
     }
 }

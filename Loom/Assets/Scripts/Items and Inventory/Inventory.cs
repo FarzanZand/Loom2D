@@ -6,10 +6,10 @@ public class Inventory : MonoBehaviour
 {
     #region Inventory functionality
     // Main Classes
-    // Inventory.cs Uses a list and dictionary to control which items the player has
-    // InventoryItem.cs hold the logic for the item in the inventory. How many stacks, and which item it is
+    // Inventory.cs Uses a list and dictionary to control which items the player has and holds the core logic of inventory. Attached to Inventory-gameobject
+    // InventoryItem.cs hold the logic for the item in the inventory. How many stacks, and which item it is.
     // ItemObject.cs hold the logic for representing the item in the game world and interacting with it
-    // ItemData.cs hold specific data for what the item is and does, is a scriptable object
+    // ItemData.cs hold specific data for what the item is and does, is a scriptable object created via rightclick
     // UI_ItemSlot.cs carries the image and image text of the item to be placed in the Canvas. Objects created
 
     // Basic flow: You create ItemData as a scriptable object, ItemObject spawns in game world or received in any other way
