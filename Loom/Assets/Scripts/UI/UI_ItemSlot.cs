@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
+public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface allows mouse for event
 {
     // Attached to the itemslot object in the inventory holding the item and image of item.
 
@@ -33,6 +33,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if(item.data.itemType == ItemType.Equipment)
         Debug.Log("Equipped new item + " + item.data.itemName);
     }
 }
