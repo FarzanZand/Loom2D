@@ -10,7 +10,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface 
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
 
-    public InventoryItem item; 
+    public InventoryItem item;
 
     public void UpdateSlot(InventoryItem _newItem)
     {
@@ -31,9 +31,21 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface 
         }
     }
 
+    public void CleanupSlot()
+    {
+        item = null;
+
+        itemImage.sprite = null;
+        itemImage.color = Color.clear;
+
+        itemText.text = ""; // Empty stacksize
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(item.data.itemType == ItemType.Equipment)
-        Debug.Log("Equipped new item + " + item.data.itemName);
+        if (item.data.itemType == ItemType.Equipment)
+        {
+            Inventory.Instance.EquipItem(item.data);
+        }
     }
 }
