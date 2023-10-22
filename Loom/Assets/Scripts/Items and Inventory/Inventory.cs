@@ -55,6 +55,10 @@ public class Inventory : MonoBehaviour
     */
     #endregion
 
+    #region Equipment
+    // asd
+    #endregion
+
     public static Inventory Instance;
 
     public List<InventoryItem> equipment;
