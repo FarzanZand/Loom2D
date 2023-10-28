@@ -31,7 +31,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface 
         }
     }
 
-    public void CleanupSlot()
+    public void CleanupSlot() // We do this because if we do not, when we equip an item, it still shows in inventory. 
     {
         item = null;
 
