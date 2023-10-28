@@ -56,7 +56,12 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region Equipment
-    // asd
+    // Equipment is a subtype/child of ItemData called ItemData_Equipment. Main difference is that it has an enum with Weapon, Arnmor, Amulet and Flask, with its own inventory.
+    // You have a list+dictionary for it like the rest. 
+    // With EquipItem(ItemData _item) you replace current equipment unless empty, you just fill. You then add item to equipment dict/list and remove from inventory. 
+    // By the end, you update UI with UpdateSlotUI(); First iterates through to match equipment with the matching enum Ui_EquipmentSlot, then replaces it with data.
+    // For its UI, you have an aray of UI_Equipmentslot[] which is a child of UI_ItemSlot, main difference is that it maps to equipment enum-type. 
+    // Drag the UI parent that holds all the Slot-prefabs for the equipments to equipmenSlotParent, which shows the visual from UI_EquipmentSlot[].
     #endregion
 
     public static Inventory Instance;
@@ -72,11 +77,13 @@ public class Inventory : MonoBehaviour
 
     [Header("Inventory UI")]
 
-    [SerializeField] private Transform inventorySlotParent;                     // Drag the inventory parent from the canvas here, the one holding all the UI objects
-    [SerializeField] private Transform stashSlotParent;                         // Drag the stash parent from the canvas here, the one holding all the UI objects
+    [SerializeField] private Transform inventorySlotParent;                         // Drag the inventory parent from the canvas here, the one holding all the UI objects
+    [SerializeField] private Transform stashSlotParent;                             // Drag the stash parent from the canvas here, the one holding all the UI objects
+    [SerializeField] private Transform equipmentSlotParent;                         // Drag the equipment parent from the canvas here, the one holding all the UI objects
 
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
+    private UI_EquipmentSlot[] equipmentSlot;
     private void Awake()
     {
         if (Instance == null)
@@ -99,6 +106,7 @@ public class Inventory : MonoBehaviour
 
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();  // Will fill the array with the children of the component inventorySlotParent
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
+        equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
     }
 
     public void EquipItem(ItemData _item)
@@ -124,7 +132,9 @@ public class Inventory : MonoBehaviour
 
         equipment.Add(newItem);
         equipmentDictionary.Add(newEquipment, newItem);
-        RemoveItem(_item); 
+        RemoveItem(_item);
+
+        UpdateSlotUI(); 
     }
 
     private void UnequipItem(ItemData_Equipment itemToRemove)
@@ -138,7 +148,16 @@ public class Inventory : MonoBehaviour
 
     private void UpdateSlotUI()
     {
-        for (int i = 0; i < inventoryItemSlot.Length; i++)
+        for (int i = 0; i < equipmentSlot.Length; i++)
+        {
+            foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+            {
+                if (item.Key.equipmentType == equipmentSlot[i].slotType)                            // Check that the type matches the slot it iterates through. i.e. Armor == armor slot.  
+                    equipmentSlot[i].UpdateSlot(item.Value);                                        // Update the slot with the matching equipment type. 
+            }
+        }
+        
+        for (int i = 0; i < inventoryItemSlot.Length; i++)  // We do this because if we do not, when we equip an item, it still shows in inventory. 
         {
             inventoryItemSlot[i].CleanupSlot();
         }
@@ -147,6 +166,8 @@ public class Inventory : MonoBehaviour
         {
             stashItemSlot[i].CleanupSlot();
         }
+
+
 
         for (int i = 0; i < inventory.Count; i++)                               // Creates itemslots as many as you have items in inventory
         {
