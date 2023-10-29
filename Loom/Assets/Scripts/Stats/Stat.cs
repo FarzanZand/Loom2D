@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] // Will now be visible in inspector. Stat-object created will show all values.For instance, Stat damage or maxHealth;
+[System.Serializable] // Will now be visible in inspector. Stat-object created will show all values. For instance, Stat damage or maxHealth;
 public class Stat
 {
 
@@ -32,6 +32,6 @@ public class Stat
 
     public void RemoveModifier(int _modifier)
     {
-        modifiers.RemoveAt(_modifier);
+        modifiers.Remove(_modifier);
     }
 }
