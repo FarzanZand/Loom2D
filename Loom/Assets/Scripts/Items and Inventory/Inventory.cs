@@ -84,6 +84,7 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
+
     private void Awake()
     {
         if (Instance == null)
@@ -132,6 +133,7 @@ public class Inventory : MonoBehaviour
 
         equipment.Add(newItem);
         equipmentDictionary.Add(newEquipment, newItem);
+        newEquipment.AddModifiers();
         RemoveItem(_item);
 
         UpdateSlotUI(); 
@@ -143,6 +145,7 @@ public class Inventory : MonoBehaviour
         {
             equipment.Remove(value);
             equipmentDictionary.Remove(itemToRemove);
+            itemToRemove.RemoveModifiers();
         }
     }
 
