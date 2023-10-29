@@ -62,6 +62,17 @@ public class Inventory : MonoBehaviour
     // By the end, you update UI with UpdateSlotUI(); First iterates through to match equipment with the matching enum Ui_EquipmentSlot, then replaces it with data.
     // For its UI, you have an aray of UI_Equipmentslot[] which is a child of UI_ItemSlot, main difference is that it maps to equipment enum-type. 
     // Drag the UI parent that holds all the Slot-prefabs for the equipments to equipmenSlotParent, which shows the visual from UI_EquipmentSlot[].
+
+    // This is also written in ItemData_Equipment.cs
+    // Every equipment has an equipment type, and when you equip an item from inventory, it is removed from the inventory
+    // and placed in the equipment slot, while removing the old equipment and placing that in inventory. Check inventory.cs for more info.
+    // Equipment has stats. in Inventory.cs, AddModifiers() is called when you equip, RemoveModifiers() is called when you unequip.
+
+    // We reach stats via PlayerStats playerStats, which is a child of the parent CharacterStats, holding all different stat-objects. 
+    // Every stat its own object and reached via playerStats.statName. Defined in CharacterStats.cs, which created object per stat based from the Stat.cs class. 
+    // When you add a modifier of a stat with AddModifiers(), you populate the List<int> modifiers in stat.cs of that stat. 
+    // The final value is calculated using GetValue() in Stat.cs. It takes base value, and adds all modifiers to it. 
+    // RemoveModifier() does the reverse, just removes it from the list. 
     #endregion
 
     public static Inventory Instance;
