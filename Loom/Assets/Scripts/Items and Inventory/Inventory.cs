@@ -63,16 +63,22 @@ public class Inventory : MonoBehaviour
     // For its UI, you have an aray of UI_Equipmentslot[] which is a child of UI_ItemSlot, main difference is that it maps to equipment enum-type. 
     // Drag the UI parent that holds all the Slot-prefabs for the equipments to equipmenSlotParent, which shows the visual from UI_EquipmentSlot[].
 
-    // This is also written in ItemData_Equipment.cs
+    // This is also written in ItemData_Equipment.cs, regarding stats on equipments. 
     // Every equipment has an equipment type, and when you equip an item from inventory, it is removed from the inventory
     // and placed in the equipment slot, while removing the old equipment and placing that in inventory. Check inventory.cs for more info.
     // Equipment has stats. in Inventory.cs, AddModifiers() is called when you equip, RemoveModifiers() is called when you unequip.
 
+    // Equipment stats
     // We reach stats via PlayerStats playerStats, which is a child of the parent CharacterStats, holding all different stat-objects. 
     // Every stat its own object and reached via playerStats.statName. Defined in CharacterStats.cs, which created object per stat based from the Stat.cs class. 
     // When you add a modifier of a stat with AddModifiers(), you populate the List<int> modifiers in stat.cs of that stat. 
     // The final value is calculated using GetValue() in Stat.cs. It takes base value, and adds all modifiers to it. 
     // RemoveModifier() does the reverse, just removes it from the list. 
+
+    // Unequiping equipment
+    // When you click on the itemslot-prefab holding the UI_EquipmentSlot.cs script, it runs Inventory.instance.UnequipItem() and AddItem(), then cleanups UI.
+    // UnequipItem() checks if item is in equipmentdictionary. If so, remove it with Remove(), which removes it from the list and dictionary, hence unequipped. 
+    // It then takes same item and runs AddItem(), where it adds the item to inventory via AddToInventory(_item) which either ups stack, and if null, adds item to inventory
     #endregion
 
     public static Inventory Instance;
@@ -150,7 +156,7 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI(); 
     }
 
-    private void UnequipItem(ItemData_Equipment itemToRemove)
+    public void UnequipItem(ItemData_Equipment itemToRemove)
     {
         if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
         {
