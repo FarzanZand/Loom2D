@@ -1,0 +1,4 @@
+To not overbloat the github with audio project files, just going to update this doc whenever I worked on audio, to show progress still. 
+I will transfer projects that I actually want to finish to this project, and keep prototyping outside of it. 
+
+2023-10-31, updated my audio library, and tried a nostalgic style pattern. WIP
