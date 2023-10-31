@@ -200,8 +200,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-
-
     public void AddItem(ItemData _item)                                         // If you already have the item, just add a stack to it
     {
         if (_item.itemType == ItemType.Equipment)
