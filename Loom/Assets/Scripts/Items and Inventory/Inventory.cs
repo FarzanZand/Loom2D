@@ -81,6 +81,16 @@ public class Inventory : MonoBehaviour
     // It then takes same item and runs AddItem(), where it adds the item to inventory via AddToInventory(_item) which either ups stack, and if null, adds item to inventory
     #endregion
 
+    #region Materials and crafting
+    // Crafting uses materials, which are stored in the stash and stashDictionary. 
+    // Every Equipment created (scriptable object) has crafting materials that can be defined in the list inspector which you use to setup a craftable item
+    // In the ItemSlot object with UI_CraftSlot attached to it, select the craftable equipment item in the "Data" field, which will register the materials defined. 
+    // When you click on the craftable item icon, UI_CraftSlot.cs runs CanCraft(craftData, craftingMaterials) here in inventory.cs 
+    // craftData is the item to craft, and craftingMaterials is the materials needed to craft it. 
+    // It checks if material is in stash, if so, remove the material from stash and create item. If not, do no create item. 
+    #endregion
+
+
     public static Inventory Instance;
 
     public List<InventoryItem> equipment;
@@ -264,5 +274,40 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateSlotUI();
+    }
+
+    public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
+    {
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();                              // Temp list to hold material items to remove
+
+        for (int i = 0; i < _requiredMaterials.Count; i++)
+        {
+            if (stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue)) // See if material is in stash, and add it to list if so
+            {
+                if (stashValue.stackSize < _requiredMaterials[i].stackSize)
+                {
+                    Debug.Log("Not enough materials");               
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);              // Add the material to the list, which will be used to empty stash when item is created
+                }
+            }
+            else
+            {
+                Debug.Log("Not Enough materials");
+                return false; 
+            }
+        }
+
+        for (int i = 0; i < materialsToRemove.Count; i++)           // Remove the materials from the craft list using the populated list
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+
+        AddItem(_itemToCraft);                                      // Success! If you make it here, you got your new item.
+        Debug.Log("Here is your item " + _itemToCraft.name);
+        return true;
     }
 }
