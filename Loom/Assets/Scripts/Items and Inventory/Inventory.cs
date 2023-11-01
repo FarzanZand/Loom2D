@@ -87,7 +87,7 @@ public class Inventory : MonoBehaviour
     // In the ItemSlot object with UI_CraftSlot attached to it, select the craftable equipment item in the "Data" field, which will register the materials defined. 
     // When you click on the craftable item icon, UI_CraftSlot.cs runs CanCraft(craftData, craftingMaterials) here in inventory.cs 
     // craftData is the item to craft, and craftingMaterials is the materials needed to craft it. 
-    // It checks if material is in stash, if so, remove the material from stash and create item. If not, do no create item. 
+    // It checks if material is in stash, if so, remove the material from stash and create item. If not, do not create item. 
     #endregion
 
 
