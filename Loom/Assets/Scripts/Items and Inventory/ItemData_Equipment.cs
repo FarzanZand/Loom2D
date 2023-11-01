@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 // Every equipment has an equipment type, and when you equip an item from inventory, it is removed from the inventory
@@ -44,6 +46,9 @@ public class ItemData_Equipment : ItemData
     public int fireDamage;
     public int iceDamage;
     public int lightningDamage;
+
+    [Header("Craft Requirements")]
+    public List<InventoryItem> craftingMaterials;
 
     public void AddModifiers()
     {
