@@ -49,7 +49,8 @@ public class CrystalSkill : Skill
             player.transform.position = currentCrystal.transform.position;
             currentCrystal.transform.position = playerPos;
 
-            if(cloneInsteadOfCrystal) // If you have the Crystal Mirage skill, create clone, don't finish crystal
+
+            if (cloneInsteadOfCrystal) // If you have the Crystal Mirage skill, create clone, don't finish crystal
             {
                 SkillManager.instance.clone.CreateClone(currentCrystal.transform, Vector3.zero);
                 Destroy(currentCrystal);
