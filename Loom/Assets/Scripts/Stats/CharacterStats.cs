@@ -115,9 +115,9 @@ public class CharacterStats : MonoBehaviour
         totalDamage = CheckTargetArmor(_targetStats, totalDamage); // Lower damage with armor
 
         _targetStats.TakeDamage(totalDamage); // Final Damage
-
-        //If inventory current weapon has fire effect
-        // DoMagicalDamage(_targetStats);
+        
+        // If weapon has elemental damage
+        DoMagicalDamage(_targetStats);
     }
 
 

@@ -66,8 +66,8 @@ public class CrystalSkillController : MonoBehaviour
 
         if (canMove) // Move towards target, then finish crystal when near, go boom
         {
-            if (closestTarget != null)
-                return; 
+            if (closestTarget == null) // NOTE: Seemed to be bugged, was != and didnt work. Perhaps that is meant to be? Changed it to == myself, see if that fixes it. 
+                return;
 
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
 
