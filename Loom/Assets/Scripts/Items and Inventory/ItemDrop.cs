@@ -15,9 +15,8 @@ public class ItemDrop : MonoBehaviour
     private List<ItemData> dropList = new List<ItemData>();                 // Will be populated when GenerateDrop() runs, holds final list of items to drop
 
     [SerializeField] private GameObject dropPrefab;
-    [SerializeField] private ItemData item;
 
-    public void GenerateDrop()
+    public virtual void GenerateDrop()
     {
         for (int i = 0; i < possibleDrop.Length; i++)                       // Generate the droplist of all items passing the dropchance
         {
@@ -40,7 +39,7 @@ public class ItemDrop : MonoBehaviour
         }
     }
 
-    public void DropItem(ItemData _itemData)                                 // Create a newDrop GameObject, Setup this object with the itemdata of the item passed to it   
+    protected void DropItem(ItemData _itemData)                                 // Create a newDrop GameObject, Setup this object with the itemdata of the item passed to it   
     {
         GameObject newDrop = Instantiate(dropPrefab, transform.position, Quaternion.identity); // DroPrefab is an unpopulated dropObject that can take itemData (the scriptable object created). 
 

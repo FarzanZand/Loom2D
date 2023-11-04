@@ -23,6 +23,8 @@ public class PlayerStats : CharacterStats
     protected override void Die() // called in CharacterStats.cs when hp is 0. player.Die() starts playerDeadState.cs
     {
         base.Die();
-        player.Die();  
+        player.Die();
+
+        GetComponent <PlayerItemDrop>()?.GenerateDrop(); // If it is not null, GenerateDrop(); Drop items by chance from player death TODO delete later no fun
     }
 }

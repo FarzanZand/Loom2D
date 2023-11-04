@@ -5,12 +5,13 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     #region Inventory functionality
-    // Main Classes
     // Inventory.cs Uses a list and dictionary to control which items the player has and holds the core logic of inventory. Attached to Inventory-gameobject
     // InventoryItem.cs hold the logic for the item in the inventory. How many stacks, and which item it is.
     // ItemObject.cs hold the logic for representing the item in the game world and interacting with it
     // ItemData.cs hold specific data for what the item is and does, is a scriptable object created via rightclick
     // UI_ItemSlot.cs carries the image and image text of the item to be placed in the Canvas. Objects created
+    // ItemDrop.cs attached to enemies carries a list of dropable items and creates instantiates itemdrops objects in the world randomly from that list
+    // ItemEffect.cs is a scriptable object where you can design item effects, which can be attached to ItemData_equipment scriptable object items. 
 
     // Basic flow: You create ItemData as a scriptable object, ItemObject spawns in game world or received in any other way
     // Calls AddItem() in Inventory.cs instance, this creates a newItem object of InventoryItem, passing the itemData to its constructor
@@ -90,8 +91,17 @@ public class Inventory : MonoBehaviour
     // It checks if material is in stash, if so, remove the material from stash and create item. If not, do not create item. 
     #endregion
 
+    #region Item effect
+    // ItemEffect.cs is a scriptable object where you can create a data object holding a group of item effects
+    // This data object can be attached to an equipment. Each ItemData_equipment.cs holds ItemEffect[] itemEffects variable. 
+    // When you create a new equipment scriptable-object, you will therefore have a itemEffects array you can populate in inspector.
+    // ItemData_equipment.cs has a function called ExecuteItemEffect() which will run all item effects attached
+    // This function can be called from wherever in the game. For instance, on attack with a weapon, or using a potion. 
+    #endregion
 
     public static Inventory Instance;
+
+    public List<ItemData> startingItems;
 
     public List<InventoryItem> equipment;
     public Dictionary<ItemData_Equipment, InventoryItem> equipmentDictionary;
@@ -135,6 +145,16 @@ public class Inventory : MonoBehaviour
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();  // Will fill the array with the children of the component inventorySlotParent
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
+        
+        AddStartingItems();
+    }
+
+    private void AddStartingItems()
+    {
+        for (int i = 0; i < startingItems.Count; i++)
+        {
+            AddItem(startingItems[i]);
+        }
     }
 
     public void EquipItem(ItemData _item)
@@ -309,5 +329,21 @@ public class Inventory : MonoBehaviour
         AddItem(_itemToCraft);                                      // Success! If you make it here, you got your new item.
         Debug.Log("Here is your item " + _itemToCraft.name);
         return true;
+    }
+
+    public List<InventoryItem> GetEquipmentList() => equipment;                 // Return a list of all equipment on player
+    public List<InventoryItem> GetStashList() => stash;                         // Return a list of all stash on player
+
+    public ItemData_Equipment GetEquipment(EquipmentType _type)                 // Get access to any item equiped on player
+    {
+        ItemData_Equipment equipedItem = null;
+
+        foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
+        {
+            if (item.Key.equipmentType == _type)           
+                equipedItem = item.Key;                                        
+        }
+
+        return equipedItem;
     }
 }
