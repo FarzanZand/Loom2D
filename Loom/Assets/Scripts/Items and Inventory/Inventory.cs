@@ -334,16 +334,16 @@ public class Inventory : MonoBehaviour
     public List<InventoryItem> GetEquipmentList() => equipment;                 // Return a list of all equipment on player
     public List<InventoryItem> GetStashList() => stash;                         // Return a list of all stash on player
 
-    public ItemData_Equipment GetEquipment(EquipmentType _type)                 // Get access to any item equiped on player
+    public ItemData_Equipment GetEquipment(EquipmentType _type)                 // Get access to any item equipped on player
     {
-        ItemData_Equipment equipedItem = null;
+        ItemData_Equipment equippedItem = null;
 
         foreach (KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
         {
             if (item.Key.equipmentType == _type)           
-                equipedItem = item.Key;                                        
+                equippedItem = item.Key;                                        
         }
 
-        return equipedItem;
+        return equippedItem;
     }
 }
