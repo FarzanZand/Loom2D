@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    // Worked on audio, not adding to VS, just recording progress. 
+
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
