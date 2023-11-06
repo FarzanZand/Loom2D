@@ -18,7 +18,7 @@ MonoBehaviour:
   dropChance: 0
   equipmentType: 0
   itemEffects:
-  - {fileID: 11400000, guid: 68256f99622e69948872c40959189e45, type: 2}
+  - {fileID: 11400000, guid: 5923af5f1000f2a44aed6c583736da11, type: 2}
   strength: 0
   agility: 0
   intelligence: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
   magicResistance: 0
   fireDamage: 0
   iceDamage: 0
-  lightningDamage: 5
+  lightningDamage: 1000
   craftingMaterials: []

@@ -92,7 +92,9 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region Item effect
-    // ItemEffect.cs is a scriptable object where you can create a data object holding a group of item effects
+    // ItemEffect.cs is a scriptable object where you can create a data object holding an item effect to attach to unique items. 
+    // The effects themselves will be a new .cs script each, which inherits from ItemEffect.cs. Also need to update the path-name for creating it with right click.
+    // Example: [CreateAssetMenu(fileName = "Thunder strike effect", menuName = "Data/Item effect/Thunder strike")]
     // This data object can be attached to an equipment. Each ItemData_equipment.cs holds ItemEffect[] itemEffects variable. 
     // When you create a new equipment scriptable-object, you will therefore have a itemEffects array you can populate in inspector.
     // ItemData_equipment.cs has a function called ExecuteItemEffect() which will run all item effects attached
