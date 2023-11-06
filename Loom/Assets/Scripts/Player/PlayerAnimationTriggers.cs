@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerAnimationTriggers : MonoBehaviour
 {
@@ -37,9 +38,15 @@ public class PlayerAnimationTriggers : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 EnemyStats target = hit.GetComponent<EnemyStats>();
+
                 player.stats.DoDamage(target);
 
-                Inventory.Instance.GetEquipment(EquipmentType.Weapon).ExecuteItemEffect();          // If you have an item effect on the weapon, execute it.
+
+
+                ItemData_Equipment weaponData = Inventory.Instance.GetEquipment(EquipmentType.Weapon);
+
+                if (weaponData != null)
+                    weaponData.Effect(target.transform);
             }
         }
     }
