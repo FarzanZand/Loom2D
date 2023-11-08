@@ -39,6 +39,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
             {
                 EnemyStats target = hit.GetComponent<EnemyStats>();
 
+                if (target != null) 
                 player.stats.DoDamage(target);
 
 

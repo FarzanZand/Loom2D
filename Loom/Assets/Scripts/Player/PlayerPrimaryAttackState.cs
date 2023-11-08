@@ -13,7 +13,7 @@ public class PlayerPrimaryAttackState : PlayerState
     // 7. In the animator clip, an event is at the end of the animation calling setting triggerCalled to true, reseting to idle, ready for next attack
     // 8. ComboCounter is also reset if you wait too long between attacks. 
 
-    private int comboCounter;
+    public int comboCounter { get; private set; }
 
     private float lastTimeAttacked; // Checks how long it was since you last attacked
     private float comboWindow = 2;  // Checks how long you can wait between attack chains before comboCounter is reset to 0. 
