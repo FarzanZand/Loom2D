@@ -25,5 +25,5 @@ public class IceAndFire_Effect : ItemEffect
         }
 
     }
-
+    
 }

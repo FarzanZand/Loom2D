@@ -13,10 +13,12 @@ public class IceAndFireController : MonoBehaviour
             EnemyStats enemyTarget = collision.GetComponent<EnemyStats>();
 
             playerStats.DoMagicalDamage(enemyTarget);
+            // Use enemyTarget.TakeDamage(value); if you want to do clean damage without modifiers
         }
     }
 
 }
+
 
 
 /*
