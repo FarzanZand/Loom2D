@@ -1,12 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class SwordSkillController : MonoBehaviour
 
-    // The SwordSkillController is the script placed on the instantiated sword
-    // Rotates while flying via animation, stops when hitting something
-    // from GroundedState.cs, trying the skill again, if no sword held, runs ReturnSword() instead returning sword to player
+// The SwordSkillController is the script placed on the instantiated sword
+// Rotates while flying via animation, stops when hitting something
+// from GroundedState.cs, trying the skill again, if no sword held, runs ReturnSword() instead returning sword to player
 {
     private Animator anim;
     private Rigidbody2D rb;
@@ -25,7 +25,7 @@ public class SwordSkillController : MonoBehaviour
     [Header("Bounce info")]
     private float bounceSpeed;
     private bool isBouncing;
-    private int bounceAmount; 
+    private int bounceAmount;
     private List<Transform> enemyTarget;
     private int targetIndex;
 
@@ -44,7 +44,7 @@ public class SwordSkillController : MonoBehaviour
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();  
+        rb = GetComponent<Rigidbody2D>();
         cd = GetComponent<CircleCollider2D>();
     }
 
@@ -64,27 +64,27 @@ public class SwordSkillController : MonoBehaviour
         returnSpeed = _returnSpeed;
 
         if (pierceAmount <= 0) // Only rotate when not piercing
-        anim.SetBool("Rotation", true); // spin-animation while thrown, static when hitting something
+            anim.SetBool("Rotation", true); // spin-animation while thrown, static when hitting something
 
         spinDirection = Mathf.Clamp(rb.velocity.x, -1, 1);
 
         Invoke("DestroyMe", 7); // Destroy after 7 seconds
     }
 
-    public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed) 
+    public void SetupBounce(bool _isBouncing, int _amountOfBounces, float _bounceSpeed)
     {
         isBouncing = _isBouncing;
         bounceAmount = _amountOfBounces;
         bounceSpeed = _bounceSpeed;
 
-        enemyTarget = new List<Transform>(); 
+        enemyTarget = new List<Transform>();
     }
 
     public void SetupPierce(int _pierceAmount)
     {
         pierceAmount = _pierceAmount;
     }
-    
+
     public void SetupSpin(bool _isSpinning, float _maxTravelDistance, float _spinDuration, float _hitCooldown)
     {
         isSpinning = _isSpinning;
@@ -97,7 +97,7 @@ public class SwordSkillController : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         // rb.isKinematic = false;
         transform.parent = null;
-        isReturning = true; 
+        isReturning = true;
 
     }
 
@@ -130,9 +130,9 @@ public class SwordSkillController : MonoBehaviour
             if (wasStopped)
             {
                 spinTimer -= Time.deltaTime;
-                
+
                 // Makes the sword move slightly forward on hit in he direction of the sword. Remove if you want to
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
+                // transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + spinDirection, transform.position.y), 1.5f * Time.deltaTime);
 
                 if (spinTimer < 0)
                 {
@@ -170,7 +170,7 @@ public class SwordSkillController : MonoBehaviour
         if (isBouncing && enemyTarget.Count > 0) // enemyTarget populated in OnTriggerEnter
         {
             transform.position = Vector2.MoveTowards(transform.position, enemyTarget[targetIndex].position, bounceSpeed * Time.deltaTime);
-            
+
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < .1f)
             {
                 SwordSkillDamage(enemyTarget[targetIndex].GetComponent<Enemy>());
@@ -239,7 +239,7 @@ public class SwordSkillController : MonoBehaviour
     {
         if (isReturning)
             return;
-        if(collision.GetComponent<Enemy>() != null)
+        if (collision.GetComponent<Enemy>() != null)
         {
             Enemy enemy = collision.GetComponent<Enemy>();
 
@@ -256,5 +256,12 @@ public class SwordSkillController : MonoBehaviour
     {
         player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
         enemy.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
+
+        // If you have amulet equipped, do item effect of amulet. 
+        ItemData_Equipment equippedAmulet = Inventory.Instance.GetEquipment(EquipmentType.Amulet);
+        if (equippedAmulet != null)
+        {
+            equippedAmulet.Effect(enemy.transform);
+        }
     }
 }
