@@ -91,6 +91,14 @@ public class CrystalSkillController : MonoBehaviour
         {
             if (hit.GetComponent<Enemy>() != null)
                 player.stats.DoMagicalDamage(hit.GetComponent<CharacterStats>());
+
+
+            // If you have amulet equipped, do item effect of amulet. TODO: Only run effect of one amulet and not all. Specify by name?
+            ItemData_Equipment equippedAmulet = Inventory.Instance.GetEquipment(EquipmentType.Amulet);
+            if (equippedAmulet != null)
+            {
+                equippedAmulet.Effect(hit.transform);
+            }
         }
     }
 
