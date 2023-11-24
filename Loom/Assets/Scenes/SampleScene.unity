@@ -628,6 +628,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a26ade14fec8a144db2494c94da8a97d, type: 2}
   - {fileID: 11400000, guid: bc929986dfcd5aa469f44e2ae189cfd4, type: 2}
   - {fileID: 11400000, guid: f11c54052d8100f4c8e7182dd2b0aa69, type: 2}
+  - {fileID: 11400000, guid: 6a4b3464e95402c4ea94c54ac78c556c, type: 2}
   equipment: []
   inventory: []
   stash: []
@@ -8195,9 +8196,9 @@ MonoBehaviour:
   cooldown: 0
   crystalDuration: 1.5
   crystalPrefab: {fileID: 3317051191977070865, guid: c3c483a556ebb7746a8682f8a471ad9d, type: 3}
-  cloneInsteadOfCrystal: 1
-  canExplode: 0
-  canMoveToEnemy: 0
+  cloneInsteadOfCrystal: 0
+  canExplode: 1
+  canMoveToEnemy: 1
   moveSpeed: 4
   canUseMultiStacks: 0
   amountOfStacks: 3
