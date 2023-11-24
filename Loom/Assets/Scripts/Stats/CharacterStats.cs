@@ -120,6 +120,22 @@ public class CharacterStats : MonoBehaviour
         DoMagicalDamage(_targetStats);
     }
 
+    // If I want to do specific damage regardless of playerstats or modifiers
+    public virtual void DoSpecificPhysicalDamage(CharacterStats _targetStats, int _damageValue)
+    {
+        int totalDamage = CheckTargetArmor(_targetStats, _damageValue); // Lower damage with armor
+        _targetStats.TakeDamage(totalDamage); // Final Damage
+    }
+
+    // If I want to do specific magical damage regardless of playerstats or modifiers
+    public virtual void DoSpecificMagicalDamage(CharacterStats _targetStats, int _damageValue, int _fireDamage, int _iceDamage, int _lightningDamage)
+    {
+        int totalMagicalDamage = _fireDamage + _iceDamage + _lightningDamage;
+
+        totalMagicalDamage = CheckTargetResistance(_targetStats, totalMagicalDamage);
+        _targetStats.TakeDamage(totalMagicalDamage);
+        AttemptToApplyAilments(_targetStats, _fireDamage, _iceDamage, _lightningDamage);
+    }
 
     // MAGICAL DAMAGE AND AILMENTS
     #region Magical Damage and Ailments
