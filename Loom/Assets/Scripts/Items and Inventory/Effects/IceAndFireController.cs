@@ -22,7 +22,7 @@ public class IceAndFireController : MonoBehaviour
 
 
 /*
- * public class IceAndFireController : ThunderStrikeController 
+ * public class IceAndFireController : ThunderStrikeController gjui
 {
 
     protected override void OnTriggerEnter2D(Collider2D collision)
