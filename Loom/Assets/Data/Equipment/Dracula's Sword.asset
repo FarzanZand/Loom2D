@@ -10,22 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4d7f2c22f723f04d8308ee949537b19, type: 3}
-  m_Name: Thunder claw
+  m_Name: Dracula's Sword
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: Thunder claw
-  icon: {fileID: 367297872, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
-  dropChance: 0
+  itemName: Dracula's Sword
+  icon: {fileID: -1944902997, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
+  dropChance: 10.2
   equipmentType: 0
-  itemCooldown: 0
   itemEffects:
-  - {fileID: 11400000, guid: 5923af5f1000f2a44aed6c583736da11, type: 2}
+  - {fileID: 11400000, guid: 6b3569edae02eef49b9a86dd655465b8, type: 2}
   strength: 0
   agility: 0
   intelligence: 0
   vitality: 0
-  damage: 10
-  critChance: 0
+  damage: 15
+  critChance: 15
   critPower: 0
   health: 0
   armor: 0
@@ -33,5 +32,5 @@ MonoBehaviour:
   magicResistance: 0
   fireDamage: 0
   iceDamage: 0
-  lightningDamage: 10
+  lightningDamage: 0
   craftingMaterials: []

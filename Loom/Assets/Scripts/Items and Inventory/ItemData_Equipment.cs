@@ -17,13 +17,14 @@ public enum EquipmentType
     Weapon,
     Armor,
     Amulet, 
-    flask
+    Flask
 }
 
 [CreateAssetMenu(fileName = "New Item Data", menuName = "Data/Equipment")]
 public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
+    public float itemCooldown;
 
     public ItemEffect[] itemEffects;
 
@@ -54,7 +55,7 @@ public class ItemData_Equipment : ItemData
 
     public void Effect(Transform _enemyPosition)
     {
-        foreach(var  item in itemEffects)
+        foreach(var item in itemEffects)
         {
             item.ExecuteEffect(_enemyPosition);
         }

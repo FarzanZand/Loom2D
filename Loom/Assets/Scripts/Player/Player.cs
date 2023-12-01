@@ -83,6 +83,11 @@ public class Player : Entity
 
         if (Input.GetKeyDown(KeyCode.F))   // Move this to a general hotkey-class?  
             skill.crystal.CanUseSkill();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))   // Move this to a general hotkey-class?  
+        {
+            Inventory.Instance.UseFlask();
+        }
     }
 
     public override void SlowEntityBy(float _slowPercentage, float _slowDuration)

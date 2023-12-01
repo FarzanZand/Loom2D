@@ -622,13 +622,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 552ee28d2db25b94b8496ec15b6c8a68, type: 2}
   - {fileID: 11400000, guid: a26ade14fec8a144db2494c94da8a97d, type: 2}
   - {fileID: 11400000, guid: c65866098dfe46b4d9d6e8eb56534fff, type: 2}
-  - {fileID: 11400000, guid: 4ca6897d1eae0e14680485e7644d2fc1, type: 2}
   - {fileID: 11400000, guid: e7b1411285922ca4fbdc54a441dc4b0c, type: 2}
   - {fileID: 11400000, guid: 552ee28d2db25b94b8496ec15b6c8a68, type: 2}
   - {fileID: 11400000, guid: a26ade14fec8a144db2494c94da8a97d, type: 2}
   - {fileID: 11400000, guid: bc929986dfcd5aa469f44e2ae189cfd4, type: 2}
   - {fileID: 11400000, guid: f11c54052d8100f4c8e7182dd2b0aa69, type: 2}
   - {fileID: 11400000, guid: 6a4b3464e95402c4ea94c54ac78c556c, type: 2}
+  - {fileID: 11400000, guid: a7afd11a311c3ac409d754528ca371b7, type: 2}
+  - {fileID: 11400000, guid: abf3d000b002a1446abb25e3e5edb17e, type: 2}
   equipment: []
   inventory: []
   stash: []
@@ -819,7 +820,7 @@ GameObject:
   - component: {fileID: 205449631}
   - component: {fileID: 205449630}
   m_Layer: 5
-  m_Name: Equipment slot - flask
+  m_Name: Equipment slot - Flask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5300,7 +5301,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -5374,12 +5375,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7d2959f68270edd48be76f6cf643732e, type: 3}
-  m_Resource: {fileID: 8300000, guid: 7d2959f68270edd48be76f6cf643732e, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 18e0c3cfeb344474c83ae1bc7edc580f, type: 3}
+  m_Resource: {fileID: 8300000, guid: 18e0c3cfeb344474c83ae1bc7edc580f, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -96,9 +96,15 @@ public class Inventory : MonoBehaviour
     // The effects themselves will be a new .cs script each, which inherits from ItemEffect.cs. Also need to update the path-name for creating it with right click.
     // Example: [CreateAssetMenu(fileName = "Thunder strike effect", menuName = "Data/Item effect/Thunder strike")]
     // This data object can be attached to an equipment. Each ItemData_equipment.cs holds ItemEffect[] itemEffects variable. 
-    // When you create a new equipment scriptable-object, you will therefore have a itemEffects array you can populate in inspector.
-    // ItemData_equipment.cs has a function called ExecuteItemEffect() which will run all item effects attached
+    // When you create a new equipment scriptable-object, you will therefore have a itemEffects array you can populate in inspector, filling up ItemEffect[]
+    // ItemData_equipment.cs has a function called Effect() which will run all item effects attached by calling item.ExecuteEffect() for each item in ItemEffect[]
     // This function can be called from wherever in the game. For instance, on attack with a weapon, or using a potion. 
+    // You can refer to the item as example with ItemData_Equipment equippedAmulet = Inventory.Instance.GetEquipment(EquipmentType.Amulet);
+    #endregion
+
+    #region Use Flask
+    // You have one flask equipped and can reach it with ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
+    // In this Inventory.cs script, you have the function UseFlask(), this function calls all effects on the flask with currentFlask.Effect(null);
     #endregion
 
     public static Inventory Instance;
@@ -123,6 +129,9 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] inventoryItemSlot;
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
+
+    [Header("Items cooldown")]
+    private float lastTimeUsedFlask; 
 
     private void Awake()
     {
@@ -347,5 +356,23 @@ public class Inventory : MonoBehaviour
         }
 
         return equippedItem;
+    }
+    public void UseFlask()
+    {
+        Debug.Log("BEFORE NULL");
+        ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
+
+        if (currentFlask == null)
+            return;
+
+        bool canUseFlask = Time.time > lastTimeUsedFlask + currentFlask.itemCooldown;
+
+        if (canUseFlask)
+        {
+            currentFlask.Effect(null);
+            lastTimeUsedFlask = Time.time;
+        }
+        else
+            Debug.Log("Flask on cooldown");
     }
 }
