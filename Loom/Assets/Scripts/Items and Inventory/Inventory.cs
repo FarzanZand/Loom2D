@@ -342,7 +342,7 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public List<InventoryItem> GetEquipmentList() => equipment;                 // Return a list of all equipment on player
+    public List<InventoryItem> GetEquipmentList() => equipment;                 // Return a list of all equipment on player 
     public List<InventoryItem> GetStashList() => stash;                         // Return a list of all stash on player
 
     public ItemData_Equipment GetEquipment(EquipmentType _type)                 // Get access to any item equipped on player
