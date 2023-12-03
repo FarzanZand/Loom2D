@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24b55e1dab5b14545b209ceb2752e26c, type: 3}
-  m_Name: Flash heal
+  m_Script: {fileID: 11500000, guid: 7282f9363537ea04db910e15faf06ab1, type: 3}
+  m_Name: Armor buff
   m_EditorClassIdentifier: 
-  healPercent: 0.3
+  buffType: 8
+  buffAmount: 50
+  floatDuration: 7
