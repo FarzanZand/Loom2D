@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Hierarchy;
 using UnityEngine;
 
@@ -100,6 +101,18 @@ public class CharacterStats : MonoBehaviour
         ApplyIgniteDamage();
     }
 
+    public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
+    {
+        StartCoroutine(StatModCoroutine(_modifier, _duration, _statToModify));
+    }
+
+    private IEnumerator StatModCoroutine(int _modifier, float _duration, Stat _statToModify)
+    {
+        _statToModify.AddModifier(_modifier);
+        yield return new WaitForSeconds(_duration); 
+        _statToModify.RemoveModifier(_modifier);
+    }
+
     public virtual void DoDamage(CharacterStats _targetStats) // Do damage by calculating total damage value from stats. Target aquired from AnimationTrigger() damage, which checks for targets and passes it here
     {
         if (TargetCanAvoidAttack(_targetStats)) // Check if damage is evaded. If true, don't take damage
@@ -113,11 +126,10 @@ public class CharacterStats : MonoBehaviour
         }
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage); // Lower damage with armor
-
         _targetStats.TakeDamage(totalDamage); // Final Damage
         
         // If weapon has elemental damage
-        DoMagicalDamage(_targetStats);
+        DoMagicalDamage(_targetStats); // Remove if you don't want to apply magic hit on primary attack
     }
 
     // If I want to do specific damage regardless of playerstats or modifiers
