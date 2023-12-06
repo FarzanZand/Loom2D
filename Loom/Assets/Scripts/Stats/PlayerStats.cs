@@ -27,4 +27,16 @@ public class PlayerStats : CharacterStats
 
         GetComponent <PlayerItemDrop>()?.GenerateDrop(); // If it is not null, GenerateDrop(); Drop items by chance from player death TODO delete later no fun
     }
+
+    protected override void DecreaseHealthBy(int _damage)
+    {
+        base.DecreaseHealthBy(_damage);
+
+        //  Item effect At X hp
+        ItemData_Equipment currentArmor = Inventory.Instance.GetEquipment(EquipmentType.Armor);
+        if (currentArmor != null)
+        {
+            currentArmor.Effect(player.transform);
+        }
+    }
 }

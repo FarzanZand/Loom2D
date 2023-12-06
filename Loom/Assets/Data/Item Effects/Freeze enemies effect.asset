@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7282f9363537ea04db910e15faf06ab1, type: 3}
-  m_Name: Fire buff
+  m_Script: {fileID: 11500000, guid: e5a3bbf8532112a468ce0d9f280af315, type: 3}
+  m_Name: Freeze enemies effect
   m_EditorClassIdentifier: 
-  buffType: 11
-  buffAmount: 50
-  floatDuration: 5
+  duration: 2
+  freezeWhenBelowThisHealthPercentage: 0.2
