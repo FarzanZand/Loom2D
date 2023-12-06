@@ -97,7 +97,7 @@ public class Inventory : MonoBehaviour
     // Example: [CreateAssetMenu(fileName = "Thunder strike effect", menuName = "Data/Item effect/Thunder strike")]
     // This data object can be attached to an equipment. Each ItemData_equipment.cs holds ItemEffect[] itemEffects variable. 
     // When you create a new equipment scriptable-object, you will therefore have a itemEffects array you can populate in inspector, filling up ItemEffect[]
-    // ItemData_equipment.cs has a function called Effect() which will run all item effects attached by calling item.ExecuteEffect() for each item in ItemEffect[]
+    // ItemData_equipment.cs has a function called Effect() which will run all item effects attached by calling item.ExecuteEffect() for each data in ItemEffect[]
     // This function can be called from wherever in the game. For instance, on attack with a weapon, or using a potion. 
     // You can refer to the item as example with ItemData_Equipment equippedAmulet = Inventory.Instance.GetEquipment(EquipmentType.Amulet);
     #endregion
@@ -131,7 +131,11 @@ public class Inventory : MonoBehaviour
     private UI_EquipmentSlot[] equipmentSlot;
 
     [Header("Items cooldown")]
-    private float lastTimeUsedFlask; 
+    private float lastTimeUsedFlask;
+    private float lastTimeUsedArmor;
+
+    private float flaskCooldown;
+    private float armorCooldown; 
 
     private void Awake()
     {
@@ -359,20 +363,34 @@ public class Inventory : MonoBehaviour
     }
     public void UseFlask()
     {
-        Debug.Log("BEFORE NULL");
         ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
 
         if (currentFlask == null)
             return;
 
-        bool canUseFlask = Time.time > lastTimeUsedFlask + currentFlask.itemCooldown;
+        bool canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
 
         if (canUseFlask)
         {
+            flaskCooldown = currentFlask.itemCooldown;
             currentFlask.Effect(null);
             lastTimeUsedFlask = Time.time;
         }
         else
             Debug.Log("Flask on cooldown");
+    }
+
+    public bool CanUseArmor() // Cooldown on the item effect of an armor. 
+    {
+        ItemData_Equipment currentArmor = GetEquipment(EquipmentType.Armor);
+        if (Time.time > lastTimeUsedArmor + armorCooldown)
+        {
+            armorCooldown = currentArmor.itemCooldown;
+            lastTimeUsedArmor = Time.time;
+            return true;
+        }
+
+        Debug.Log("Armor on Cooldown");
+        return false;
     }
 }

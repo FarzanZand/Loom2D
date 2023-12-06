@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Fire damage on hit buff
   m_EditorClassIdentifier: 
   buffType: 11
-  buffAmount: 3
+  buffAmount: 4
   floatDuration: 2
