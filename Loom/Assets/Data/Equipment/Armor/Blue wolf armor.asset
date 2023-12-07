@@ -28,9 +28,9 @@ MonoBehaviour:
   critChance: 0
   critPower: 0
   health: 0
-  armor: 15
+  armor: 0
   evasion: 0
-  magicResistance: 15
+  magicResistance: 0
   fireDamage: 0
   iceDamage: 0
   lightningDamage: 0

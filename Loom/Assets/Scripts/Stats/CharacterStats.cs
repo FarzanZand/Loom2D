@@ -396,7 +396,9 @@ public class CharacterStats : MonoBehaviour
             onHealthChanged();
     }
 
-    protected virtual void DecreaseHealthBy(int _damage)
+    // DecreaseHealthBy(), If you want to decrease health without doing anything else. 
+    // TakeDamage() kills at 0 and does FX, good for being hit. This is for instance for items decrasing health or burn damage. 
+    protected virtual void DecreaseHealthBy(int _damage) 
     {
         currentHealth -= _damage;
         if (onHealthChanged != null)
