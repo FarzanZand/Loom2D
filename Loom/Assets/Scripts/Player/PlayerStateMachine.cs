@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 1. Player.cs creates objects of all states and sets them
-// 2. You default enter idleState. 
+// 2. You by default enter idleState. 
 // 3. You enter a new state via PlayerStateMachine stateMachine, which is in PlayerState
 // 4. Running stateMachine.ChangeState(), you leave current state, set new state, and enter it. 
 // 5. When you enter new state, which is a child of PlayerState, it runs enter() in both parent and child
