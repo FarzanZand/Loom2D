@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Freeze enemies effect
   m_EditorClassIdentifier: 
   duration: 2
-  freezeWhenBelowThisHealthPercentage: 0.2
+  freezeWhenBelowThisHealthPercentage: 0.7
