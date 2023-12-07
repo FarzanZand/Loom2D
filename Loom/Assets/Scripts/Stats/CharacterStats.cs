@@ -101,10 +101,11 @@ public class CharacterStats : MonoBehaviour
         ApplyIgniteDamage();
     }
 
+    
     public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
     {
         StartCoroutine(StatModCoroutine(_modifier, _duration, _statToModify));
-    }
+    }       // For item effects such as buffs that temp increase stats
 
     private IEnumerator StatModCoroutine(int _modifier, float _duration, Stat _statToModify)
     {
@@ -112,7 +113,9 @@ public class CharacterStats : MonoBehaviour
         yield return new WaitForSeconds(_duration); 
         _statToModify.RemoveModifier(_modifier);
     }
-
+    
+    // DAMAGE CALCULATIONS
+    #region Damage calculations
     public virtual void DoDamage(CharacterStats _targetStats) // Do damage by calculating total damage value from stats. Target aquired from AnimationTrigger() damage, which checks for targets and passes it here
     {
         if (TargetCanAvoidAttack(_targetStats)) // Check if damage is evaded. If true, don't take damage
@@ -148,6 +151,7 @@ public class CharacterStats : MonoBehaviour
         _targetStats.TakeDamage(totalMagicalDamage);
         AttemptToApplyAilments(_targetStats, _fireDamage, _iceDamage, _lightningDamage);
     }
+    #endregion
 
     // MAGICAL DAMAGE AND AILMENTS
     #region Magical Damage and Ailments
@@ -201,17 +205,17 @@ public class CharacterStats : MonoBehaviour
             }
         }
 
-        if (canApplyIgnite) // Move this to ApplyAilments()?
+        if (canApplyIgnite) 
             _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * 0.2f));                   // ignite does 20 % of fire damage per tick
 
-        if (canApplyShock) // Move this to ApplyAilments()?
-            _targetStats.SetupShockStrikeDamage(Mathf.RoundToInt(_lightningDamage * 0.1f));                   // ignite does 20 % of fire damage per tick
+        if (canApplyShock) 
+            _targetStats.SetupShockStrikeDamage(Mathf.RoundToInt(_lightningDamage * 0.1f));         // Does lightning damage effect
 
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
     public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
-        bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;
+        bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;                               // Don't ignite someone already ignited or affected by something else
         bool canApplyChill = !isIgnited && !isChilled && !isShocked;
         bool canApplyShock = !isIgnited && !isChilled;
 
@@ -314,7 +318,7 @@ public class CharacterStats : MonoBehaviour
     #endregion
 
     // STAT CALCULATIONS
-    #region
+    #region Stat calculations, crit, armor, dodges and resistances etc
     private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
         if (_targetStats.isChilled)
@@ -370,6 +374,9 @@ public class CharacterStats : MonoBehaviour
         return maxHealth.GetValue() + vitality.GetValue() * 5; 
     }
     #endregion
+
+    // INCREASE OR DECREASE HEALTH
+    #region Increase or decrease health
     public virtual void TakeDamage(int _damage) // Takes damage, kills character if < 0. Called via DoDamage(). 
     {
         DecreaseHealthBy(_damage);
@@ -395,15 +402,16 @@ public class CharacterStats : MonoBehaviour
         if (onHealthChanged != null)
             onHealthChanged();
     }
-
-    // DecreaseHealthBy(), If you want to decrease health without doing anything else. 
-    // TakeDamage() kills at 0 and does FX, good for being hit. This is for instance for items decrasing health or burn damage. 
     protected virtual void DecreaseHealthBy(int _damage) 
     {
+        // DecreaseHealthBy(), If you want to decrease health without doing anything else. 
+        // TakeDamage() kills at 0 and does FX, good for being hit. This is for instance for items decrasing health or burn damage. 
+
         currentHealth -= _damage;
         if (onHealthChanged != null)
             onHealthChanged();
     }
+    #endregion
     protected virtual void Die()
     {
         isDead = true; 
