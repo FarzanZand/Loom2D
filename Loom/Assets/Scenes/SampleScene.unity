@@ -859,7 +859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &99905932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,18 +881,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bc929986dfcd5aa469f44e2ae189cfd4, type: 2}
   - {fileID: 11400000, guid: f11c54052d8100f4c8e7182dd2b0aa69, type: 2}
   - {fileID: 11400000, guid: 6a4b3464e95402c4ea94c54ac78c556c, type: 2}
-  - {fileID: 11400000, guid: a7afd11a311c3ac409d754528ca371b7, type: 2}
   - {fileID: 11400000, guid: abf3d000b002a1446abb25e3e5edb17e, type: 2}
-  - {fileID: 11400000, guid: 37fdac1fa7a674c4cae10e7119aec1a6, type: 2}
-  - {fileID: 11400000, guid: 1f3064d698e4f7b43ac0fb9c365693c2, type: 2}
-  - {fileID: 11400000, guid: e680f4def8c41a34088be3d1daa4b044, type: 2}
-  - {fileID: 11400000, guid: 1a071a1e5afcd0942b79a5b364abf618, type: 2}
   equipment: []
   inventory: []
   stash: []
   inventorySlotParent: {fileID: 2059177778}
   stashSlotParent: {fileID: 889689358}
   equipmentSlotParent: {fileID: 561890098}
+  statSlotParent: {fileID: 1929929090}
 --- !u!4 &99905933
 Transform:
   m_ObjectHideFlags: 0
@@ -2762,7 +2758,7 @@ GameObject:
   - component: {fileID: 311959351}
   - component: {fileID: 311959350}
   m_Layer: 5
-  m_Name: Stat - Damage (4)
+  m_Name: Stat - Magic resistance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2800,8 +2796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1596c2f2c541d044ea057df00a14295e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Damage
-  statType: 4
+  statName: Magic resistance
+  statType: 10
   statValueText: {fileID: 311959351}
   statNameText: {fileID: 530318594}
 --- !u!114 &311959351
@@ -6460,7 +6456,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damage
+  m_text: Armor
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
   m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
@@ -7101,7 +7097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7599,7 +7595,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 18e0c3cfeb344474c83ae1bc7edc580f, type: 3}
@@ -7886,7 +7882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damage
+  m_text: Magic resistance
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
   m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
@@ -8101,7 +8097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8496,7 +8492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8710,7 +8706,7 @@ GameObject:
   - component: {fileID: 768016576}
   - component: {fileID: 768016575}
   m_Layer: 5
-  m_Name: Stat - Damage (1)
+  m_Name: Stat - Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8748,8 +8744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1596c2f2c541d044ea057df00a14295e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Damage
-  statType: 4
+  statName: Health
+  statType: 7
   statValueText: {fileID: 768016576}
   statNameText: {fileID: 1354148347}
 --- !u!114 &768016576
@@ -10790,7 +10786,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damage
+  m_text: Evasion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
   m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
@@ -14635,7 +14631,7 @@ GameObject:
   - component: {fileID: 1194809200}
   - component: {fileID: 1194809199}
   m_Layer: 5
-  m_Name: Stat - Damage (3)
+  m_Name: Stat - Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14673,8 +14669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1596c2f2c541d044ea057df00a14295e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Damage
-  statType: 4
+  statName: Armor
+  statType: 8
   statValueText: {fileID: 1194809200}
   statNameText: {fileID: 449052908}
 --- !u!114 &1194809200
@@ -16083,7 +16079,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Damage
+  m_text: Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
   m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
@@ -17483,7 +17479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.92156863}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19159,7 +19155,7 @@ GameObject:
   - component: {fileID: 1783572237}
   - component: {fileID: 1783572236}
   m_Layer: 5
-  m_Name: Stat - Damage (2)
+  m_Name: Stat - Evasion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19197,8 +19193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1596c2f2c541d044ea057df00a14295e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statName: Damage
-  statType: 4
+  statName: Evasion
+  statType: 9
   statValueText: {fileID: 1783572237}
   statNameText: {fileID: 947711632}
 --- !u!114 &1783572237

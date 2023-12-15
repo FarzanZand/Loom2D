@@ -255,7 +255,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ItemData _item)                                         // If you already have the item, just add a stack to it
     {
-        if (_item.itemType == ItemType.Equipment)
+        if (_item.itemType == ItemType.Equipment && CanAddItem())               // Only add item if inventory is not full. 
             AddToInventory(_item);
 
         else if (_item.itemType == ItemType.Material)
@@ -317,6 +317,16 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateSlotUI();
+    }
+
+    public bool CanAddItem()
+    {
+        if (inventory.Count >= inventoryItemSlot.Length)
+        {
+            Debug.Log("No more space");
+            return false;
+        }
+        return true;
     }
 
     public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
