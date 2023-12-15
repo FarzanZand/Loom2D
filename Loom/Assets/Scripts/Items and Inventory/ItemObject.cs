@@ -28,6 +28,12 @@ public class ItemObject : MonoBehaviour
 
     public void PickupItem()
     {
+        if (!Inventory.Instance.CanAddItem() && itemData.itemType == ItemType.Equipment) // Check that equipment inventory is not full. 
+        {
+            rb.velocity = new Vector2(0, 7);
+            return;
+        }
+
         Inventory.Instance.AddItem(itemData);
         Destroy(gameObject);
     }
