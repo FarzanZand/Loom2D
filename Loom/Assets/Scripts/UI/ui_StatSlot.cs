@@ -6,7 +6,7 @@ using UnityEngine;
 // This is attached to the Canvas Object Character - Stats - Major Stats - Stat. Basically, the object in the UI showing the stat value and name.
 // These statObjects are placed in a GridLayoutGroup for easy organizing
 // They get their name from the StatType enum in CharacterStats
-// At start, you run UpdateStatValue(), which gets a reference to the PlayerStat function GetStat(), which returns the value of the statType. Also runs everytime you change equipment.
+// At start, you run UpdateStatValueUI(), which gets a reference to the PlayerStat function GetStat(), which returns the value of the statType. UpdateStatValueUI() also runs everytime you change equipment.
 
 public class UI_StatSlot : MonoBehaviour
 {
