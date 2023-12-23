@@ -10,6 +10,8 @@ using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    public UI_ItemTooltip itemTooltip;
+
     public void SwitchTo(GameObject _menu)
     {
         for (int i = 0; i < transform.childCount; i++)          // Deactivate everything that is not the trigger (_menu) 
