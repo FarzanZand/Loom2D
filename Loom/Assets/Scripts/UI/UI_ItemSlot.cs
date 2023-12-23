@@ -3,14 +3,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface allows mouse for event
+public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler // These interfaces gives events on pointer actions
 {
     // Attached to the itemslot object in the inventory holding the item and image of item.
 
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
 
+    private UI ui;
     public InventoryItem item;
+
+    private void Start()
+    {
+        ui = GetComponentInParent<UI>();
+    }
 
     public void UpdateSlot(InventoryItem _newItem)
     {
@@ -56,5 +62,21 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler // this interface 
         {
             Inventory.Instance.EquipItem(item.data);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if(item == null) 
+            return;
+
+        ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (item == null)
+            return;
+
+        ui.itemTooltip.HideTooltip();
     }
 }
