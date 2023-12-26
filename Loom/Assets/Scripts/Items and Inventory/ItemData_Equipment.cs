@@ -53,6 +53,8 @@ public class ItemData_Equipment : ItemData
     [Header("Craft Requirements")]
     public List<InventoryItem> craftingMaterials;
 
+    private int descriptionLength;
+
     public void Effect(Transform _enemyPosition)
     {
         foreach(var item in itemEffects)
@@ -105,6 +107,55 @@ public class ItemData_Equipment : ItemData
         playerStats.fireDamage.RemoveModifier(fireDamage);
         playerStats.iceDamage.RemoveModifier(iceDamage);
         playerStats.lightningDamage.RemoveModifier(lightningDamage);
+    }
+
+    public override string GetDescription() // Gets the description for the text in the tooltip. Go through every stat. Every non-zero stat gets added to tooltip and adds description length for line/size of window.
+    {
+        stringBuilder.Length = 0;
+        descriptionLength = 0; 
+
+        AddItemDescription(strength, "Strength");
+        AddItemDescription(agility, "Agility");
+        AddItemDescription(intelligence, "Intelligence");
+        AddItemDescription(vitality, "Vitality");
+
+        AddItemDescription(damage, "Damage");
+        AddItemDescription(critChance, "Crit.Chance");
+        AddItemDescription(critPower, "Crit.Power");
+
+        AddItemDescription(health, "Health");
+        AddItemDescription(evasion, "Evasion");
+        AddItemDescription(armor, "Armor");
+        AddItemDescription(magicResistance, "Magic Resist.");
+
+        AddItemDescription(fireDamage, "Fire damage");
+        AddItemDescription(iceDamage, "Ice damage");
+        AddItemDescription(lightningDamage, "Lightning dmg. ");
+
+        if (descriptionLength < 5)          // Add a minimum length to the tooltip window, so it isn't too small if there is little info. 
+        {
+            for (int i = 0; i < 5 - descriptionLength; i++) // Add lines so you reach 5 lines total. 
+            {
+                stringBuilder.AppendLine();
+                stringBuilder.Append("");
+            }
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    private void AddItemDescription(int _value, string _name)   
+    {
+        if (_value != 0)
+        {
+            if (stringBuilder.Length > 0)              // value is 0 on the item stat, then do not show it in the tooltip. 
+                stringBuilder.AppendLine();
+
+            if(_value > 0)
+                stringBuilder.Append("+ " + _value + " " + _name);
+
+            descriptionLength++;            // Everytime we add a line (every iteration of value more than 0), we add a value. If we have added 5 or less lines, we have a at least 5 lines.
+        }
     }
 }
 
