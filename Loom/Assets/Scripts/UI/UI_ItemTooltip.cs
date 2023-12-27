@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 #region Core functionality
 // This script is attached to the canvas gameobject Item_Tooltip.
@@ -21,7 +22,7 @@ public class UI_ItemTooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private TextMeshProUGUI itemDescription;
-    [SerializeField] private int defaultNameFontSize = 32; 
+    [SerializeField] private int defaultNameFontSize = 32;
 
     public void ShowTooltip(ItemData_Equipment item)
     {
@@ -36,6 +37,8 @@ public class UI_ItemTooltip : MonoBehaviour
             itemNameText.fontSize = itemNameText.fontSize * 0.7f; // In case item name is long and overshoots the window, make text smaller.
         else
             itemNameText.fontSize = defaultNameFontSize;
+
+        // HERE: To make it be at the mouse position. Do some math. Get mouse position. Spawn at Vector2(Xposition - 0.5 Xwidth, Yposition-0.5Ywidth)
 
         gameObject.SetActive(true);
     }
