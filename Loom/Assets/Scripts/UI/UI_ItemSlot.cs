@@ -66,6 +66,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.Log("Pointer entered");
         if(item == null) 
             return;
 
@@ -74,6 +75,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        Debug.Log("Pointer exited");
         if (item == null)
             return;
 

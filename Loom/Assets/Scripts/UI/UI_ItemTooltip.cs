@@ -23,11 +23,22 @@ public class UI_ItemTooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemTypeText;
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private int defaultNameFontSize = 32;
+    // public RectTransform uiObject; // TEST
+    // public bool hasMovedToMouse = false; 
 
     public void ShowTooltip(ItemData_Equipment item)
     {
         if (item == null)
             return;
+
+        // HERE: To make it be at the mouse position. Do some math. Get mouse position. Spawn at Vector2(Xposition - 0.5 Xwidth, Yposition-0.5Ywidth)
+        //if (!hasMovedToMouse)
+        //{
+        //    Vector3 mouseScreenPosition = Input.mousePosition;
+        //    uiObject.position = mouseScreenPosition;
+        //    hasMovedToMouse = true;
+        //}
+        // END HERE: Something above makes it run multiple times, sometimes. 
 
         itemNameText.text = item.itemName;
         itemTypeText.text = item.equipmentType.ToString();
@@ -38,14 +49,15 @@ public class UI_ItemTooltip : MonoBehaviour
         else
             itemNameText.fontSize = defaultNameFontSize;
 
-        // HERE: To make it be at the mouse position. Do some math. Get mouse position. Spawn at Vector2(Xposition - 0.5 Xwidth, Yposition-0.5Ywidth)
-
         gameObject.SetActive(true);
+        Debug.Log("Show tooltip"); // TODO: WHY DO YOU RUN 5000 TIMES!?!?!
     }
 
     public void HideTooltip()
     {
+        Debug.Log("Hide Tooltip");
         itemNameText.fontSize = defaultNameFontSize;
+        //hasMovedToMouse = false; // TEST
         gameObject.SetActive(false);
     }
 }
