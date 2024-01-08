@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 // in UI_ItemSlot, you have mouseenter and mouseexit interface attached. YOu also have a reference to the UI.cs script ui = GetComponentInParent<UI>
 // When entering an itemslot with UI_ItemSlot.cs attached, or exiting, they run the ShowTooltip() and HideTooltip() functions.
 // They do this by by calling ui.ItemTooltip.ShowTooltip() in UI_ItemSlot.cs to reach this .cs file. 
+// Same logic is used to show the tooltip for stats.
 #endregion
 
 #region Tooltip for equipment text
@@ -24,7 +25,7 @@ public class UI_ItemTooltip : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private int defaultNameFontSize = 32;
     // public RectTransform uiObject; // TEST
-    // public bool hasMovedToMouse = false; 
+    // public bool hasMovedToMouse = false; // TEST
 
     public void ShowTooltip(ItemData_Equipment item)
     {
@@ -50,12 +51,10 @@ public class UI_ItemTooltip : MonoBehaviour
             itemNameText.fontSize = defaultNameFontSize;
 
         gameObject.SetActive(true);
-        Debug.Log("Show tooltip"); // TODO: WHY DO YOU RUN 5000 TIMES!?!?!
     }
 
     public void HideTooltip()
     {
-        Debug.Log("Hide Tooltip");
         itemNameText.fontSize = defaultNameFontSize;
         //hasMovedToMouse = false; // TEST
         gameObject.SetActive(false);

@@ -496,6 +496,96 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &39295467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 39295469}
+  - component: {fileID: 39295471}
+  - component: {fileID: 39295470}
+  - component: {fileID: 39295468}
+  m_Layer: 5
+  m_Name: Stat_Tooltip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &39295468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39295467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93988e06bb5ba564791907404b678e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: {fileID: 1251673608}
+--- !u!224 &39295469
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39295467}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1251673610}
+  m_Father: {fileID: 562334794}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 480, y: -589}
+  m_SizeDelta: {x: 800, y: 160}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &39295470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39295467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9843137}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 337753605, guid: 4997370b84f35fd48881064d94bd0e9c, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &39295471
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39295467}
+  m_CullTransparentMesh: 1
 --- !u!1001 &50193582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1653,6 +1743,7 @@ MonoBehaviour:
   statType: 12
   statValueText: {fileID: 160226515}
   statNameText: {fileID: 908982956}
+  statDescription: 'Amount of ice damage you do. '
 --- !u!114 &160226515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2800,6 +2891,7 @@ MonoBehaviour:
   statType: 10
   statValueText: {fileID: 311959351}
   statNameText: {fileID: 530318594}
+  statDescription: Decreases magical damage you take.
 --- !u!114 &311959351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8078,6 +8170,7 @@ RectTransform:
   - {fileID: 2059177778}
   - {fileID: 561890098}
   - {fileID: 740213263}
+  - {fileID: 39295469}
   m_Father: {fileID: 1952430515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -8732,10 +8825,10 @@ RectTransform:
   - {fileID: 1080013973}
   m_Father: {fileID: 562334794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 450, y: 229.69995}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -510}
+  m_SizeDelta: {x: 450, y: 143.29999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740213264
 MonoBehaviour:
@@ -8886,6 +8979,7 @@ MonoBehaviour:
   statType: 7
   statValueText: {fileID: 768016576}
   statNameText: {fileID: 1354148347}
+  statDescription: 'Amount of maximum health you have. '
 --- !u!114 &768016576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9712,6 +9806,7 @@ MonoBehaviour:
   statType: 4
   statValueText: {fileID: 887177128}
   statNameText: {fileID: 1071060890}
+  statDescription: Amount of physical damage you do.
 --- !u!114 &887177128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11715,6 +11810,7 @@ MonoBehaviour:
   statType: 0
   statValueText: {fileID: 1064750452}
   statNameText: {fileID: 1275928654}
+  statDescription: Increases damage and critical power.
 --- !u!1 &1071060888
 GameObject:
   m_ObjectHideFlags: 0
@@ -12238,8 +12334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 225, y: -154.12}
-  m_SizeDelta: {x: 430, y: 131.16}
+  m_AnchoredPosition: {x: 225, y: -110.92}
+  m_SizeDelta: {x: 426, y: 44.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1080013974
 MonoBehaviour:
@@ -12397,6 +12493,7 @@ MonoBehaviour:
   statType: 11
   statValueText: {fileID: 1087096320}
   statNameText: {fileID: 793699994}
+  statDescription: 'Amount of fire damage you do. '
 --- !u!114 &1087096320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14949,6 +15046,7 @@ MonoBehaviour:
   statType: 8
   statValueText: {fileID: 1194809200}
   statNameText: {fileID: 449052908}
+  statDescription: Decreases physical damage you take.
 --- !u!114 &1194809200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15289,6 +15387,142 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242816197}
   m_CullTransparentMesh: 1
+--- !u!1 &1251673607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1251673610}
+  - component: {fileID: 1251673609}
+  - component: {fileID: 1251673608}
+  m_Layer: 5
+  m_Name: StatDescription
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1251673608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251673607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Increases damage and crit.power.
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
+  m_sharedMaterial: {fileID: -8065883861848785263, guid: 84bdc42b70bb5e54aa18bb33c1fa834e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 22
+  m_fontSizeBase: 22
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0.42041016, y: 0, z: 1.3199463, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1251673609
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251673607}
+  m_CullTransparentMesh: 1
+--- !u!224 &1251673610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251673607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 39295469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1263853457
 GameObject:
   m_ObjectHideFlags: 0
@@ -16489,6 +16723,7 @@ MonoBehaviour:
   statType: 1
   statValueText: {fileID: 1354559617}
   statNameText: {fileID: 108446118}
+  statDescription: Increases evasion and critical chance.
 --- !u!114 &1354559617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17243,6 +17478,7 @@ MonoBehaviour:
   statType: 3
   statValueText: {fileID: 1496446380}
   statNameText: {fileID: 1679908539}
+  statDescription: 'Increases health. '
 --- !u!114 &1496446380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17503,6 +17739,7 @@ MonoBehaviour:
   statType: 6
   statValueText: {fileID: 1532187274}
   statNameText: {fileID: 237379493}
+  statDescription: 'Increases power of your critical attack. '
 --- !u!114 &1532187274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19183,6 +19420,7 @@ MonoBehaviour:
   statType: 2
   statValueText: {fileID: 1749847685}
   statNameText: {fileID: 1677197287}
+  statDescription: 'Increases magical damage and resistance. '
 --- !u!114 &1749847685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19473,6 +19711,7 @@ MonoBehaviour:
   statType: 9
   statValueText: {fileID: 1783572237}
   statNameText: {fileID: 947711632}
+  statDescription: 'Increases your chance to avoid attack. '
 --- !u!114 &1783572237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20216,6 +20455,7 @@ MonoBehaviour:
   statType: 13
   statValueText: {fileID: 1856648836}
   statNameText: {fileID: 1833965673}
+  statDescription: 'Amount of lightning damage you do. '
 --- !u!114 &1856648836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20871,7 +21111,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 225, y: -71.735}
-  m_SizeDelta: {x: 430, y: 33.61}
+  m_SizeDelta: {x: 426, y: 33.61}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913809869
 MonoBehaviour:
@@ -21407,6 +21647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemTooltip: {fileID: 740213264}
+  statTooltip: {fileID: 39295468}
 --- !u!1 &1955795877
 GameObject:
   m_ObjectHideFlags: 0
@@ -21858,7 +22099,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   vitality:
-    baseValue: 10
+    baseValue: 5
     modifiers: 
   damage:
     baseValue: 10
@@ -21870,7 +22111,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 10
+    baseValue: 100
     modifiers: 
   armor:
     baseValue: 0
@@ -22069,6 +22310,7 @@ MonoBehaviour:
   statType: 5
   statValueText: {fileID: 1995418184}
   statNameText: {fileID: 929632583}
+  statDescription: 'Chance to do critical damage. '
 --- !u!114 &1995418184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22570,7 +22812,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 225, y: -32.465}
-  m_SizeDelta: {x: 430, y: 44.93}
+  m_SizeDelta: {x: 426, y: 44.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2023155578
 MonoBehaviour:
