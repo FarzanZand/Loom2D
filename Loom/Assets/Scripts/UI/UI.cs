@@ -44,7 +44,7 @@ public class UI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
             SwitchWithKeyTo(optionsUI);
     }
-    public void SwitchTo(GameObject _menu)
+    public void SwitchTo(GameObject _menu)                      // Called via button press in canvas
     {
         for (int i = 0; i < transform.childCount; i++)          // Deactivate everything that is not the trigger (_menu) 
         {
