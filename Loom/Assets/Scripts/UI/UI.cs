@@ -7,6 +7,8 @@ using UnityEngine;
 // The buttons in the UI that swap between views are connected to the SwitchTo() function here
 // SwitchTo has the four core buttons on top "Character, skill tree, craft, options.
 // When triggered, it deactivates everything except the button that you clicked on to active it
+// The Canvas objects (i.e. character_UI, or craft_UI) all have a bar on them with all other UIs
+// These are buttons. When they are clicked, they pass a reference of what was clicked to the SwitchTo()
 
 // For switching on and off the UI with hotkeys, each UI-gameobject is dragged into these variables in the inspector
 // When you click the hotkey, it passes a reference to the UI gameobject in the canvas (i.e. characterUI) to SwitchWithKeyTo()
