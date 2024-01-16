@@ -7,13 +7,13 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
 {
     // Attached to the itemslot object in the inventory holding the item and image of item.
 
-    [SerializeField] private Image itemImage;
-    [SerializeField] private TextMeshProUGUI itemText;
+    [SerializeField] protected Image itemImage;
+    [SerializeField] protected TextMeshProUGUI itemText;
 
-    private UI ui;
+    protected UI ui;
     public InventoryItem item;
 
-    private void Start()
+    protected virtual void Start()
     {
         ui = GetComponentInParent<UI>();
     }
@@ -25,7 +25,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         item = _newItem;
         if (item != null)
         {
-            itemImage.sprite = item.data.icon;
+            itemImage.sprite = item.data.itemIcon;
             if (item.stackSize > 1)
             {
                 itemText.text = item.stackSize.ToString();
