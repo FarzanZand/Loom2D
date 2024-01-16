@@ -14,7 +14,7 @@ public class ItemObject : MonoBehaviour
         if (itemData == null) // just incase we forget to put itemdata on item
             return;
 
-        GetComponent<SpriteRenderer>().sprite = itemData.icon;
+        GetComponent<SpriteRenderer>().sprite = itemData.itemIcon;
         gameObject.name = "Item object - " + itemData.itemName; // Name in inspector of created item. 
     }
 
