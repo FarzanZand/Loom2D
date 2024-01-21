@@ -7,7 +7,6 @@ public class UI_CraftSlot : UI_ItemSlot
     protected override void Start()
     {
         base.Start();
-
     }
 
     public void SetupCraftSlot(ItemData_Equipment _data)
@@ -19,14 +18,16 @@ public class UI_CraftSlot : UI_ItemSlot
 
         itemImage.sprite = _data.itemIcon;
         itemText.text = _data.itemName;
+
+        // In case item name is too long, make font smaller to fit the room. 
+        if (itemText.text.Length > 12)
+            itemText.fontSize = itemText.fontSize * 0.7f;
+        else itemText.fontSize = 24;
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)          // Click this sets up the window based on the item you clicked
     {
-        ItemData_Equipment craftData = item.data as ItemData_Equipment;
-
-        Inventory.Instance.CanCraft(craftData, craftData.craftingMaterials);
-
+        ui.craftWindow.SetupCraftWindow(item.data as ItemData_Equipment);
     }
 
 }

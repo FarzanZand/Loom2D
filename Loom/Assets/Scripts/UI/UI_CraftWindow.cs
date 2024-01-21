@@ -6,14 +6,20 @@ using UnityEngine.UI;
 
 public class UI_CraftWindow : MonoBehaviour
 {
+
+    // The right window, showing the materials you need to craft, and the craft button, + stats of the craftable item
+
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;
     [SerializeField] private Image itemIcon;
+    [SerializeField] private Button craftButton;
 
-    [SerializeField] private Image[] materialImage;
+    [SerializeField] private Image[] materialImage;                     // Drag the 4 MaterialIcon from the parent gameobject MaterialList
 
     public void SetupCraftWindow(ItemData_Equipment _data)              // Setup the materials in the list
     {
+        craftButton.onClick.RemoveAllListeners();                       // Just in case, listener added later down below. 
+
         for (int i = 0; i < materialImage.Length; i++)                  // each of the 1-4 materialslots, dragged in from inspector. 
         {
             materialImage[i].color = Color.clear;                       // Clear the window, making all four windows and text transparent/hidden for setup.
@@ -34,5 +40,13 @@ public class UI_CraftWindow : MonoBehaviour
             materialSlotText.text = _data.craftingMaterials[i].stackSize.ToString();    // Get the stack size needed to craft
             materialSlotText.color = Color.white;                                       // Make it visible
         }
+
+
+        itemIcon.sprite = _data.itemIcon;                               // Set up icon
+        itemName.text = _data.name;
+        itemDescription.text = _data.GetDescription();
+
+        // Add listener to craft button, being the item data method of that item, so it reacts when clicked and nothing else.
+        craftButton.onClick.AddListener(() => Inventory.Instance.CanCraft(_data, _data.craftingMaterials));
     }
 }
