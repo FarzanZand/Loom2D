@@ -6,8 +6,25 @@ using UnityEngine.UI;
 
 public class UI_CraftWindow : MonoBehaviour
 {
+    // Craft_UI is divided into Four sections. CraftList, Scrollview, CraftWindow and Stash
+    // See UI_CraftWindow.cs for documentation of the crafting window.
 
-    // The right window, showing the materials you need to craft, and the craft button, + stats of the craftable item
+    #region CraftList: holding the equipment types to the left
+    // asd
+    #endregion
+
+    #region Scrollview: holding the list of craftable items from that equipment type
+    // asd
+    #endregion
+
+    #region CraftWindow: holding the information for the item being crafted, and the craft button. 
+    // asd
+    #endregion
+
+    #region Stash: holding all the materials you can use for crafting
+    // asd
+    #endregion
+
 
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDescription;

@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class UI_CraftList : MonoBehaviour, IPointerDownHandler
 {
     // The middle window, showing a list of all craftable items. If you click one, it updates the UI_CraftWindow
+    // See UI_CraftWindow.cs for documentation of the crafting window.
 
     [SerializeField] private Transform craftSlotParent;             // The CraftSlotsParent gameobject in the canvas craft viewport. Drag in inspector
     [SerializeField] private GameObject craftSlotPrefab;            // CraftSlotPrefab created, drag in from assets
