@@ -10,7 +10,11 @@ public class UI_CraftWindow : MonoBehaviour
     // See UI_CraftWindow.cs for documentation of the crafting window.
 
     #region CraftList: holding the equipment types to the left
-    // asd
+    // Attached the Craftlistbutton - holder child objects SetupCraftList - EquipmentType.
+    // It is the equipment type icons to the left. You click them, they show a list of craftable items of that type in the ScrollView.
+    // You populate a list of craftable items by filling the craftEquipment<ItemData_Equipment> list in the inspector.
+    // In its SetupCraftList(), it takes that list, and instantiates a prefab using the craftSlotPrefab for each. Called on click. 
+    // Sets up each new slot with newSlot.GetComponent<UI_CraftSlot>().SetupCraftSlot(craftEquipment[i]);
     #endregion
 
     #region Scrollview: holding the list of craftable items from that equipment type
@@ -18,7 +22,11 @@ public class UI_CraftWindow : MonoBehaviour
     #endregion
 
     #region CraftWindow: holding the information for the item being crafted, and the craft button. 
-    // asd
+    // Attached to CraftWindow gameObject in the Craft_UI gameObject.
+    // This section holds the information on the craftable item. Stats, materials needed, craft button.
+    // SetupCraftWindow() starts by getting the materials needed for that item. 
+    // It is called when you click on the CraftSlot icon button in the scrollview, selecting the item you want to see craft info on. 
+    // It checks the crafting material needed in the craftinMaterials<InventoryItem> list in ItemData_Equipment for the crafting materials
     #endregion
 
     #region Stash: holding all the materials you can use for crafting
@@ -31,18 +39,19 @@ public class UI_CraftWindow : MonoBehaviour
     [SerializeField] private Image itemIcon;
     [SerializeField] private Button craftButton;
 
-    [SerializeField] private Image[] materialImage;                     // Drag the 4 MaterialIcon from the parent gameobject MaterialList
+    [SerializeField] private Image[] materialImage;                     // Drag the 4 MaterialIcon from the parent gameobject MaterialList. These are the required material to craft the item
 
-    public void SetupCraftWindow(ItemData_Equipment _data)              // Setup the materials in the list
+    public void SetupCraftWindow(ItemData_Equipment _data)              // Setup the materials in the CraftWindow list of required materials to craft
     {
+        // Clear it from old data
         craftButton.onClick.RemoveAllListeners();                       // Just in case, listener added later down below. 
-
         for (int i = 0; i < materialImage.Length; i++)                  // each of the 1-4 materialslots, dragged in from inspector. 
         {
             materialImage[i].color = Color.clear;                       // Clear the window, making all four windows and text transparent/hidden for setup.
             materialImage[i].GetComponentInChildren<TextMeshProUGUI>().color = Color.clear;
         }
 
+        // Fill it with new data
         for (int i = 0; i < _data.craftingMaterials.Count; i++)         // Get the amount of different types of craftingMaterials needed. 1-4
         {
             if (_data.craftingMaterials.Count > materialImage.Length)   // If more than 4, error message

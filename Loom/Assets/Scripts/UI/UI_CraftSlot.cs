@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UI_CraftSlot : UI_ItemSlot
 {
-
+    // The list of craftable items of that equipment type in the ScrollView. Attached to CraftSlot prefab. 
     protected override void Start()
     {
         base.Start();

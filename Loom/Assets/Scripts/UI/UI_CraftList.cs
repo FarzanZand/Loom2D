@@ -6,9 +6,11 @@ using UnityEngine.EventSystems;
 public class UI_CraftList : MonoBehaviour, IPointerDownHandler
 {
     // The middle window, showing a list of all craftable items. If you click one, it updates the UI_CraftWindow
-    // See UI_CraftWindow.cs for documentation of the crafting window.
+    // See UI_CraftWindow.cs for documentation of the crafting windows.
 
-    [SerializeField] private Transform craftSlotParent;             // The CraftSlotsParent gameobject in the canvas craft viewport. Drag in inspector
+    // 
+
+    [SerializeField] private Transform craftSlotParent;             // The CraftSlotsParent gameobject in the canvas craft viewport. Drag in inspector. Object holding the Scrollview
     [SerializeField] private GameObject craftSlotPrefab;            // CraftSlotPrefab created, drag in from assets
 
     [SerializeField] private List<ItemData_Equipment> craftEquipment;
@@ -22,19 +24,19 @@ public class UI_CraftList : MonoBehaviour, IPointerDownHandler
 
     public void SetupCraftList()
     {
-        for(int i = 0; i < craftSlotParent.childCount; i++)                   // Kill the old list before you populate a new one
+        for(int i = 0; i < craftSlotParent.childCount; i++)                 // Kill the old list before you populate a new one
         {
             Destroy(craftSlotParent.GetChild(i).gameObject);
         }
 
-        for(int i = 0; i < craftEquipment.Count; i++)               // For each object in the equipmentlist, instantiate a CraftSlot-prefab. 
+        for(int i = 0; i < craftEquipment.Count; i++)                       // For each object in the equipmentlist, instantiate a CraftSlot-prefab. 
         {
             GameObject newSlot = Instantiate(craftSlotPrefab, craftSlotParent);
             newSlot.GetComponent<UI_CraftSlot>().SetupCraftSlot(craftEquipment[i]);
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)           // Run SetupCraftList() when you click on the list
+    public void OnPointerDown(PointerEventData eventData)                   // Run SetupCraftList() when you click on the list
     {
         SetupCraftList();
     }

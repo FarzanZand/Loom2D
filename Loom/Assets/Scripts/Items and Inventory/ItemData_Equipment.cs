@@ -51,7 +51,7 @@ public class ItemData_Equipment : ItemData
     public int lightningDamage;
 
     [Header("Craft Requirements")]
-    public List<InventoryItem> craftingMaterials;
+    public List<InventoryItem> craftingMaterials; // Populated in the inspector
 
     private int descriptionLength;
 
