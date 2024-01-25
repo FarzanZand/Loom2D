@@ -18,7 +18,9 @@ public class UI_CraftWindow : MonoBehaviour
     #endregion
 
     #region Scrollview: holding the list of craftable items from that equipment type
-    // asd
+    // UI_CraftList.craftEquipment is a list of equipment scriptable data objects which is dragged into the inspector in CraftListButton-objects
+    // These objects (one per equipment type) when clicked runs UI_CraftList.cs SetupCraftList() 
+    // Clicking that, instantiates a prefab of UI_CraftSlot per dataobject and adds it to the list.
     #endregion
 
     #region CraftWindow: holding the information for the item being crafted, and the craft button. 
