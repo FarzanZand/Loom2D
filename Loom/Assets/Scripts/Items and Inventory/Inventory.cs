@@ -122,8 +122,8 @@ public class Inventory : MonoBehaviour
 
     [Header("Inventory UI")]
 
-    [SerializeField] private Transform inventorySlotParent;                         // Drag the inventory parent from the canvas here, the one holding all the UI objects
-    [SerializeField] private Transform stashSlotParent;                             // Drag the stash parent from the canvas here, the one holding all the UI objects
+    [SerializeField] private Transform inventorySlotParent;                         // Drag the inventory parent from the canvas here, the one holding all the UI objects. Shows the equipments player has in inv
+    [SerializeField] private Transform stashSlotParent;                             // Drag the stash parent from the canvas here, the one holding all the UI objects. Shows all stash player has, materials. 
     [SerializeField] private Transform equipmentSlotParent;                         // Drag the equipment parent from the canvas here, the one holding all the UI objects
     [SerializeField] private Transform statSlotParent;
 

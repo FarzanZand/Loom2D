@@ -32,7 +32,13 @@ public class UI_CraftWindow : MonoBehaviour
     #endregion
 
     #region Stash: holding all the materials you can use for crafting
-    // asd
+    // it's the Inventory.stashSlotParent object holding the reference. Inventory.cs is attached to the gameObject inventory. 
+    // In Inventory.cs, there is UI_ItemSlot[] stashItemSlot which hold a reference to alla material slots to populate. 
+    // In Inventory.cs, stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>() populates the array with all gameObjects in children Stash with UI_ItemSlot scripts. 
+    // Now that stashItemSlot is filled with empty packages, it needs to get populated which happens through Inventory.UpdateSlotUI()
+    // stashItemSlot[i].UpdateSlot(stash[i]) takes all items in the stash and updates enough stash slots until no more materials left, matches due to .length of stash. 
+    // In other words, Got the logic written down for how stash works.
+    // It basically takes a reference to the stash game object, populates an array for each object there. Then in UpdateSlotUI(), fills them for each item in stash dictionary list.
     #endregion
 
 
