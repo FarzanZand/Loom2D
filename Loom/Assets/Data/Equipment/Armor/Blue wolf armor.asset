@@ -20,6 +20,7 @@ MonoBehaviour:
   itemCooldown: 5
   itemEffects:
   - {fileID: 11400000, guid: 627269c1998cdae49a2e308ee8b06e97, type: 2}
+  itemEffectDescription: Freezes enemies.
   strength: 4
   agility: 0
   intelligence: 0

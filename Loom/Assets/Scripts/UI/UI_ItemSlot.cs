@@ -71,7 +71,24 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         if(item == null) 
             return;
 
+        Vector2 mousePosition = Input.mousePosition;
+
+        // Place the Tooltip near the mouse
+        float xOffset = 0;
+        float yOffset = 0;
+
+        if (mousePosition.x > 600)                                            // Mouse is on the right side of screen
+            xOffset = -200;
+        else
+            xOffset = 200;
+
+        if (mousePosition.y > 320)
+            yOffset = -200;
+        else
+            yOffset = 200;
+
         ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
+        ui.itemTooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
     }
 
     public void OnPointerExit(PointerEventData eventData)

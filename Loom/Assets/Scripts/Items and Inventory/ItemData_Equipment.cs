@@ -24,9 +24,12 @@ public enum EquipmentType
 public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
-    public float itemCooldown;
 
+    [Header("Unique effect")]
+    public float itemCooldown;
     public ItemEffect[] itemEffects;
+    [TextArea]
+    public string itemEffectDescription;
 
     [Header("Major stats")]
     public int strength;
@@ -139,6 +142,12 @@ public class ItemData_Equipment : ItemData
                 stringBuilder.AppendLine();
                 stringBuilder.Append("");
             }
+        }
+
+        if (itemEffectDescription.Length > 0)
+        {
+            stringBuilder.AppendLine();
+            stringBuilder.Append(itemEffectDescription);
         }
 
         return stringBuilder.ToString();
