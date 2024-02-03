@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundedState
 {
-
     // 1. PlayerIdleState is the default state you get to when other state runs out or if you just stand still on ground.
     // 2. From this state, you can easily transition to many other states
     // 3. Parentclass is PlayerGroundedState, which itself is a child of PlayerState. idleState controls are in parent

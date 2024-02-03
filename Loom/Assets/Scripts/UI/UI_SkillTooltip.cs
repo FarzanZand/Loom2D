@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UI_SkillTooltip : MonoBehaviour
 {
-    // This tooltip object is a child of SkillTree_UI. Activated when you hover over a SkillTreeSlot.
+    // This tooltip object is a child of SkillTree_UI game object. Activated when you hover over a SkillTreeSlot.
     // When you hover over, OnPointerEnter is called which runs UI_SkillTreeSlot.ShowTooltip(). 
     // This function passes the information from that skillslot to this tooltip, and then activates it.
     // Deactivated with HideTooltip() when you hover out. 
