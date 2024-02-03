@@ -2245,6 +2245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Chain saw sword
   skillDescription: 'Sword will spin like a chain saw.
 
@@ -2562,6 +2563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Crystal
   skillDescription: 'You create a magic crystal that deals magic damage. If you click
     ability again, you can teleport to your crystal. '
@@ -2953,6 +2955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Vulnerability
   skillDescription: 'Enemy hit by sword takes 10 % more damage. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -3947,6 +3950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Time stop
   skillDescription: 'When enemy is hit by sword, his time stops. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -4087,6 +4091,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Multiple Mirage
   skillDescription: 'Your mirage deals 30 % of your attack damage.
 
@@ -4591,6 +4596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 1
   skillName: Dash
   skillDescription: 'You can dash to avoid attacks.
 
@@ -4733,6 +4739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Explosion
   skillDescription: "Crystal can explode. \n[Only one Crystal upgrade can be chosen]"
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -8231,6 +8238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Dodge
   skillDescription: You get 10 % extra evasion.
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -10698,6 +10706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Multiple destruction
   skillDescription: 'You can create up to three crystals at a time. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -11430,6 +11439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Mirage blink
   skillDescription: "You leave a mirage behind you when you blink. \n[Only one Crystal
     upgrade can be chosen]"
@@ -11713,6 +11723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 2
   skillName: Dash  - "Here I am"
   skillDescription: 'You leave a mirage when you dash. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -11929,6 +11940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Parry
   skillDescription: 'You can parry attacks to avoid damage. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -13218,6 +13230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Restore with parry
   skillDescription: 'You restore a bit of health with a successful parry. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -15174,6 +15187,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1
+  dashUnlocked: 0
+  dashUnlockButton: {fileID: 323266849}
+  cloneOnDashUnlocked: 0
+  cloneOnDashUnlockButton: {fileID: 698624159}
+  cloneOnArrivalUnlocked: 0
+  cloneOnArrivalUnlockButton: {fileID: 1827715684}
 --- !u!114 &1002917967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19563,6 +19582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Parry with a mirage
   skillDescription: 'You create a clone with a successful parry. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -20019,6 +20039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Crystal Mirage
   skillDescription: 'You create a crystal instead of a mirage.
 
@@ -23069,6 +23090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Blackhole
   skillDescription: 'You trap enemies in a blackhole which allows you to do tons
     of damage. '
@@ -23433,6 +23455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Bouncy sword
   skillDescription: "Sword can bounce between targets. \n[Only one sword upgrade
     can be chosen]"
@@ -24465,6 +24488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Bullet sword
   skillDescription: 'Sword can pierce targets.
 
@@ -24968,6 +24992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Controlled destruction
   skillDescription: 'Crystal moves towards the enemy before exploding.
 
@@ -26354,6 +26379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 2
   skillName: Dash - "Actually here I am"
   skillDescription: 'You create a mirage at your arrival destination. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -27091,6 +27117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Sword throw
   skillDescription: 'Throw sword into the enemy. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
@@ -27230,6 +27257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Time mirage
   skillDescription: 'Your mirage can attack targets.
 
@@ -28776,6 +28804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1985496420}
+  skillPoints: 3
 --- !u!4 &1963221393
 Transform:
   m_ObjectHideFlags: 0
@@ -28823,6 +28852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Aggressive mirage
   skillDescription: 'Your mirage deals 80 % of your damage.
 
@@ -30597,6 +30627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f611062cd83a449b3d06d4c0108168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillPointsCost: 0
   skillName: Dodge Mirage
   skillDescription: 'You create a mirage when you dodge. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}

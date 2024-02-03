@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : Entity
 {
     // 1. Contains all the logic for the player, that is not shared with enemy via Entity parent
-    // DEMO COMMENT
 
     [Header("Attack Details")]
     public Vector2[] attackMovement;
@@ -133,6 +132,9 @@ public class Player : Entity
     {
         if (IsWallDetected())
             return; // Don't dash when in wall.
+
+        if(skill.dash.dashUnlocked == false)
+                return;
        
         
         if (Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
