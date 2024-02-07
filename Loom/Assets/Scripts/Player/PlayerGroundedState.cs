@@ -32,7 +32,7 @@ public class PlayerGroundedState : PlayerState
         if (Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword()) // Check no sword is already thrown
             stateMachine.ChangeState(player.aimSwordState);
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)
             stateMachine.ChangeState(player.counterAttackState);
 
         if (Input.GetKeyDown(KeyCode.Mouse0))

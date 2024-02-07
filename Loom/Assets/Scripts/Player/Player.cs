@@ -80,8 +80,10 @@ public class Player : Entity
         stateMachine.currentState.Update();
         CheckForDashInput();
 
-        if (Input.GetKeyDown(KeyCode.F))   // Move this to a general hotkey-class?  
+        if (Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)   // runs the CrystalSkill from CrystalSkill.cs
+        {
             skill.crystal.CanUseSkill();
+        }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))   // Move this to a general hotkey-class?  
         {
