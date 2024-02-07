@@ -905,7 +905,7 @@ GameObject:
   - component: {fileID: 45416586}
   - component: {fileID: 45416585}
   m_Layer: 5
-  m_Name: SkillTree_Background
+  m_Name: SkillTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2565,8 +2565,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPointsCost: 0
   skillName: Crystal
-  skillDescription: 'You create a magic crystal that deals magic damage. If you click
-    ability again, you can teleport to your crystal. '
+  skillDescription: 'You create a magic crystal with F that deals magic damage. If
+    you click ability again, you can teleport to your crystal. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
   unlocked: 0
   shouldBeUnlocked: []
@@ -4598,10 +4598,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPointsCost: 1
   skillName: Dash
-  skillDescription: 'You can dash to avoid attacks.
+  skillDescription: 'You can dash to avoid attacks with shift button.
 
-    You are invincible in the
-    time of dash. '
+    You are
+    invincible while dashing. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
   unlocked: 0
   shouldBeUnlocked: []
@@ -11942,7 +11942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPointsCost: 0
   skillName: Parry
-  skillDescription: 'You can parry attacks to avoid damage. '
+  skillDescription: 'You can parry attacks with Q to avoid damage. Hit Q when you
+    see the enemy blinking red. '
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
   unlocked: 0
   shouldBeUnlocked: []
@@ -15167,6 +15168,7 @@ GameObject:
   - component: {fileID: 1002917970}
   - component: {fileID: 1002917971}
   - component: {fileID: 1002917972}
+  - component: {fileID: 1002917973}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -15187,11 +15189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1
-  dashUnlocked: 0
   dashUnlockButton: {fileID: 323266849}
-  cloneOnDashUnlocked: 0
   cloneOnDashUnlockButton: {fileID: 698624159}
-  cloneOnArrivalUnlocked: 0
   cloneOnArrivalUnlockButton: {fileID: 1827715684}
 --- !u!114 &1002917967
 MonoBehaviour:
@@ -15235,10 +15234,7 @@ MonoBehaviour:
   cooldown: 0
   clonePrefab: {fileID: 4090618165084038323, guid: 7c81402890e27d44589daf3afa6e175b, type: 3}
   cloneDuration: 1.5
-  canAttack: 1
-  createCloneOnDashStart: 1
-  createCloneOnDashOver: 0
-  canCreateCloneOnCounterAttack: 0
+  canAttack: 0
   canDuplicateClone: 0
   chanceToDuplicate: 0
   crystalInsteadOfClone: 0
@@ -15309,10 +15305,15 @@ MonoBehaviour:
   cooldown: 0
   crystalDuration: 1.5
   crystalPrefab: {fileID: 3317051191977070865, guid: c3c483a556ebb7746a8682f8a471ad9d, type: 3}
+  unlockCrystalButton: {fileID: 204749411}
+  unlockCloneInsteadButton: {fileID: 689077512}
   cloneInsteadOfCrystal: 0
-  canExplode: 1
-  canMoveToEnemy: 1
+  unlockExplosiveButton: {fileID: 341167605}
+  canExplode: 0
+  unlockMovingCrystalButton: {fileID: 1733795762}
+  canMoveToEnemy: 0
   moveSpeed: 4
+  unlockMultiStackButton: {fileID: 570048896}
   canUseMultiStacks: 0
   amountOfStacks: 3
   multiStackCooldown: 3
@@ -15321,6 +15322,23 @@ MonoBehaviour:
   - {fileID: 3317051191977070865, guid: c3c483a556ebb7746a8682f8a471ad9d, type: 3}
   - {fileID: 3317051191977070865, guid: c3c483a556ebb7746a8682f8a471ad9d, type: 3}
   - {fileID: 3317051191977070865, guid: c3c483a556ebb7746a8682f8a471ad9d, type: 3}
+--- !u!114 &1002917973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002917965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923c2d38fa324f540a8261c0ba15bba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  parryUnlockButton: {fileID: 735195424}
+  restoreUnlockButton: {fileID: 878470281}
+  restoreHealthPercentage: 0.1
+  parryWithMirageUnlockButton: {fileID: 1202134411}
 --- !u!1 &1035774427
 GameObject:
   m_ObjectHideFlags: 0
@@ -28804,7 +28822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1985496420}
-  skillPoints: 3
+  skillPoints: 100
 --- !u!4 &1963221393
 Transform:
   m_ObjectHideFlags: 0
