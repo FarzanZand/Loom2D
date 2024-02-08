@@ -225,7 +225,7 @@ public class Inventory : MonoBehaviour
                     equipmentSlot[i].UpdateSlot(item.Value);                                        // Update the slot with the matching equipment type. 
             }
         }
-        
+
         for (int i = 0; i < inventoryItemSlot.Length; i++)  // We do this because if we do not, when we equip an item, it still shows in inventory. 
         {
             inventoryItemSlot[i].CleanupSlot();
@@ -248,6 +248,11 @@ public class Inventory : MonoBehaviour
             stashItemSlot[i].UpdateSlot(stash[i]);
         }
 
+        UpdateStatsUI();
+    }
+
+    public void UpdateStatsUI()
+    {
         for (int i = 0; i < statSlot.Length; i++)                               // Update info of stats in character UI
         {
             statSlot[i].UpdateStatValueUI();
