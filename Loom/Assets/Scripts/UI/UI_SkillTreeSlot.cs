@@ -19,6 +19,8 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
     // To run SkillNameUnlock(), in the Start() add a listener to the UI_SkillSlot button, like, dashUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
     // This means that when you click on the skillslot (AKA talent in the talent tree), UnlockSkillname() is called, setting <skillname>unlocked as true, making it active. 
 
+    // If you want a buff of a stat due to a talent-tree. Look at DodgeSkill.UnlockDodge() to see an example of it. Increases evasion by x permanently via AddModifier();
+
     private UI ui;
 
     [SerializeField] private int skillPointsCost; 

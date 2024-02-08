@@ -8240,7 +8240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPointsCost: 0
   skillName: Dodge
-  skillDescription: You get 10 % extra evasion.
+  skillDescription: You get 30 % extra evasion.
   lockedSkillColor: {r: 0.49411765, g: 0.4117647, b: 0.4117647, a: 1}
   unlocked: 0
   shouldBeUnlocked: []
@@ -15169,6 +15169,7 @@ GameObject:
   - component: {fileID: 1002917971}
   - component: {fileID: 1002917972}
   - component: {fileID: 1002917973}
+  - component: {fileID: 1002917974}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -15339,6 +15340,24 @@ MonoBehaviour:
   restoreUnlockButton: {fileID: 878470281}
   restoreHealthPercentage: 0.1
   parryWithMirageUnlockButton: {fileID: 1202134411}
+--- !u!114 &1002917974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002917965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23e10289b9871724bb8d800b9a90a77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  unlockDodgeButton: {fileID: 390199072}
+  evasionAmount: 30
+  dodgeUnlocked: 0
+  unlockMirageDodgeButton: {fileID: 2123067656}
+  dodgeMirageUnlocked: 0
 --- !u!1 &1035774427
 GameObject:
   m_ObjectHideFlags: 0
