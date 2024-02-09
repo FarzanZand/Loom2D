@@ -84,7 +84,8 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth;
 
     public System.Action onHealthChanged;
-    public bool isDead { get; private set; } 
+    public bool isDead { get; private set; }
+    private bool isVulnerable;                      // You take more damage via the DecreaseHealthBy() function. 
 
 
     protected virtual void Start()
@@ -118,7 +119,16 @@ public class CharacterStats : MonoBehaviour
         ApplyIgniteDamage();
     }
 
-    
+    public void MakeVulnerableFor(float _duration)
+    {
+        StartCoroutine(VulnerableCoroutine(_duration));
+    }
+    private IEnumerator VulnerableCoroutine(float _duration)     
+    {
+        isVulnerable = true;
+        yield return new WaitForSeconds(_duration);
+        isVulnerable = false; 
+    }
     public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statToModify)
     {
         StartCoroutine(StatModCoroutine(_modifier, _duration, _statToModify));
@@ -429,6 +439,9 @@ public class CharacterStats : MonoBehaviour
     {
         // DecreaseHealthBy(), If you want to decrease health without doing anything else. 
         // TakeDamage() kills at 0 and does FX, good for being hit. This is for instance for items decrasing health or burn damage. 
+
+        if (isVulnerable)
+            _damage = Mathf.RoundToInt(_damage * 1.1f);
 
         currentHealth -= _damage;
         if (onHealthChanged != null)
