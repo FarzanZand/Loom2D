@@ -252,10 +252,16 @@ public class SwordSkillController : MonoBehaviour
         StuckInto(collision);
     }
 
-    private void SwordSkillDamage(Enemy enemy)
+    private void SwordSkillDamage(Enemy enemy)                          
     {
-        player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
-        enemy.FreezeTimeFor(freezeTimeDuration);
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
+        player.stats.DoDamage(enemyStats);
+
+        if(player.skill.swordThrow.timeStopUnlocked)
+            enemy.FreezeTimeFor(freezeTimeDuration);
+
+        if (player.skill.swordThrow.vulnerableUnlocked)
+            enemyStats.MakeVulnerableFor(freezeTimeDuration);
 
         // If you have amulet equipped, do item effect of amulet. 
         ItemData_Equipment equippedAmulet = Inventory.Instance.GetEquipment(EquipmentType.Amulet);

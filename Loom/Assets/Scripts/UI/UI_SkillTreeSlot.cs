@@ -15,8 +15,8 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     // Unlocking skills: Look at DashSkill.cs for simple example. SkillUnlock management is in respective <SkillName>Skill.cs skill. 
     // In the skillnameSkill.cs You need a bool for <skillname>Unlocked, and a reference to UI_SkillTreeSlot so you can reach its button, you can drag a skillslot via inspector. 
-    // You also need a function SkillnameUnlock() making the skillUnlocked bool true when it runs. 
-    // To run SkillNameUnlock(), in the Start() add a listener to the UI_SkillSlot button, like, dashUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
+    // You also need a function UnlockSkillName() making the skillUnlocked bool true when it runs. 
+    // To run UnlockSkillName(), in the Start() add a listener to the UI_SkillSlot button, like, dashUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockDash);
     // This means that when you click on the skillslot (AKA talent in the talent tree), UnlockSkillname() is called, setting <skillname>unlocked as true, making it active. 
 
     // If you want a buff of a stat due to a talent-tree. Look at DodgeSkill.UnlockDodge() to see an example of it. Increases evasion by x permanently via AddModifier();

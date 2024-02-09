@@ -25,7 +25,7 @@ public class DodgeSkill : Skill
     {
         if (unlockDodgeButton.unlocked)
         {
-            player.stats.evasion.AddModifier(evasionAmount);
+            player.stats.evasion.AddModifier(evasionAmount);                // Increases evasion of character by evasionAmount as defineed in inspector
             Inventory.Instance.UpdateStatsUI();
             dodgeUnlocked = true;
         }
