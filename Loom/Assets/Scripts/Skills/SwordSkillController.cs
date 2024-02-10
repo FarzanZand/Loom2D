@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class SwordSkillController : MonoBehaviour
@@ -91,6 +90,7 @@ public class SwordSkillController : MonoBehaviour
         maxTravelDistance = _maxTravelDistance;
         spinDuration = _spinDuration;
         hitCooldown = _hitCooldown;
+        Debug.Log("ASD");
     }
     public void ReturnSword() // Returns sword to player, destroys when near player via update()
     {
@@ -252,12 +252,12 @@ public class SwordSkillController : MonoBehaviour
         StuckInto(collision);
     }
 
-    private void SwordSkillDamage(Enemy enemy)                          
+    private void SwordSkillDamage(Enemy enemy)
     {
         EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
         player.stats.DoDamage(enemyStats);
 
-        if(player.skill.swordThrow.timeStopUnlocked)
+        if (player.skill.swordThrow.timeStopUnlocked)
             enemy.FreezeTimeFor(freezeTimeDuration);
 
         if (player.skill.swordThrow.vulnerableUnlocked)

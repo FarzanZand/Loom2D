@@ -55,6 +55,7 @@ public class SwordSkill : Skill
     [SerializeField] private float swordGravity;
     [SerializeField] private float freezeTimeDuration;
     [SerializeField] private float returnSpeed;
+    [SerializeField] private float regularSwordGravity;
 
     [Header("Bounce info")]
     [SerializeField] private UI_SkillTreeSlot bounceUnlockButton;
@@ -116,6 +117,8 @@ public class SwordSkill : Skill
         else if (swordType == SwordType.Spin)
             swordGravity = spinGravity;
 
+        else if (swordType == SwordType.Regular)
+            swordGravity = regularSwordGravity;
     }
 
     protected override void Update()
@@ -139,13 +142,27 @@ public class SwordSkill : Skill
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
         if (swordType == SwordType.Bounce)
+        {
             newSwordScript.SetupBounce(true, bounceAmount, bounceSpeed);
+            swordGravity = bounceGravity;
+        }
 
         else if (swordType == SwordType.Pierce)
+        {
             newSwordScript.SetupPierce(pierceAmount);
+            swordGravity = pierceGravity;
+        }
 
         else if (swordType == SwordType.Spin)
+        {
             newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
+            swordGravity = spinGravity;
+        }
+
+        else if (swordType == SwordType.Regular)
+        {
+            swordGravity = regularSwordGravity;
+        }
 
         newSwordScript.SetupSword(finalDir, swordGravity, player, freezeTimeDuration, returnSpeed);
 

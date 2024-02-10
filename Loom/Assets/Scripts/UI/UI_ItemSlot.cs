@@ -89,7 +89,6 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
 
         ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
         ui.itemTooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
-        Debug.Log(mousePosition);
     }
 
     public void OnPointerExit(PointerEventData eventData)

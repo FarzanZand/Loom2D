@@ -86,7 +86,7 @@ public class Inventory : MonoBehaviour
     // Crafting uses materials, which are stored in the stash and stashDictionary. 
     // Every Equipment created (scriptable object) has crafting materials that can be defined in the list inspector which you use to setup a craftable item
     // In the ItemSlot object with UI_CraftSlot attached to it, select the craftable equipment item in the "Data" field, which will register the materials defined. 
-    // When you click on the craftable item icon, UI_CraftSlot.cs runs CanCraft(craftData, craftingMaterials) here in inventory.cs 
+    // When you click on the craftable item icon, UI_CraftSlot.cs runs CanCraft(craftData, craftingMaterials) here in inventory.cs TODO: Doesn't remove more than one stack
     // craftData is the item to craft, and craftingMaterials is the materials needed to craft it. 
     // It checks if material is in stash, if so, remove the material from stash and create item. If not, do not create item. 
     #endregion
