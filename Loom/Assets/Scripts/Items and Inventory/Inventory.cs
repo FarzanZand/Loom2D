@@ -348,8 +348,13 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
                 else
-                {
-                    materialsToRemove.Add(stashValue);              // Add the material to the list, which will be used to empty stash when item is created
+                {   // By increases amountToAddToList depending on the stacksize, we can do the materialsToRemove.Add() method each time per int tick. 
+                    int amountToAddToList = _requiredMaterials[i].stackSize;
+                    while (amountToAddToList > 0)
+                    {
+                        materialsToRemove.Add(stashValue);
+                        amountToAddToList--;
+                    }
                 }
             }
             else

@@ -44,4 +44,27 @@ public class PlayerStats : CharacterStats
     {
         player.skill.dodge.CreateMirageOnDodge();
     }
+
+    public void CloneDoDamage(CharacterStats _targetStats, float _attackMultiplier)
+    {
+        if (TargetCanAvoidAttack(_targetStats)) // Check if damage is evaded. If true, don't take damage
+            return;
+
+
+        int totalDamage = damage.GetValue() + strength.GetValue(); // Get max damage
+
+        if(_attackMultiplier > 0)                           // In clone skill, there is an attack multiplier. 
+            totalDamage = Mathf.RoundToInt(totalDamage * _attackMultiplier);
+
+        if (CanCrit()) // Check if crit and calculate crit damage if so
+        {
+            totalDamage = CalculateCriticalDamage(totalDamage);
+        }
+
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage); // Lower damage with armor
+        _targetStats.TakeDamage(totalDamage); // Final Damage
+
+        // If weapon has elemental damage
+        DoMagicalDamage(_targetStats); // Remove if you don't want to apply magic hit on primary attack
+    }
 }
