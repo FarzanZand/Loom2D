@@ -21,6 +21,9 @@ public class PlayerWallSlideState : PlayerState
 
     public override void Update()
     {
+        if (player.IsWallDetected() == false)
+            stateMachine.ChangeState(player.airState);
+
         base.Update();
         if (Input.GetKey(KeyCode.Space))
         {

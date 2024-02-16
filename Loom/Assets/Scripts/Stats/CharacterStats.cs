@@ -148,6 +148,7 @@ public class CharacterStats : MonoBehaviour
         if (TargetCanAvoidAttack(_targetStats)) // Check if damage is evaded. If true, don't take damage
             return;
 
+        _targetStats.GetComponent<Entity>().SetupKnockbackDir(transform);
         int totalDamage = damage.GetValue() + strength.GetValue(); // Get max damage
 
         if (CanCrit()) // Check if crit and calculate crit damage if so
