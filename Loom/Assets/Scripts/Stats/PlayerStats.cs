@@ -31,6 +31,10 @@ public class PlayerStats : CharacterStats
     protected override void DecreaseHealthBy(int _damage)
     {
         base.DecreaseHealthBy(_damage);
+        if (_damage > GetMaxHealthValue() * 0.3f)                   // If you take a hit more than 30 % of your HP, it be hurtin' and you be jumpin. 
+        {
+            player.SetupKnockbackPower(new Vector2(6, 4));
+        }
 
         //  Item effect At X hp
         ItemData_Equipment currentArmor = Inventory.Instance.GetEquipment(EquipmentType.Armor);

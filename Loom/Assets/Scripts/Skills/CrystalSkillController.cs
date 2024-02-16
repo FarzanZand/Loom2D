@@ -89,6 +89,8 @@ public class CrystalSkillController : MonoBehaviour
 
         foreach (var hit in colliders)
         {
+
+            hit.GetComponent<Entity>().SetupKnockbackDir(transform);
             if (hit.GetComponent<Enemy>() != null)
                 player.stats.DoMagicalDamage(hit.GetComponent<CharacterStats>());
 
