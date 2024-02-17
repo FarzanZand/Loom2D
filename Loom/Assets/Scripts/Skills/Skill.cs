@@ -7,7 +7,7 @@ public class Skill : MonoBehaviour
     // TODO: In the future, swap NameSkill with NameSkillController, reverse it. Makes more sense the other way around
     // Skills have cooldown that ticks down with deltaTime, and as long as cooldown is up CanUseSkill() does not trigger UseSkill(). 
 
-    [SerializeField] protected float cooldown;
+    public float cooldown;
     protected float cooldownTimer;
 
     protected Player player;

@@ -21,6 +21,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
     [SerializeField] private GameObject optionsUI;
+    [SerializeField] private GameObject inGameUI;
 
     public UI_SkillTooltip skillTooltip;
     public UI_ItemTooltip itemTooltip;
@@ -34,7 +35,9 @@ public class UI : MonoBehaviour
 
     void Start()
     {
-        SwitchTo(null);   
+        SwitchTo(inGameUI);   
+
+         
         itemTooltip.gameObject.SetActive(false);
         statTooltip.gameObject.SetActive(false);
     }
@@ -68,12 +71,24 @@ public class UI : MonoBehaviour
 
     public void SwitchWithKeyTo(GameObject _menu)               // Close menu if already active, or call SwitchTo to open it. 
     {
-        if (_menu != null && _menu.activeSelf)
+        if (_menu != null && _menu.activeSelf)                  // If menu is already active, close it. Otherwise, run SwitchTo(_menu) and open it, closing all else. 
         {
             _menu.SetActive(false);
+            CheckForInGameUI();                                 // Activate InGameUI if everything is off
             return;
         }
 
         SwitchTo(_menu);
+    }
+
+    private void CheckForInGameUI()                             // If no UI-menu is active, activate inGameUI. InGameUI is deactivated in SwitchTo() when menus open.
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+                return;
+        }
+
+        SwitchTo(inGameUI);
     }
 }
