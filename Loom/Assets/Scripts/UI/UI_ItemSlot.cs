@@ -71,24 +71,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         if(item == null) 
             return;
 
-        Vector2 mousePosition = Input.mousePosition;
-
-        // Place the Tooltip near the mouse
-        float xOffset = 0;
-        float yOffset = 0;
-
-        if (mousePosition.x > 600)                                            // Mouse is on the right side of screen
-            xOffset = -200;                                                   // Move the tooltip slightly to the left
-        else
-            xOffset = 200;                                                    // Move tooltip slightly to the right
-
-        if (mousePosition.y > 320)                                            // Not at the bottom, like, 1/3 space left from bottom
-            yOffset = -200;                                                   // Place the toolbox a bit below mouse, since there is room
-        else
-            yOffset = 200;
-
         ui.itemTooltip.ShowTooltip(item.data as ItemData_Equipment);
-        ui.itemTooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
     }
 
     public void OnPointerExit(PointerEventData eventData)

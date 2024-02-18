@@ -16,7 +16,7 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image blackholeImage;
     [SerializeField] private Image flaskImage;
 
-    //[SerializeField] private TextMeshProUGUI currentSouls;
+    [SerializeField] private TextMeshProUGUI currentSouls;
     private SkillManager skills;
 
     private void Start()
@@ -30,7 +30,7 @@ public class UI_InGame : MonoBehaviour
         void Update()
         {
             // I really should move these keycodes to the skill scripts 
-            //currentSouls.text = PlayerManager.instance.GetCurrency().ToString("#,#");
+            currentSouls.text = PlayerManager.instance.GetCurrentSkillPoints().ToString("#,#");
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
                 SetCooldownOf(dashImage);

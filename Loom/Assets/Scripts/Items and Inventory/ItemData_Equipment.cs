@@ -28,8 +28,6 @@ public class ItemData_Equipment : ItemData
     [Header("Unique effect")]
     public float itemCooldown;
     public ItemEffect[] itemEffects;
-    [TextArea]
-    public string itemEffectDescription;
 
     [Header("Major stats")]
     public int strength;
@@ -135,6 +133,17 @@ public class ItemData_Equipment : ItemData
         AddItemDescription(iceDamage, "Ice damage");
         AddItemDescription(lightningDamage, "Lightning dmg. ");
 
+        // Add the effectDestription from the scriptable object
+        for (int i = 0; i < itemEffects.Length; i++)
+        {
+            if (itemEffects[i].effectDescription.Length > 0)
+            {
+                stringBuilder.AppendLine();
+                stringBuilder.AppendLine("Unique: " + itemEffects[i].effectDescription);
+                descriptionLength++;
+            }
+        }
+
         if (descriptionLength < 5)          // Add a minimum length to the tooltip window, so it isn't too small if there is little info. 
         {
             for (int i = 0; i < 5 - descriptionLength; i++) // Add lines so you reach 5 lines total. 
@@ -143,13 +152,6 @@ public class ItemData_Equipment : ItemData
                 stringBuilder.Append("");
             }
         }
-
-        if (itemEffectDescription.Length > 0)
-        {
-            stringBuilder.AppendLine();
-            stringBuilder.Append(itemEffectDescription);
-        }
-
         return stringBuilder.ToString();
     }
 
