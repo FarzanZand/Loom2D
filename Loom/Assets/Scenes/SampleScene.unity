@@ -835,6 +835,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93988e06bb5ba564791907404b678e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xLimit: 960
+  yLimit: 540
+  xOffset: 250
+  yOffset: 100
   description: {fileID: 1251673608}
 --- !u!224 &39295469
 RectTransform:
@@ -13292,6 +13296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c12860724924b41a271a8c2098cc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xLimit: 960
+  yLimit: 540
+  xOffset: 150
+  yOffset: 150
   itemNameText: {fileID: 2023155578}
   itemTypeText: {fileID: 1913809869}
   itemDescription: {fileID: 1080013974}
