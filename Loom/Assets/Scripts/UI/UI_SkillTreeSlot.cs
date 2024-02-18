@@ -82,24 +82,7 @@ public class UI_SkillTreeSlot : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void OnPointerEnter(PointerEventData eventData)                   // x = 0, y = 0 when mouse is at the bottom left corner. 1920, 1080 is top right. 
     {
-        ui.skillTooltip.ShowTooltip(skillDescription, skillName);            // Show the tooltip with a description
-        Vector2 mousePosition = Input.mousePosition;
-
-        // Place the Tooltip near the mouse
-        float xOffset = 0;
-        float yOffset = 0;
-
-        if (mousePosition.x > 600)                                            // Mouse is on the right side of screen
-            xOffset = -150;
-        else
-            xOffset = 150;
-
-        if (mousePosition.y > 320)
-            yOffset = -150;
-        else
-            yOffset = 150;
-
-        ui.skillTooltip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
+        ui.skillTooltip.ShowTooltip(skillDescription, skillName, skillPointsCost);            // Show the tooltip with a description
     }
 
     public void OnPointerExit(PointerEventData eventData)       

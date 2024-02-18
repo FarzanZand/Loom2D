@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerManager instance;
     public Player player;
-     
+ 
     public int skillPoints;           // Called "currency" in tutorial. HaveEnoughSkillPoints is HaveEnoughMoney there. 
     private void Awake()
     {
@@ -29,6 +29,11 @@ public class PlayerManager : MonoBehaviour
 
         skillPoints = skillPoints - _skillPointsCost;
         return true;
+    }
+
+    public int GetCurrentSkillPoints()
+    {
+        return skillPoints;
     }
 
 }

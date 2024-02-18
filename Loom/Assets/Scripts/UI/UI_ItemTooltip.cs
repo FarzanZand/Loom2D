@@ -18,7 +18,7 @@ using UnityEngine.UIElements;
 // GetDescription() gets every value from a stat modifier on an item. If it is more than 0, you append it to the description text.
 #endregion
 
-public class UI_ItemTooltip : MonoBehaviour
+public class UI_ItemTooltip : UI_Tooltip
 {
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI itemTypeText;
@@ -34,10 +34,8 @@ public class UI_ItemTooltip : MonoBehaviour
         itemTypeText.text = item.equipmentType.ToString();
         itemDescription.text = item.GetDescription();
 
-        if (itemNameText.text.Length > 15)
-            itemNameText.fontSize = itemNameText.fontSize * 0.7f; // In case item name is long and overshoots the window, make text smaller.
-        else
-            itemNameText.fontSize = defaultNameFontSize;
+        AdjustPosition();
+        AdjustFontSize(itemNameText);
 
         gameObject.SetActive(true);
     }

@@ -8,13 +8,14 @@ using UnityEngine;
 // The description is typed in the inspector, on the UI_StatSlot.cs script, once per stat
 // Fills textDescription object, which is passed into ShowStatTooltip() as _text. 
 
-public class UI_StatTooltip : MonoBehaviour
+public class UI_StatTooltip : UI_Tooltip
 {
     [SerializeField] private TextMeshProUGUI description;
 
     public void ShowStatTooltip(string _text) 
     {
         description.text = _text;
+        AdjustPosition();
 
         gameObject.SetActive(true);
     }
